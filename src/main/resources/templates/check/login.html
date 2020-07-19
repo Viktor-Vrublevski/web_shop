@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/css/login.css"
+          media="all" th:href="@{css/login.css}">
+    <title>Вход в кабинет</title>
+</head>
+<body>
+<div class="container">
+    <p id="h">Вход в мой кабинет</p>
+    <div class="error" th:if="${param.error}">
+       Ошибка в имени или пароле
+    </div>
+
+    <div class="inner-block">
+        <form th:action="@{/login}" method="post">
+            <div><label>Имя пользователя :
+                <p><input class="input" type="text" placeholder="имя пользователя" name="username"/></p></label></div>
+            <br/>
+            <div><label>Пароль :
+                <p><input class="input" type="password" placeholder="пароль" name="password"></p></label></div>
+            <br/>
+            <div><input class="submit" type="submit" value="Войти"></div>
+        </form>
+    </div>
+    <div class="inner-block2">
+        <label>Регистрироваться ?</label>
+        <a href="/registration">    Да</a> <b>/</b>
+            <a href="/"> Нет</a>
+    </div>
+</div>
+</body>
+</html>
