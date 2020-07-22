@@ -1,14 +1,12 @@
 package com.web.store.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.Set;
 
-@SuppressWarnings("JpaDataSourceORMInspection")
+@SuppressWarnings("all")
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -19,9 +17,9 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     @Transient
-    transient private String confirmPassword;
+    private String confirmPassword;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
@@ -41,12 +39,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String getPassword() {
@@ -68,7 +66,6 @@ public class User implements Serializable {
     public Set<Role> getRoles() {
         return roles;
     }
-
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }

@@ -1,14 +1,14 @@
 package com.web.store.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @SuppressWarnings("ALL")
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable {
+public class Role{
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "name")
     private String name;
@@ -50,4 +50,5 @@ public class Role implements Serializable {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
 }

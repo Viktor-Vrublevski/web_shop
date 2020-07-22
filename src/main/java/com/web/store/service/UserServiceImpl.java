@@ -9,13 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -23,28 +23,32 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+
     @Override
     public void save(User user) {
+        user.setLogin(user.getLogin());
         user.setPassword(encoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.getOne(1));
+        if (userRepository.findAll().size() == 0) {
+            roles.add(roleRepository.getOne(1));
+            roles.add(roleRepository.getOne(2));
+            user.setRoles(roles);
+            userRepository.save(user);
+        } else
+            roles.add(roleRepository.getOne(1));
         user.setRoles(roles);
         userRepository.save(user);
+
+
     }
 
     @Override
-    public boolean findByUsername(String username) {
-        List<User> users = userRepository.findAll();
-        for (User user : users){
-            if (user.getLogin().equals(username)){
-                return true;
-            }
-        }
-        return false;
+    public User findByUsername(String username) {
+        return userRepository.findUserByLogin(username);
     }
 
     @Override
-    public boolean equalsPassword(User user) {
-        return user.getPassword().equals(user.getConfirmPassword());
+    public boolean equalsPassword(String password, String encoderPassword) {
+        return encoder.matches(password, encoderPassword);
     }
 }
