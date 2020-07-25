@@ -1,10 +1,15 @@
 package com.web.store.controllers;
 
 import com.web.store.entity.User;
+import com.web.store.service.SecurityServiceImpl;
 import com.web.store.service.UserServiceImpl;
+import com.web.store.validator.MyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,6 +19,13 @@ public class MainController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private SecurityServiceImpl securityService;
+
+    @Autowired
+    private MyValidator validator;
+
+    private String login;
     @GetMapping("/")
     public String getHeadPage() {
         return "head-page";
@@ -21,41 +33,39 @@ public class MainController {
 
     @GetMapping("/user-page")
     public String getUserPage() {
+
         return "user-page";
     }
 
     @GetMapping("/login")
-    public String getLogin(){
+    public String getLogin() {
         return "check/login";
     }
 
     @PostMapping("/login")
-    public String logIn(@RequestParam(name = "username") String username,
-                        @RequestParam(name = "password") String password) {
-        User user = userService.findByUsername(username);
-        if (user!=null){
-            if (userService.equalsPassword(password,user.getPassword())){
-                return "redirect:/user-page";
-            }
-            return "check/login";
-        }
+    public String logIn() {
+
         return "check/login";
     }
 
     @GetMapping("/registration")
-    public String getCheckIn() {
-        return "check/checkin";
+    public String getCheckIn(Model model) {
+        model.addAttribute("user",new User());
+        return "check/registration";
     }
 
 
     @PostMapping("/registration")
-    public String checkIn(@RequestParam String username, @RequestParam String password,
-                          @RequestParam String confirmPassword) {
-        if (userService.findByUsername(username)==null & password.equals(confirmPassword)) {
-            User user = new User(username, password);
-            userService.save(user);
-            return "redirect:/user-page";
+    public String checkIn(@ModelAttribute("user") User user, BindingResult bindingResult) {
+
+        validator.validate(user,bindingResult);
+        if (bindingResult.hasErrors()){
+            System.out.println(user.getLogin()+" "+user.getPassword()+" "+user.getConfirmPassword());
+            System.out.println("Problem");
+            return "check/registration";
         }
-        return "check/checkin";
+        userService.save(user);
+        securityService.autoLogin(user.getLogin(),user.getConfirmPassword());
+        return "check/login";
     }
 }

@@ -20,28 +20,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/registration","/login", "/css/main.css","/css/*.css"
-                ,"/images/*.jpg","/images/*.png").permitAll()
+                .antMatchers("/", "/registration", "/login", "/css/main.css", "/css/*.css"
+                        , "/images/*.jpg", "/images/*.png").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .permitAll().defaultSuccessUrl("/user-page",true)
+                .permitAll().defaultSuccessUrl("/user-page", true)
                 .and()
                 .logout()
                 .permitAll();
     }
-    @Bean
-    BCryptPasswordEncoder encoder(){
-        return new  BCryptPasswordEncoder();
-    }
+
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @Autowired
     private UserRepository repository;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         UserDetailsServiceImpl userService = new UserDetailsServiceImpl(repository);
-        auth.userDetailsService(userService).passwordEncoder(encoder());
+        auth.userDetailsService(userService).passwordEncoder(encoder);
     }
 
 }

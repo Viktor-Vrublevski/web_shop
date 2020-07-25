@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
             roles.add(roleRepository.getOne(1));
         user.setRoles(roles);
         userRepository.save(user);
-
-
     }
 
     @Override

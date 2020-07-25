@@ -2,18 +2,22 @@ package com.web.store.service;
 
 import com.web.store.entity.Role;
 import com.web.store.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class MyUserPrincipal implements UserDetails {
 
-    private User user;
 
+    private  User user;
+
+    @Autowired
     public MyUserPrincipal(User user) {
         this.user = user;
     }
