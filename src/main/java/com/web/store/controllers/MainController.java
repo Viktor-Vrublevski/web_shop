@@ -1,71 +1,67 @@
 package com.web.store.controllers;
 
 import com.web.store.entity.User;
-import com.web.store.service.SecurityServiceImpl;
-import com.web.store.service.UserServiceImpl;
-import com.web.store.validator.MyValidator;
+import com.web.store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class MainController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
-    @Autowired
-    private SecurityServiceImpl securityService;
-
-    @Autowired
-    private MyValidator validator;
-
-    private String login;
     @GetMapping("/")
     public String getHeadPage() {
         return "head-page";
     }
 
-    @GetMapping("/user-page")
-    public String getUserPage() {
-
-        return "user-page";
-    }
-
-    @GetMapping("/login")
-    public String getLogin() {
-        return "check/login";
-    }
-
-    @PostMapping("/login")
-    public String logIn() {
-
-        return "check/login";
-    }
 
     @GetMapping("/registration")
     public String getCheckIn(Model model) {
-        model.addAttribute("user",new User());
+        User user = new User();
+        model.addAttribute("user", user);
         return "check/registration";
     }
 
-
     @PostMapping("/registration")
-    public String checkIn(@ModelAttribute("user") User user, BindingResult bindingResult) {
-
-        validator.validate(user,bindingResult);
-        if (bindingResult.hasErrors()){
-            System.out.println(user.getLogin()+" "+user.getPassword()+" "+user.getConfirmPassword());
-            System.out.println("Problem");
+    public String checkIn(@ModelAttribute("user") User user,
+                          BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             return "check/registration";
         }
-        userService.save(user);
-        securityService.autoLogin(user.getLogin(),user.getConfirmPassword());
+        if (userService.loadUserByUsername(user.getLogin())!=null){
+            model.addAttribute("exist","Пользователь с таким именем существует");
+            return "check/registration";
+        }
+        if (!user.getPassword().equals(user.getConfirmPassword())){
+            System.out.println(user.getPassword());
+            model.addAttribute("equals","Пароли не совпадают");
+            return "check/registration";
+        }
+        else
+            System.out.println(user.getLogin());
+            userService.save(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String getLogin(){
         return "check/login";
     }
+
+    @GetMapping("/user-page")
+    public String getUserPage(Model model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",username);
+        return "user-page";
+    }
+
 }

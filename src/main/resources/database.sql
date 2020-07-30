@@ -22,3 +22,7 @@ CREATE TABLE user_role(
     FOREIGN KEY (role_id) REFERENCES roles(id)
 )
 ENGINE = InnoDB;
+
+INSERT INTO roles(id, name) VALUES
+(1,'USER'),
+(2,'ADMIN');

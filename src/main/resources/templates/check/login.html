@@ -9,12 +9,12 @@
 <body>
 <div class="container">
     <p id="h">Вход в мой кабинет</p>
-    <div class="error" th:if="${param.error}">
+    <div class="error" th:if="${param.error}" >
        Ошибка в имени или пароле
     </div>
 
     <div class="inner-block">
-        <form th:action="@{/login}" method="post">
+        <form action="/login"   method="post">
             <div><label>Имя пользователя :
                 <p><input class="input" type="text" placeholder="имя пользователя" name="username"/></p></label></div>
             <br/>

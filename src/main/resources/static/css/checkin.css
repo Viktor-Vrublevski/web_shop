@@ -50,9 +50,12 @@ label{
     font-family: Ebrima,Ebrima, sans-serif, b;
     font-size: 1.2em;
 }
-.error{
+.error p{
     color: red;
     width: 250px;
     height: 40px;
     margin-left: 100px;
+}
+.red{
+    color: red;
 }

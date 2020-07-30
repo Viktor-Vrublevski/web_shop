@@ -1,15 +1,18 @@
 package com.web.store.entity;
 
+import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("All")
 @Entity
 @Table(name = "roles")
-public class Role{
+public class Role  implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Column(name = "name")
     private String name;
 
@@ -51,4 +54,8 @@ public class Role{
         this.users = users;
     }
 
+    @Override
+    public String getAuthority() {
+        return getName();
+    }
 }

@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../../static/css/checkin.css"
-    media="all" th:href="@{css/checkin.css}">
+          media="all" th:href="@{css/checkin.css}">
     <title>Вход в кабинет</title>
 </head>
 <body>
 <div class="container">
-<p id="h">Регистрация</p>
-    <div class="error" th:if="${param.error}">
-        Такое имя уже существует.
-        <p>
-            Введите новое имя.
-        </p>
-    </div>
+    <p id="h">Регистрация</p>
+
     <div class="inner-block">
-        <form th:action="@{/registration}"  method="post" >
+        <form th:action="@{/registration}"  th:object="${user}"  method="post" >
             <div><label>Имя пользователя :
-                <p><input class="input" type="text" placeholder="имя пользователя" name="username"/></p></label></div>
-            <br/>
+                <input class="input" type="text" placeholder="имя пользователя" th:field="${user.login}"/></label>
+                <p class="red"  th:text="${exist}"></p>
+            </div>
             <div><label>Пароль :
-                <p><input class="input" type="password" placeholder="пароль" name="password"></p></label></div>
+                <p><input class="input" type="password" placeholder="пароль" th:field="${user.password}"></p></label></div>
             <br/>
             <div><label>Подтверждение пароля :
-                <p><input class="input" type="password" placeholder="подтвердить пароль" name="confirmPassword"></p></label></div>
+                <input class="input" type="password" placeholder="подтвердить пароль" th:field="${user.confirmPassword}"></label>
+                <p class="red" th:text="${equals}"></p>
+            </div>
             <br/><br/>
             <div><input class="submit" type="submit" value="Регистрировать"></div>
         </form>

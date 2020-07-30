@@ -1,20 +1,15 @@
 package com.web.store.config;
 
-import com.web.store.entity.User;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
-public class MyConfig {
-    @Bean
-   public BCryptPasswordEncoder encoder() {
-        return new  BCryptPasswordEncoder();
+
+public class MyConfig implements WebMvcConfigurer {
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/login").setViewName("check/login");
     }
-
-    @Bean
-    public User user(){
-        return new User();
-    }
-
 }
+

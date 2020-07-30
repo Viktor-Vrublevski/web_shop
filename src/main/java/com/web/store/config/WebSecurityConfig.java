@@ -1,8 +1,7 @@
 package com.web.store.config;
 
 
-import com.web.store.repository.UserRepository;
-import com.web.store.service.UserDetailsServiceImpl;
+import com.web.store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,32 +15,33 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/registration", "/login", "/css/main.css", "/css/*.css"
-                        , "/images/*.jpg", "/images/*.png").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll().defaultSuccessUrl("/user-page", true)
-                .and()
-                .logout()
-                .permitAll();
+
+    @Autowired
+    private UserService userService;
+
+    @Bean
+    BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    BCryptPasswordEncoder encoder;
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/","/registration","/css/*","/images/*")
+                .permitAll().anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login")
+                .defaultSuccessUrl("/user-page")
+                .permitAll().and()
+                .logout()
+                .permitAll().logoutSuccessUrl("/user-page");
+    }
 
-    @Autowired
-    private UserRepository repository;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        UserDetailsServiceImpl userService = new UserDetailsServiceImpl(repository);
-        auth.userDetailsService(userService).passwordEncoder(encoder);
+        auth.userDetailsService(userService).passwordEncoder(encoder());
     }
 
 }
