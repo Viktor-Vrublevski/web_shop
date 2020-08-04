@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
+          media="all" th:href="@{css/pages.css}">
+    <title>Page one</title>
+</head>
+<body>
+<header th:insert="block_head_page/header.html :: header"></header>
+<center>
+    <br/>
+    <a class="back" href="/">Назад на Главную страницу</a>
+</center>
+
+<div class="head-block">
+    <div>
+<img src="images_paper/xerox.jpg" alt="Бумага офисная А4 формата">
+        <pre>Описание товара.
+Цена: 45 руб.
+Производитель: РФ</pre>
+    </div>
+    <div>
+        <img src="images_paper/paper.jpg" alt="Бумага офисная А4 формата">
+        <pre>Описание товара.
+Цена: 40 руб.
+Производитель: РФ</pre>
+    </div>
+    <div>
+       <img src="images_paper/svetocopy.jpg" alt="Бумага офисная А4 формата">
+        <pre>Описание товара.
+Цена: 35 руб.
+Производитель: РФ</pre>
+    </div>
+    <div>
+        <img src="images_paper/xerox2.jpg" alt="Бумага офисная А4 формата">
+        <pre>Описание товара.
+Цена: 44 руб.
+Производитель: РФ</pre>
+    </div>
+</div>
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
+</body>
+</html>

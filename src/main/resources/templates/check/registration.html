@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../static/css/checkin.css"
+    <link rel="stylesheet" type="text/css" href="../static/css/checkin.css"
           media="all" th:href="@{css/checkin.css}">
     <title>Вход в кабинет</title>
 </head>
@@ -13,11 +13,14 @@
     <div class="inner-block">
         <form th:action="@{/registration}"  th:object="${user}"  method="post" >
             <div><label>Имя пользователя :
-                <input class="input" type="text" placeholder="имя пользователя" th:field="${user.login}"/></label>
+                <input class="input" type="text" placeholder="имя пользователя" th:field="${user.login}" min="4" max="40"/></label>
                 <p class="red"  th:text="${exist}"></p>
+                <p class="red"  th:text="${lengthName}"></p>
             </div>
             <div><label>Пароль :
-                <p><input class="input" type="password" placeholder="пароль" th:field="${user.password}"></p></label></div>
+                <p><input class="input" type="password" placeholder="пароль" th:field="${user.password}" min="4" max="50"></p></label>
+                <p class="red"  th:text="${lengthPassword}"></p>
+            </div>
             <br/>
             <div><label>Подтверждение пароля :
                 <input class="input" type="password" placeholder="подтвердить пароль" th:field="${user.confirmPassword}"></label>

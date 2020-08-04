@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновление товара</title>
+    <style>
+        body{
+            background-color: rgba(66,182,189,0.43);
+        }
+        div{
+            margin: 10px;
+        }
+        .block{
+            width: 400px;
+            height: 250px;
+        }
+        p{
+            margin-bottom: -20px;
+        }
+        .field {
+            clear:both; text-align:right;
+        }
+    </style>
+</head>
+<body>
+<center> <h2>Обновить товар</h2> </center>
+<form th:action="@{/admin/update}" th:object="${product}" method="post">
+    <div class="block">
+    <div class="field"><label>ID товара:
+       <input  type="text"  th:field="${product.id}">
+    </label></div>
+        <div class="field"><label>Название товара:
+        <input  type="text"  th:field="${product.name}">
+    </label></div>
+        <div class="field" ><label>Цена товара:
+            <input type="text"  th:field="${product.price}">
+        </label></div>
+        <div class="field"><label>Количество товара:
+            <input  type="text"  th:field="${product.quantity}">
+        </label></div>
+        <div  class="field"><label>Описание товара:
+            <input  type="text"  th:field="${product.description}">
+        </label></div>
+        <div class="field">
+            <input type="submit" value="обновить">
+    </div>
+    </div>
+</form>
+</body>
+</html>

@@ -8,44 +8,23 @@
     <title>Главная страница</title>
 </head>
 <body>
-<header>
-    <div class="block1">
-        <img th:src="@{images/logo.png}" alt="money" src="../static/images/logo.png"/>
-    </div>
-    <div class="block2">
-        <ul class="nav">
-            <li><a href="/login">Войти</a></li>
-            <li><a href="/registration">Регистрация</a></li>
-        </ul>
-    </div>
-</header>
+<header th:insert="block_head_page/header.html :: header"></header>
 <center>
     <h1>Предлагаема продукция</h1>
+    <pre>Данная страница предназаначена только для просмотра нашего товара.
+    Если вы желаете преобрести товар, необходимо <a href="/registration">зарегистрироваться</a>  на нашем сайте и <a href="/login">войти</a>
+        в свой кабинет. Все эти действия предусмотрены для вашей <b>безопасности</b> .</pre>
 </center>
 <div class="container">
-    <a class="href-block" href="#"><p>Бумага</p></a>
-    <a class="href-block" href="#"><p>Ручки</p></a>
-    <a class="href-block" href="#"><p>Степлеры</p></a>
-    <a class="href-block" href="#"><p>Лотки</p></a>
-    <a class="href-block" href="#"><p>Дыраколы</p></a>
-    <a class="href-block" href="#"><p>Папки</p></a>
-    <a class="href-block" href="#"><p>Калькуляторы</p></a>
-    <a class="href-block" href="#"><p>Хозяйственные товары</p></a>
+    <a class="href-block1" href="/pageOne"><p>Бумага</p></a>
+    <a class="href-block2" href="#"><p>Ручки</p></a>
+    <a class="href-block3" href="#"><p>Степлеры</p></a>
+    <a class="href-block4" href="#"><p>Лотки</p></a>
+    <a class="href-block5" href="#"><p>Дыраколы</p></a>
+    <a class="href-block6" href="#"><p>Папки</p></a>
+    <a class="href-block7" href="#"><p>Калькуляторы</p></a>
+    <a class="href-block8" href="#"><p>Хозяйственные товары</p></a>
 </div>
-<footer>
-    <div>
-        <p>&copy Врублевский Александр</p>
-        <p>Республика Беларусь</p>
-    </div>
-    <div>
-        <p>220116 г.Минск</p>
-        <p>ул.Школьная,1-25</p>
-        <p>тел. 220-20-20</p>
-        <p>alex@mail.ru</p>
-    </div>
-    <div>
-        <p>Другого рода информация</p>
-    </div>
-</footer>
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>
 </html>

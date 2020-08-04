@@ -5,7 +5,15 @@ body{
 a{
     text-decoration: none;
 }
-
+pre{
+    font-size: 1.1em;
+    font-family: "Times New Roman", sans-serif;
+    color: rgba(19,18,7,0.86);
+}
+pre a{
+    color: rebeccapurple;
+    font-family: "Franklin Gothic Medium", cursive;
+}
 header{
     background-color: rebeccapurple;
     height: 90px;
@@ -15,7 +23,7 @@ header{
 .block1{
     height: 80px;
     margin: 5px;
-    width: 50%;
+    width: 30%;
     text-align: center;
 }
 img{
@@ -27,14 +35,14 @@ img{
 .block2{
     height: 80px;
     margin: 5px;
-    width: 50%;
+    width: 70%;
     display: flex;
     justify-content: flex-end;
 }
 /*Описание ссылок 'Войти'  'Регистрация'*/
 .nav{
     list-style-type: none;
-    width: 300px;
+    width: 600px;
     height:25px;
     text-align: center;
     margin-right: 30px;
@@ -46,7 +54,7 @@ img{
 .nav li a{
     text-decoration: none;
     color: white;
-    width: 250px;
+    width: 650px;
     padding: 20px;
     font-family: "Times New Roman",sans-serif;
     font-size: 1.2em;
@@ -63,24 +71,73 @@ img{
     flex-wrap: wrap;
     justify-content: space-around;
 }
-.container .href-block{
+.container a{
     display: block;
     width: 20%;
     height: 200px;
     border: 3px outset slategray;
-    background-image: url("../images/pen.jpg");
     text-align: -webkit-left;
     font-family: "Times New Roman", serif;
     font-size: 19px;
 }
-.href-block p{
+.container a p{
     position: relative;
     left: 40px;
     top: 150px;
-    color: rgba(21,7,4,0.69);
+    color: rgba(19,19,19,0.95);
 }
-.href-block:hover{
-    background-image: url("../images/diary.jpg");
+.href-block1:hover{
+    background-image: url("../images/xerox2.jpg");
+    background-size: 100%;
+}
+.href-block1{
+    background-image: url("../images/xerox.jpg");
+    background-size: 100%;
+}
+.href-block2:hover{
+    background-image: url("../images/pen2.jpg");
+}
+.href-block2{
+    background-image: url("../images/pen1.jpg");
+}
+.href-block3:hover{
+    background-image: url("../images/steplers.jpg");
+}
+.href-block3{
+    background-image: url("../images/stepler.jpg");
+}
+.href-block4:hover{
+    background-image: url("../images/lotok2.jpg");
+}
+.href-block4{
+    background-image: url("../images/lotok.jpg");
+    background-size: 100%;
+}
+.href-block5:hover{
+    background-image: url("../images/hole2.jpg");
+}
+.href-block5{
+    background-image: url("../images/hole.jpg");
+}
+.href-block6:hover{
+    background-image: url("../images/registr2.jpg");
+}
+.href-block6{
+    background-image: url("../images/registr.jpg");
+    background-size: 100%;
+}
+.href-block7:hover{
+    background-image: url("../images/calculator2.jpg");
+}
+.href-block7{
+    background-image: url("../images/calculator.jpg");
+    background-size: 100%;
+}
+.href-block8:hover{
+    background-image: url("../images/hoztovar2.jpg");
+}
+.href-block8{
+    background-image: url("../images/hoztovar.jpg");
 }
 /*Описание подвала страницы*/
 footer{
