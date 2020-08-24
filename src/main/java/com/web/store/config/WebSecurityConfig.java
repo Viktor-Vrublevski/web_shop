@@ -28,11 +28,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/registration","/pageOne").not().fullyAuthenticated()
+                .antMatchers("/registration","/head_pages/*","/images/*")
+                .not().fullyAuthenticated()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user-page").hasRole("USER")
                 .antMatchers("/","/registration","/success",
-                "/pageOne","/css/*","/images/*")
+                "/user_pages/*","/css/*","/images/*")
                 .permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")

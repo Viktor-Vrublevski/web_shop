@@ -28,12 +28,12 @@ a:hover{
 #update:hover{
     color: lime;
 }
-#delete{
+.delete{
     text-decoration: none;
     color: darkblue;
     font-size:1.1em;
 }
-#delete:hover{
+.delete:hover{
     color: red;
 }
 #rub{

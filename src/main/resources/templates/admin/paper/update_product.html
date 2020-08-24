@@ -23,23 +23,26 @@
     </style>
 </head>
 <body>
-<center> <h2>Обновить товар</h2> </center>
-<form th:action="@{/admin/update}" th:object="${product}" method="post">
+ <h2>Обновить товар</h2>
+<form th:action="@{/admin/paper/update}" th:object="${paper}" method="post">
     <div class="block">
     <div class="field"><label>ID товара:
-       <input  type="text"  th:field="${product.id}">
+       <input  type="text"  th:field="${paper.id}">
     </label></div>
         <div class="field"><label>Название товара:
-        <input  type="text"  th:field="${product.name}">
+        <input  type="text"  th:field="${paper.name}">
     </label></div>
         <div class="field" ><label>Цена товара:
-            <input type="text"  th:field="${product.price}">
+            <input type="text"  th:field="${paper.price}">
         </label></div>
         <div class="field"><label>Количество товара:
-            <input  type="text"  th:field="${product.quantity}">
+            <input  type="number" min="0" th:field="${paper.quantity}">
         </label></div>
         <div  class="field"><label>Описание товара:
-            <input  type="text"  th:field="${product.description}">
+            <input  type="text"  th:field="${paper.description}">
+        </label></div>
+        <div  class="field"><label>Url изображения:
+            <input  type="text"  th:field="${paper.url}">
         </label></div>
         <div class="field">
             <input type="submit" value="обновить">

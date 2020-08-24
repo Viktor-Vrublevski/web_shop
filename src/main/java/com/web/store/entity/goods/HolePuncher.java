@@ -1,17 +1,19 @@
-package com.web.store.entity;
+package com.web.store.entity.goods;
+
+import com.web.store.entity.User;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @SuppressWarnings("All")
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "holes")
+public class HolePuncher implements Product{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "product_name")
+    @Column(name = "hole_name")
     private String name;
 
     @Column(name = "price")
@@ -23,9 +25,27 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "url_image")
+    private String url;
+
     @Transient
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "holes")
     private Set<User> users;
+    public HolePuncher(){
+
+    }
+    public HolePuncher(String name, double price, int quantity){
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public int getId() {
         return id;

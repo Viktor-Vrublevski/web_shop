@@ -9,18 +9,13 @@
 </head>
 <body>
 <header th:insert="block_head_page/header.html :: header"></header>
-<center>
-    <h1>Предлагаема продукция</h1>
-    <pre>Данная страница предназаначена только для просмотра нашего товара.
-    Если вы желаете преобрести товар, необходимо <a href="/registration">зарегистрироваться</a>  на нашем сайте и <a href="/login">войти</a>
-        в свой кабинет. Все эти действия предусмотрены для вашей <b>безопасности</b> .</pre>
-</center>
+<center th:insert="block_head_page/text.html :: text"></center>
 <div class="container">
-    <a class="href-block1" href="/pageOne"><p>Бумага</p></a>
-    <a class="href-block2" href="#"><p>Ручки</p></a>
+    <a class="href-block1" href="head_pages/blockOne"><p>Бумага</p></a>
+    <a class="href-block2" href="head_pages/blockTwo"><p>Ручки</p></a>
     <a class="href-block3" href="#"><p>Степлеры</p></a>
     <a class="href-block4" href="#"><p>Лотки</p></a>
-    <a class="href-block5" href="#"><p>Дыраколы</p></a>
+    <a class="href-block5" href="/head_pages/blockFive"><p>Дыраколы</p></a>
     <a class="href-block6" href="#"><p>Папки</p></a>
     <a class="href-block7" href="#"><p>Калькуляторы</p></a>
     <a class="href-block8" href="#"><p>Хозяйственные товары</p></a>

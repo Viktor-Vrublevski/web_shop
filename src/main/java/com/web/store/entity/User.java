@@ -1,10 +1,15 @@
 package com.web.store.entity;
 
+import com.web.store.entity.goods.HolePuncher;
+import com.web.store.entity.goods.Paper;
+import com.web.store.entity.goods.Pen;
+import com.web.store.entity.goods.Product;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @SuppressWarnings("All")
@@ -13,15 +18,13 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "login")
-//    @Size(min = 4 , message = "не меньше 4 символов")
     private String login;
 
     @Column(name = "password")
-//    @Size(min = 4, message = "не меньше 4 символов")
     private String password;
 
     @Transient
@@ -33,9 +36,19 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_products", joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products;
+    @JoinTable(name = "user_papers", joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "papers_id"))
+    private Set<Paper> papers;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_holes", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "holes_id"))
+    private Set<HolePuncher> holes;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_pens", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "pens_id"))
+    private Set<Pen> pens;
 
     public User() {
     }
@@ -45,12 +58,24 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Set<Paper> getPapers() {
+        return papers;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setPapers(Set<Paper> papers) {
+        this.papers = papers;
+    }
+
+    public Set<HolePuncher> getHoles() {
+        return holes;
+    }
+
+    public void setHoles(Set<HolePuncher> holes) {
+        this.holes = holes;
+    }
+
+    public void setProducts(Set<Paper> papers) {
+        this.papers = papers;
     }
 
     public int getId() {
@@ -59,6 +84,14 @@ public class User implements UserDetails {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setPens(Set<Pen> pens) {
+        this.pens = pens;
+    }
+
+    public Set<Pen> getPens() {
+        return pens;
     }
 
     public String getLogin() {
@@ -123,4 +156,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

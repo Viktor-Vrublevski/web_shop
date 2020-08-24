@@ -5,7 +5,15 @@ body{
 a{
     text-decoration: none;
 }
-
+pre{
+    font-size: 1.1em;
+    font-family: "Times New Roman", sans-serif;
+    color: rgba(19,18,7,0.86);
+}
+pre a{
+    color: rebeccapurple;
+    font-family: "Franklin Gothic Medium", cursive;
+}
 header{
     background-color: rebeccapurple;
     height: 90px;
@@ -74,11 +82,13 @@ img{
 }
 /*----------------------------------------------*/
 /*Описание внутренних блоков с товаром*/
-.head-block div{
+
+.inner-block{
     width: 300px;
-    height: 270px;
+    min-height: 200px;
     border: 1px solid silver;
     margin: 10px;
+    padding: 10px;
 }
 
 /*---------------------------------------------------*/
@@ -101,4 +111,46 @@ footer div{
     text-align: left;
     font-family: "Times New Roman",serif;
     line-height: 2px;
+}
+/*Блок в шапке справа. Распоожены ссылки 'Выйти'*/
+.my_block{
+    height: 80px;
+    margin: 5px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+.in-my_block1{
+    width: 96%;
+    height: 50%;
+    margin: 2px;
+    text-align: right;
+    color: snow;
+    padding-right: 20px;
+    font-family: "Franklin Gothic Medium",serif;
+    font-size: 20px;
+}
+.in-my_block2{
+    width: 99%;
+    height: 50%;
+    margin: 2px;
+    display: flex;
+    justify-content: flex-end;
+}
+.in-my_block2 ul{
+    list-style-type: none;
+    width: 400px;
+    height:25px;
+    text-align: center;
+}
+.in-my_block2 ul li{
+    display: inline;
+}
+.in-my_block2 ul li a{
+    text-decoration: none;
+    color: white;
+    width: 250px;
+    padding: 20px;
+    font-family: "Franklin Gothic Medium",serif;
+    font-size: 1.1em;
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
+          media="all" th:href="@{../css/pages.css}">
+    <title>Корзина покупателя</title>
+</head>
+<body>
+<header th:insert="block_user_page/header.html :: header"></header>
+<div style="margin-top: 20px">
+      <a style="font-size: 20px" href="/user-page">вернуться на главную</a>
+</div>
+<div style="width: 100% ;min-height: 400px;">
+        <div>
+            <table border="1">
+                <caption>Счёт для оплаты</caption>
+                <tr>
+                    <th>Наимеование</th>
+                    <th>Колличество</th>
+                    <th>Цена</th>
+                    <th>Удалить</th>
+                </tr>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.getName()}"></td>
+                    <td th:text="${product.getQuantity()}"></td>
+                    <td th:text="${product.getPrice()}"></td>
+                    <td><a href="#">удалить из списка</a></td>
+                </tr>
+                <tr>
+                  <td th:inline="text">Итого </td>
+                </tr>
+            </table>
+        </div>
+</div>
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
+</body>
+</html>

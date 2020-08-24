@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../static/css/admin.css"
-          media="all" th:href="@{../css/admin.css}">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
+          media="all" th:href="@{../../css/admin.css}">
     <title>Описание товара</title>
     <style>
         body{
@@ -29,27 +29,27 @@
     <table>
         <tr>
             <th>ID: </th>
-            <td th:text="${product.getId()}"></td>
+            <td th:text="${pen.getId()}"></td>
         </tr>
         <tr>
             <th>Наименование: </th>
-            <td th:text="${product.getName()}"></td>
+            <td th:text="${pen.getName()}"></td>
         </tr>
         <tr>
             <th>Цена (в руб.): </th>
-            <td th:text="${product.getPrice()}"></td>
+            <td th:text="${pen.getPrice()}"></td>
         </tr>
         <tr>
             <th>Количество: </th>
-            <td th:text="${product.getQuantity()}"></td>
+            <td th:text="${pen.getQuantity()}"></td>
         </tr>
         <tr>
             <th>Описание: </th>
-            <td th:text="${product.getDescription()}"></td>
+            <td th:text="${pen.getDescription()}"></td>
         </tr>
     </table>
     <br/><br/>
-    <a href="/admin/all_product">Назад</a>
+    <a href="/admin/pens/all_pens">Назад</a>
 </center>
 </body>
 </html>

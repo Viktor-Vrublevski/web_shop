@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
+          media="all" th:href="@{../../css/admin.css}">
+    <title>Список товаров</title>
+</head>
+<body>
+<center>
+    <a href="/admin">Вернуться на главную страницу администратора</a>
+    <div><br/><br/><br/>
+        <a href="/admin/pens/add">Добавить товар</a>
+        <table style="background-color: snow" border="1">
+            <caption> <h2>Список товаров</h2></caption>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Цена<p id="rub">руб.</p></th>
+                <th>Количество</th>
+                <th>Описание</th>
+                <th>Url изображения</th>
+                <th>Обновить</th>
+                <th>Удалить</th>
+            </tr>
+            <tr th:each="pen : ${pens}">
+                <td><a id="getID" th:href="@{/admin/pens/pen/{id}(id=${pen.getId()})}"  th:text="${pen.getId()}"></a></td>
+                <td th:text="${pen.getName()}">...</td>
+                <td th:text="${pen.getPrice()}">...</td>
+                <td th:text="${pen.getQuantity()}">...</td>
+                <td th:text="${pen.getDescription()}">...</td>
+                <td th:text="${pen.getUrl()}">...</td>
+                <td><a id="update" th:href="@{/admin/pens/update/{id}(id=${pen.getId()})}">
+                    обновить</a></td>
+                <td><a th:href="@{/admin/pens/delete/{id}(id=${pen.getId()})}" class="delete">Удалить</a></td>
+<!--                <td><a id="delete" href="#zatemnenie">удалить</a></td>-->
+<!--                <div id="zatemnenie">-->
+<!--                    <div id="okno">-->
+<!--                        Вы хотите удалить?<br>-->
+<!--                        <a th:href="@{/admin/pens/delete/{id}(id=${pen.getId()})}" class="close">Удалить</a>-->
+<!--                        <a href="/admin/pens/all_pens" class="close">Закрыть</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </tr>
+        </table>
+    </div><br/>
+</center>
+</body>
+</html>
