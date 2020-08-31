@@ -28,9 +28,9 @@ public class Paper implements Product{
     @Column(name = "url_image")
     private String url;
 
-    @Transient
-    @ManyToMany(mappedBy = "papers")
-    private Set<User> users;
+//    @Transient
+//    @ManyToMany(mappedBy = "papers")
+//    private Set<User> users;
 
     public Paper(){
 
@@ -87,12 +87,12 @@ public class Paper implements Product{
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+//
+//    public Set<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
 }

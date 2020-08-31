@@ -1,16 +1,12 @@
 package com.web.store.entity;
 
-import com.web.store.entity.goods.HolePuncher;
-import com.web.store.entity.goods.Paper;
-import com.web.store.entity.goods.Pen;
+
 import com.web.store.entity.goods.Product;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("All")
 @Entity
@@ -35,20 +31,8 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_papers", joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "papers_id"))
-    private Set<Paper> papers;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_holes", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "holes_id"))
-    private Set<HolePuncher> holes;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_pens", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "pens_id"))
-    private Set<Pen> pens;
+    @Transient
+    private List<Product> products;
 
     public User() {
     }
@@ -58,25 +42,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<Paper> getPapers() {
-        return papers;
-    }
-
-    public void setPapers(Set<Paper> papers) {
-        this.papers = papers;
-    }
-
-    public Set<HolePuncher> getHoles() {
-        return holes;
-    }
-
-    public void setHoles(Set<HolePuncher> holes) {
-        this.holes = holes;
-    }
-
-    public void setProducts(Set<Paper> papers) {
-        this.papers = papers;
-    }
 
     public int getId() {
         return id;
@@ -84,14 +49,6 @@ public class User implements UserDetails {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setPens(Set<Pen> pens) {
-        this.pens = pens;
-    }
-
-    public Set<Pen> getPens() {
-        return pens;
     }
 
     public String getLogin() {
@@ -120,6 +77,18 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public List<Product> getProducts(){
+        if (products == null){
+            products = new ArrayList<>();
+            return products;
+        }
+       return products;
     }
 
     @Override

@@ -86,7 +86,6 @@ img{
 .inner-block{
     width: 300px;
     min-height: 200px;
-    border: 1px solid silver;
     margin: 10px;
     padding: 10px;
 }

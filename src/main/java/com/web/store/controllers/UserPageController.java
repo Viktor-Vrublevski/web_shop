@@ -15,10 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
 
 @Controller
 public class UserPageController {
@@ -55,6 +58,7 @@ public class UserPageController {
 
         List<Paper> papers = paperService.getAllProducts();
         model.addAttribute("list_papers", papers);
+
         Paper paper = new Paper();
         model.addAttribute("paper2",paper);
 
@@ -71,17 +75,21 @@ public class UserPageController {
         model.addAttribute("list_papers", papers);
 
         int id = paper.getId();
-        Paper paper1 = paperService.findById(id);
-            if ((paper1.getQuantity() - paper.getQuantity() >= 0)) {
-                // уменьшаем  общее кол-во товара на выбранное кол-во клиентом
-                paper1.setQuantity(paper1.getQuantity() - paper.getQuantity());
-                paperService.update(paper1);
+        Paper paperDB = paperService.findById(id);
+            if ((paperDB.getQuantity() - paper.getQuantity() >= 0)) {
+                //В БД уменьшаем  общее кол-во товара на выбранное кол-во клиентом
+                paperDB.setQuantity(paperDB.getQuantity() - paper.getQuantity());
+                paperService.update(paperDB);
 
-                paper.setName(paper1.getName());
-                paper.setPrice(paper1.getPrice());
+                Paper copy = new Paper();
+                copy.setName(paperDB.getName());
+                copy.setPrice(paperDB.getPrice());
+                copy.setQuantity(paper.getQuantity());
+
                 User user = userService.getUser(username);
-                userService.addPaper(user, paper);
+                userService.addProduct(user, copy);
             }
+        paper.setQuantity(0);
         return "user_pages/block_1";
     }
 
@@ -96,6 +104,7 @@ public class UserPageController {
         model.addAttribute("pen2",pen);
         return "user_pages/block_2";
     }
+
     @PostMapping("/user_pages/block_2")
     public String addUsePen(Model model,@ModelAttribute("pen2")Pen pen){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -105,17 +114,20 @@ public class UserPageController {
         model.addAttribute("list_pens", pens);
 
         int id = pen.getId();
-        Pen pen1 = penService.findById(id);
-        if ((pen1.getQuantity() - pen.getQuantity()>=0)) {
+        Pen penDB = penService.findById(id);
+        if ((penDB.getQuantity() - pen.getQuantity()>=0)) {
             // уменьшаем  общее кол-во товара на выбранное кол-во клиентом
-            pen1.setQuantity(pen1.getQuantity() - pen.getQuantity());
-            penService.update(pen1);
+            penDB.setQuantity(penDB.getQuantity() - pen.getQuantity());
+            penService.update(penDB);
 
-            pen.setName(pen1.getName());
-            pen.setPrice(pen1.getPrice());
+            Pen copy = new Pen();
+            copy.setQuantity(pen.getQuantity());
+            copy.setName(penDB.getName());
+            copy.setPrice(penDB.getPrice());
             User user = userService.getUser(username);
-            userService.addPen(user,pen);
+            userService.addProduct(user,copy);
         }
+        pen.setQuantity(0);
         return "user_pages/block_2";
     }
 
@@ -140,18 +152,20 @@ public class UserPageController {
         model.addAttribute("list_holes", holes);
 
         int id = puncher.getId();
-        HolePuncher puncher1 = holeService.findById(id);
-        if ((puncher1.getQuantity() - puncher.getQuantity()>=0)) {
+        HolePuncher puncherDB = holeService.findById(id);
+        if ((puncherDB.getQuantity() - puncher.getQuantity()>=0)) {
             // уменьшаем  общее кол-во товара на выбранное кол-во клиентом
-            puncher1.setQuantity(puncher1.getQuantity() - puncher.getQuantity());
-            holeService.update(puncher1);
+            puncherDB.setQuantity(puncherDB.getQuantity() - puncher.getQuantity());
+            holeService.update(puncherDB);
 
-            puncher.setName(puncher1.getName());
-            puncher.setPrice(puncher1.getPrice());
+            HolePuncher copy = new HolePuncher();
+            copy.setQuantity(puncher.getQuantity());
+            copy.setName(puncherDB.getName());
+            copy.setPrice(puncherDB.getPrice());
             User user = userService.getUser(username);
-            userService.addHole(user,puncher);
+            userService.addProduct(user,copy);
         }
-
+        puncher.setQuantity(0);
         return "user_pages/block_5";
     }
     @GetMapping("/user_pages/basket")
@@ -159,8 +173,29 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name",username);
         User user = userService.getUser(username);
-        Set<Product> products = userService.allProduct(user);
+
+        List<Product> products = userService.getAllProduct(user);
         model.addAttribute("products",products);
+        int count = 0;
+        model.addAttribute("incr",count);
+        double sum = userService.allSum(user);
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.format(sum);
+        model.addAttribute("allSum",sum);
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
+        String day = format.format(date);
+        model.addAttribute("date",day);
         return "user_pages/basket";
     }
+
+    @GetMapping("/user_pages/basket/{name}")
+    public String delete(@PathVariable("name") String name){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUser(username);
+        userService.deleteProduct(user,name);
+        return "redirect:/user_pages/basket";
+    }
+
 }

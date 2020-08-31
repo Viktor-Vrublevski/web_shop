@@ -28,9 +28,9 @@ public class Pen implements Product {
     @Column(name = "url_image")
     private String url;
 
-    @Transient
-    @ManyToMany(mappedBy = "pens")
-    private Set<User> users;
+//    @Transient
+//    @ManyToMany(mappedBy = "pens")
+//    private Set<User> users;
 
     public Pen(){
 
@@ -80,13 +80,13 @@ public class Pen implements Product {
         this.description = description;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+//    public Set<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
 
     public String getUrl() {
         return url;

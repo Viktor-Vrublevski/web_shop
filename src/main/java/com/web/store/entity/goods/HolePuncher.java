@@ -28,9 +28,6 @@ public class HolePuncher implements Product{
     @Column(name = "url_image")
     private String url;
 
-    @Transient
-    @ManyToMany(mappedBy = "holes")
-    private Set<User> users;
     public HolePuncher(){
 
     }
@@ -87,11 +84,4 @@ public class HolePuncher implements Product{
         this.description = description;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

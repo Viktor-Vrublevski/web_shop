@@ -6,4 +6,7 @@ public interface Product {
     int getQuantity();
     int getId();
     String getDescription();
+    void setName(String name);
+    void setPrice(double price);
+    void setQuantity(int quantity);
 }
