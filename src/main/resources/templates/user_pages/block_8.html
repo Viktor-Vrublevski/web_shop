@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
+          media="all" th:href="@{../css/pages.css}">
+    <title>Block one</title>
+    <script type="text/javascript">
+        function execute(form) {
+
+        }
+    </script>
+</head>
+<body>
+<header th:insert="block_user_page/header.html :: header"></header>
+
+<br/>
+<a class="back" href="/user-page">Назад</a>
+<div class="head-block">
+    <div class="inner-block" th:each="hold : ${list_holds}">
+        <img alt="изображение" th:src="@{{url}(url=${hold.getUrl()})}">
+        <table>
+            <tr>
+                <th>Наименование:</th>
+                <td  th:text="${hold.getName()}"></td>
+            </tr>
+            <tr>
+                <th>Цена:</th>
+                <td  th:inline="text">[[${hold.getPrice()}]] руб.</td>
+            </tr>
+            <tr>
+                <th>Количество:</th>
+                <td th:text="${hold.getQuantity()}"></td>
+            </tr>
+            <tr>
+                <th>Описание:</th>
+                <td th:text="${hold.getDescription()}"></td>
+            </tr>
+        </table>
+        <br/>
+        <form action="/user_pages/block_8" th:object="${household2}"  method="post"
+              onsubmit="execute(this)">
+            <label>Выберите нужное кол-во
+                <input type="number" name="quantity" min="0"  th:max="${hold.quantity}" size="6"
+                       th:value="${household2.quantity}" th:field="${household2.quantity}">
+                <input type="hidden" name="id" th:value="${hold.getId()}">
+            </label>
+            <input type="submit" style="background-color: greenyellow" value="В корзину">
+            <p style="color: red; font-family: 'Arial Black',cursive"
+               th:if="${hold.getQuantity()==0}">
+                Товар отсутствует на складе
+            </p>
+        </form>
+    </div>
+</div>
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
+</body>
+</html>

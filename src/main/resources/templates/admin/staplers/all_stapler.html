@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
+          media="all" th:href="@{../../css/admin.css}">
+    <title>Список товаров</title>
+</head>
+<body>
+<center>
+    <a href="/admin">Вернуться на главную страницу администратора</a>
+    <div><br/><br/><br/>
+        <a href="/admin/staplers/add">Добавить товар</a>
+        <table style="background-color: snow" border="1">
+            <caption> <h2>Список товаров</h2></caption>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Цена<p id="rub">руб.</p></th>
+                <th>Количество</th>
+                <th>Описание</th>
+                <th>Url изображения</th>
+                <th>Обновить</th>
+                <th>Удалить</th>
+            </tr>
+            <tr th:each="stapler : ${staplers}">
+                <td><a id="getID" th:href="@{/admin/staplers/stapler/{id}(id=${stapler.getId()})}"
+                       th:text="${stapler.getId()}"></a></td>
+                <td th:text="${stapler.getName()}">...</td>
+                <td th:text="${stapler.getPrice()}">...</td>
+                <td th:text="${stapler.getQuantity()}">...</td>
+                <td th:text="${stapler.getDescription()}">...</td>
+                <td th:text="${stapler.getUrl()}">...</td>
+                <td><a id="update" th:href="@{/admin/staplers/update/{id}(id=${stapler.getId()})}">
+                    обновить</a></td>
+                <td><a th:href="@{/admin/staplers/delete/{id}(id=${stapler.getId()})}" class="delete">Удалить</a></td>
+            </tr>
+        </table>
+    </div><br/>
+</center>
+</body>
+</html>

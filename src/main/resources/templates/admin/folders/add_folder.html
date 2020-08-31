@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить Товар</title>
+    <style>
+        body {
+            background-color: rgba(66, 182, 189, 0.43);
+        }
+
+        div {
+            margin: 10px;
+        }
+
+        .block {
+            width: 400px;
+            height: 250px;
+        }
+
+        p {
+            margin-bottom: -20px;
+        }
+
+        .field {
+            clear: both;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<form th:action="@{/admin/folders/add}" th:object="${folder}" method="post">
+    <div class="block">
+        <div class="field">
+            <h2>Добавить товар</h2>
+        </div>
+        <div class="field">
+            <label>Название товара:
+                <input  type="text" placeholder="имя товара" th:field="${folder.name}">
+            </label></div>
+        <div class="field">
+            <label>Цена товара:
+                <input type="text" placeholder="цена" th:field="${folder.price}">
+            </label></div>
+        <div class="field">
+            <label>Количество товара:
+                <input  type="number" min="0" placeholder="количество" th:field="${folder.quantity}">
+            </label></div>
+        <div class="field">
+            <label>Описание товара:
+                <input  type="text" placeholder="описание" th:field="${folder.description}">
+            </label></div>
+        <div class="field">
+            <label>URL image:
+                <input  type="text" placeholder="URL" th:field="${folder.url}">
+            </label></div>
+        <div class="field">
+            <input type="submit" value="добавить">
+        </div>
+    </div>
+</form>
+</body>
+</html>

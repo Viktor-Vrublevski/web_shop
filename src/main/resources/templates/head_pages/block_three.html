@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
+          media="all" th:href="@{../css/pages.css}">
+    <title>Block one</title>
+</head>
+<body>
+<header th:insert="block_head_page/header.html :: header"></header>
+<center th:insert="block_head_page/text.html :: text"></center>
+<br/>
+<a class="back" href="/">Назад на Главную страницу</a>
+<div class="head-block">
+    <div class="inner-block" th:each="stapler : ${list_staplers}">
+        <img th:src="@{{url}(url=${stapler.url})}" alt="изображение">
+        <table>
+            <tr>
+                <th>Наименование:</th>
+                <td th:text="${stapler.name}"></td>
+            </tr>
+            <tr>
+                <th>Цена:</th>
+                <td th:inline="text">[[${stapler.getPrice()}]] руб.</td>
+            </tr>
+            <tr>
+                <th>Количество:</th>
+                <td th:text="${stapler.quantity}"></td>
+            </tr>
+            <tr>
+                <th>Описание:</th>
+                <td th:text="${stapler.description}"></td>
+            </tr>
+        </table>
+        <br/>
+    </div>
+</div>
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
+</body>
+</html>

@@ -2,16 +2,16 @@ package com.web.store.entity.goods;
 
 import javax.persistence.*;
 
-
 @SuppressWarnings("All")
 @Entity
-@Table(name = "papers")
-public class Paper implements Product{
+@Table(name = "folders")
+public class Folders implements Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "paper_name")
+    @Column(name = "folder_name")
     private String name;
 
     @Column(name = "price")
@@ -26,10 +26,10 @@ public class Paper implements Product{
     @Column(name = "url_image")
     private String url;
 
-    public Paper(){
+    public Folders(){
 
     }
-    public Paper(String name, double price, int quantity){
+    public Folders(String name, double price, int quantity){
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -81,5 +81,4 @@ public class Paper implements Product{
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

@@ -19,16 +19,16 @@
                 Счёт для оплаты № ... от [[${date}]] г.
             </caption>
             <tr>
-                <th>№</th>
-                <th>Наимеование</th>
-                <th>Колличество</th>
-                <th>Цена</th>
-                <th>Стоимость</th>
-                <th>Удалить</th>
+                <th style="background-color: #d0fff7">№</th>
+                <th style="background-color: #d0fff7">Наимеование</th>
+                <th style="background-color: #d0fff7">Колличество</th>
+                <th style="background-color: #d0fff7">Цена</th>
+                <th style="background-color: #d0fff7">Стоимость</th>
+                <th style="background-color: #d0fff7">Удалить</th>
             </tr>
             <tr th:each="product : ${products}">
                 <th:block th:with="incr=${products.indexOf(product)+1}">
-                    <td width="50px" align="center" style="font-family: 'Cambria Math',sans-serif" th:text="${incr}"></td>
+                    <td width="50px" align="center" style="background-color: #d5d2ff" th:text="${incr}"></td>
                 </th:block>
                 <td width="200px" th:text="${product.getName()}"></td>
                 <td width="150px" align="center" th:text="${product.getQuantity()}"></td>
@@ -36,7 +36,8 @@
                 <th:block th:with="sum=${product.quantity * product.price}">
                     <td width="150px" align="center" th:text="${(#numbers.formatDecimal(sum,1,2))}"></td>
                 </th:block>
-                <td align="center"><a th:href="@{/user_pages/basket/{name}(name=${product.getName()})}">удалить из списка</a>
+                <td align="center"><a th:href="@{/user_pages/basket/{productName}(productName=${product.getName()})}">
+                    удалить из списка</a>
                 </td>
             </tr>
             <tr>
