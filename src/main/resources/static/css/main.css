@@ -73,7 +73,7 @@ img{
 }
 .container a{
     display: block;
-    width: 300px;
+    width: 20%;
     height: 200px;
     border: 3px outset slategray;
     text-align: -webkit-left;
