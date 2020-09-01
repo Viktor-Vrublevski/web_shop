@@ -50,7 +50,7 @@ img{
 }
 .in-my_block2 ul{
     list-style-type: none;
-    width: 60%;
+    width: 70%;
     height:25px;
     text-align: center;
 }
@@ -61,7 +61,7 @@ img{
     text-decoration: none;
     color: white;
     width: 250px;
-    padding: 40px;
+    padding: 10px;
     font-family: "Franklin Gothic Medium",serif;
     font-size: 1.1em;
 }
