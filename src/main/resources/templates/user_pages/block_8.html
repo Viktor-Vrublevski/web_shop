@@ -19,7 +19,7 @@
 <a class="back" href="/user-page">Назад</a>
 <div class="head-block">
     <div class="inner-block" th:each="hold : ${list_holds}">
-        <img alt="изображение" th:src="@{{url}(url=${hold.getUrl()})}">
+        <img class="image" alt="изображение" th:src="@{{url}(url=${hold.getUrl()})}" >
         <table>
             <tr>
                 <th>Наименование:</th>

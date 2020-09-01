@@ -19,7 +19,7 @@
 
 <div class="head-block">
     <div class="inner-block" th:each="folder : ${list_folders}">
-        <img th:src="@{{url}(url=${folder.url})}" alt="изображение">
+        <img class="image" alt="изображение" th:src="@{{url}(url=${folder.getUrl()})}" >
         <table>
             <tr>
                 <th>Наименование:</th>

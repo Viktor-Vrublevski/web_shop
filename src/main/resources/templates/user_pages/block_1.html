@@ -19,7 +19,7 @@
 <a class="back" href="/user-page">Назад</a>
 <div class="head-block">
     <div class="inner-block" th:each="paper : ${list_papers}">
-        <img alt="изображение" th:src="@{{url}(url=${paper.getUrl()})}">
+        <img class="image" alt="изображение" th:src="@{{url}(url=${paper.getUrl()})}" >
         <table>
             <tr>
                 <th>Наименование:</th>

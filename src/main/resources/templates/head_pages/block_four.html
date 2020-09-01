@@ -14,7 +14,7 @@
 <a class="back" href="/">Назад на Главную страницу</a>
 <div class="head-block">
     <div class="inner-block" th:each="trays : ${list_trays}">
-        <img th:src="@{{url}(url=${trays.url})}" alt="изображение">
+        <img class="image" th:src="@{{url}(url=${trays.url})}" alt="изображение" >
         <table>
             <tr>
                 <th>Наименование:</th>

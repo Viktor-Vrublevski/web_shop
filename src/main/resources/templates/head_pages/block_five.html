@@ -16,7 +16,7 @@
 
 <div class="head-block">
     <div class="inner-block" th:each="hole : ${list_holes}">
-        <img th:src="@{{url}(url=${hole.url})}" alt="изображение">
+        <img class="image" th:src="@{{url}(url=${hole.url})}" alt="изображение" >
         <table>
             <tr>
                 <th>Наименование:</th>

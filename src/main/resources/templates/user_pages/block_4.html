@@ -19,7 +19,7 @@
 
 <div class="head-block">
     <div class="inner-block" th:each="tray : ${list_trays}">
-        <img th:src="@{{url}(url=${tray.url})}" alt="изображение">
+        <img class="image" th:src="@{{url}(url=${tray.url})}" alt="изображение" >
         <table>
             <tr>
                 <th>Наименование:</th>

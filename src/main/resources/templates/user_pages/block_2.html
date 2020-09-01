@@ -18,7 +18,7 @@
 <a class="back" href="/user-page">Назад</a>
 <div class="head-block">
     <div class="inner-block" th:each="pen : ${list_pens}">
-        <img th:src="@{{url}(url=${pen.url})}" alt="изображение"/>
+        <img class="image" th:src="@{{url}(url=${pen.url})}" alt="изображение" >
         <table>
             <tr>
                 <th>Наименование:</th>

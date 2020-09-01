@@ -14,7 +14,7 @@
 <a class="back" href="/">Назад на Главную страницу</a>
 <div class="head-block">
     <div class="inner-block" th:each="calculator : ${list_calculators}">
-        <img th:src="@{{url}(url=${calculator.url})}" alt="изображение"/>
+        <img class="image" th:src="@{{url}(url=${calculator.url})}" alt="изображение">
         <table>
             <tr>
                 <th>Наименование:</th>

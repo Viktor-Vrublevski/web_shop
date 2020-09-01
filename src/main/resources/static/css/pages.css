@@ -153,3 +153,8 @@ footer div{
     font-family: "Franklin Gothic Medium",serif;
     font-size: 1.1em;
 }
+/*----------Описание размера картинки в блоках-----------*/
+.image{
+    width: 160px;
+    height: 180px;
+}

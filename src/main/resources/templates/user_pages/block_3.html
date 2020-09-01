@@ -18,7 +18,7 @@
 <a class="back" href="/user-page">Назад</a>
 <div class="head-block">
     <div class="inner-block" th:each="stapler : ${list_stapler}">
-        <img th:src="@{{url}(url=${stapler.url})}" alt="изображение"/>
+        <img class="image" th:src="@{{url}(url=${stapler.url})}" alt="изображение" >
         <table>
             <tr>
                 <th>Наименование:</th>
