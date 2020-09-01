@@ -19,14 +19,15 @@
 <a class="back" href="/user-page">Назад</a>
 <div class="head-block">
     <div class="inner-block" th:each="calculator : ${list_calculators}">
-        <img class="image"  alt="изображение" th:src="@{{url}(url=${calculator.getUrl()})}" >
+        <img class="image" alt="изображение" th:src="@{{url}(url=${calculator.getUrl()})}">
+        <table>
             <tr>
                 <th>Наименование:</th>
-                <td  th:text="${calculator.getName()}"></td>
+                <td th:text="${calculator.getName()}"></td>
             </tr>
             <tr>
                 <th>Цена:</th>
-                <td  th:inline="text">[[${calculator.getPrice()}]] руб.</td>
+                <td th:inline="text">[[${calculator.getPrice()}]] руб.</td>
             </tr>
             <tr>
                 <th>Количество:</th>
@@ -38,10 +39,10 @@
             </tr>
         </table>
         <br/>
-        <form action="/user_pages/block_7" th:object="${calculator2}"  method="post"
+        <form action="/user_pages/block_7" th:object="${calculator2}" method="post"
               onsubmit="execute(this)">
             <label>Выберите нужное кол-во
-                <input type="number" name="quantity" min="0"  th:max="${calculator.quantity}" size="6"
+                <input type="number" name="quantity" min="0" th:max="${calculator.quantity}" size="6"
                        th:value="${calculator2.quantity}" th:field="${calculator2.quantity}">
                 <input type="hidden" name="id" th:value="${calculator.getId()}">
             </label>
