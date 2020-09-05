@@ -1,10 +1,11 @@
-package com.web.store.controllers;
+package com.web.store.controllers.admin;
 
 import com.web.store.entity.goods.Calculator;
 import com.web.store.entity.goods.Folders;
 import com.web.store.service.CalculatorService;
 import com.web.store.service.FoldersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,8 @@ public class FoldersController {
 
     @GetMapping("/admin/folders/add")
     public String getAddingPage(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("folder",new Folders());
         return "admin/folders/add_folder";
     }
@@ -37,6 +40,8 @@ public class FoldersController {
 
     @GetMapping("/admin/folders/all_folders" )
     public String getProductList(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         List<Folders> folders = foldersService.getAllProducts();
         model.addAttribute("folders", folders);
         return "admin/folders/all_folders";
@@ -44,6 +49,8 @@ public class FoldersController {
 
     @GetMapping("/admin/folders/update/{id}")
     public String getUpdate(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("folder",foldersService.findById(id));
         return "admin/folders/update_folder";
     }
@@ -56,6 +63,8 @@ public class FoldersController {
 
     @GetMapping("/admin/folders/folder/{id}")
     public String getProduct(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("folder", foldersService.findById(id));
         return "admin/folders/folders_product";
     }

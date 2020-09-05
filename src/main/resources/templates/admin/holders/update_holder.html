@@ -2,10 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../../../static/css/admin.css"
+          media="all" th:href="@{../../../css/admin.css}">
     <title>Обновление товара</title>
     <style>
         body{
-            background-color: rgba(66,182,189,0.43);
+           width: 100%;
+            min-height: 500px;
         }
         div{
             margin: 10px;
@@ -14,15 +17,13 @@
             width: 400px;
             height: 250px;
         }
-        p{
-            margin-bottom: -20px;
-        }
         .field {
             clear:both; text-align:right;
         }
     </style>
 </head>
 <body>
+<header th:insert="block_admin_page/header_admin.html :: header"></header>
 <h2>Обновить товар</h2>
 <form th:action="@{/admin/holders/update}" th:object="${holder}" method="post">
     <div class="block">
@@ -49,5 +50,6 @@
         </div>
     </div>
 </form>
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>
 </html>

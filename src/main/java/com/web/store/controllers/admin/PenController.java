@@ -1,9 +1,10 @@
-package com.web.store.controllers;
+package com.web.store.controllers.admin;
 
 import com.web.store.entity.goods.HolePuncher;
 import com.web.store.entity.goods.Pen;
 import com.web.store.service.PenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,8 @@ public class PenController {
 
     @GetMapping("/admin/pens/add")
     public String getAddingPage(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("pen",new Pen());
         return "admin/pens/add_pen";
     }
@@ -37,6 +40,8 @@ public class PenController {
 
     @GetMapping("/admin/pens/all_pens" )
     public String getProductList(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         List<Pen> pens = penService.getAllProducts();
         model.addAttribute("pens", pens);
         return "admin/pens/all_pens";
@@ -44,6 +49,8 @@ public class PenController {
 
     @GetMapping("/admin/pens/update/{id}")
     public String getUpdate(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("pen",penService.findById(id));
         return "admin/pens/update_pen";
     }
@@ -56,6 +63,8 @@ public class PenController {
 
     @GetMapping("/admin/pens/pen/{id}")
     public String getProduct(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("pen", penService.findById(id));
         return "admin/pens/pen_product";
     }

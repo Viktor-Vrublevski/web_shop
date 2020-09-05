@@ -1,10 +1,11 @@
-package com.web.store.controllers;
+package com.web.store.controllers.admin;
 
 import com.web.store.entity.goods.Calculator;
 import com.web.store.entity.goods.Stapler;
 import com.web.store.service.CalculatorService;
 import com.web.store.service.StaplerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -26,6 +27,8 @@ public class StaplerController {
 
     @GetMapping("/admin/staplers/add")
     public String getAddingPage(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("stapler",new Stapler());
         return "admin/staplers/add_stapler";
     }
@@ -38,6 +41,8 @@ public class StaplerController {
 
     @GetMapping("/admin/staplers/all_stapler" )
     public String getProductList(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         List<Stapler> staplers = staplerService.getAllProducts();
         model.addAttribute("staplers", staplers);
         return "admin/staplers/all_stapler";
@@ -45,6 +50,8 @@ public class StaplerController {
 
     @GetMapping("/admin/staplers/update/{id}")
     public String getUpdate(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("stapler",staplerService.findById(id));
         return "admin/staplers/update_stapler";
     }
@@ -57,6 +64,8 @@ public class StaplerController {
 
     @GetMapping("/admin/staplers/stapler/{id}")
     public String getProduct(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("stapler", staplerService.findById(id));
         return "admin/staplers/stapler_product";
     }

@@ -1,10 +1,11 @@
-package com.web.store.controllers;
+package com.web.store.controllers.admin;
 
 import com.web.store.entity.goods.Calculator;
 import com.web.store.entity.goods.Trays;
 import com.web.store.service.CalculatorService;
 import com.web.store.service.TraysService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,8 @@ public class TrayController {
 
     @GetMapping("/admin/trays/add")
     public String getAddingPage(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("tray",new Trays());
         return "admin/trays/add_tray";
     }
@@ -38,6 +41,8 @@ public class TrayController {
 
     @GetMapping("/admin/trays/all_tray" )
     public String getProductList(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         List<Trays> trays = traysService.getAllProducts();
         model.addAttribute("trays", trays);
         return "admin/trays/all_tray";
@@ -45,6 +50,8 @@ public class TrayController {
 
     @GetMapping("/admin/trays/update/{id}")
     public String getUpdate(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("tray",traysService.findById(id));
         return "admin/trays/update_tray";
     }
@@ -57,6 +64,8 @@ public class TrayController {
 
     @GetMapping("/admin/trays/tray/{id}")
     public String getProduct(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("tray", traysService.findById(id));
         return "admin/trays/tray_product";
     }

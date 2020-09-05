@@ -5,34 +5,23 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/admin.css"
           media="all" th:href="@{../css/admin.css}">
     <title>Администратор</title>
-    <style>
-        body{
-            display: flex;
-            justify-items: center;
-            justify-content: center;
-        }
-        .center{
-            width: 400px;
-            min-height: 300px;
-        }
-    </style>
 </head>
+<header th:insert="block_admin_page/header_admin.html :: header"></header>
 <body>
-
-<div class="center">
-    <h2>Привет Администратор !</h2>
-    <div>
-    <li><a href="/admin/paper/all_product">Бумага</a></li>
-    <li><a href="/admin/pens/all_pens">Ручки</a></li>
-    <li><a href="/admin/holes/all_holes">Дыракол</a></li>
-    <li><a href="/admin/staplers/all_stapler">Степлеры</a></li>
-    <li><a href="/admin/trays/all_tray">Лотки</a></li>
-    <li><a href="/admin/folders/all_folders">Папки</a></li>
-    <li><a href="/admin/calculators/all_calculator">Калькуляторы</a></li>
-    <li><a href="/admin/holders/all_holder">Хозяйственные товары</a></li>
-    </div><br/><br/>
-    <a href="/">Выйти</a>
+<div class="head-block">
+    <div class="blockOne">
+    </div>
+    <div class="blockTwo">
+        <a class="href-block1" href="/admin/paper/all_product"><p>Бумага</p></a>
+        <a class="href-block2" href="/admin/pens/all_pens"><p>Ручки</p></a>
+        <a class="href-block3" href="/admin/staplers/all_stapler"><p>Степлеры</p></a>
+        <a class="href-block4" href="/admin/trays/all_tray"><p>Лотки</p></a>
+        <a class="href-block5" href="/admin/holders/all_holder"><p>Дыраколы</p></a>
+        <a class="href-block6" href="/admin/folders/all_folders"><p>Папки</p></a>
+        <a class="href-block7" href="/admin/calculators/all_calculator"><p>Калькуляторы</p></a>
+        <a class="href-block8" href="/admin/holders/all_holder"><p>Хозяйственные товары</p></a>
+    </div>
 </div>
-
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>
 </html>

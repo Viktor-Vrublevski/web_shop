@@ -1,4 +1,4 @@
-package com.web.store.controllers;
+package com.web.store.controllers.admin;
 
 
 import com.web.store.entity.goods.Calculator;
@@ -7,6 +7,7 @@ import com.web.store.service.CalculatorService;
 import com.web.store.service.HoleService;
 import com.web.store.service.HouseHoldersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,8 @@ public class HouseHoldController {
 
     @GetMapping("/admin/holders/add")
     public String getAddingPage(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("holder",new HouseHold());
         return "admin/holders/add_holder";
     }
@@ -39,6 +42,8 @@ public class HouseHoldController {
 
     @GetMapping("/admin/holders/all_holder" )
     public String getProductList(Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         List<HouseHold> holds = holdersService.getAllProducts();
         model.addAttribute("holds", holds);
         return "admin/holders/all_holder";
@@ -46,6 +51,8 @@ public class HouseHoldController {
 
     @GetMapping("/admin/holders/update/{id}")
     public String getUpdate(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("holder",holdersService.findById(id));
         return "admin/holders/update_holder";
     }
@@ -56,8 +63,10 @@ public class HouseHoldController {
     }
 
 
-    @GetMapping("/admin/holders/holder/{id}")
+    @GetMapping("/admin/holders/hold/{id}")
     public String getProduct(@PathVariable("id") int id, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name",name);
         model.addAttribute("holder", holdersService.findById(id));
         return "admin/holders/holder_product";
     }
