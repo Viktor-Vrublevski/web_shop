@@ -1,4 +1,7 @@
-
+body{
+    width: 100%;
+    min-height: 500px;
+}
 td {
     font-family: "Times New Roman", sans-serif;
     font-size: 1.1em;

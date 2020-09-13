@@ -1,5 +1,6 @@
 package com.web.store.controllers;
 
+
 import com.web.store.entity.User;
 import com.web.store.entity.goods.*;
 import com.web.store.service.*;
@@ -9,12 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -373,7 +369,7 @@ public class UserPageController {
     }
 
     @PostMapping("/user_pages/block_8")
-    public String addUserHouseHold(Model model, @ModelAttribute("household2")HouseHold houseHold) {
+    public String addUserHouseHold(Model model, @ModelAttribute("household2") HouseHold houseHold) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
@@ -396,38 +392,6 @@ public class UserPageController {
         }
         houseHold.setQuantity(0);
         return "user_pages/block_8";
-    }
-
-    /*-----------------------------------------------------------*/
-    @GetMapping("/user_pages/basket")
-    public String getBasket(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("name", username);
-        User user = userService.getUser(username);
-
-        List<Product> products = userService.getAllProduct(user);
-        model.addAttribute("products", products);
-
-        int count = 0;
-        model.addAttribute("incr", count);
-        double sum = userService.allSum(user);
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.format(sum);
-        model.addAttribute("allSum", sum);
-
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
-        String day = format.format(date);
-        model.addAttribute("date", day);
-        return "user_pages/basket";
-    }
-
-    @GetMapping("/user_pages/basket/{productName}")
-    public String delete(@PathVariable("productName") String name) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.getUser(username);
-        userService.deleteProduct(user, name);
-        return "redirect:/user_pages/basket";
     }
 
 }

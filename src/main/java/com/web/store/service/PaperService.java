@@ -43,7 +43,7 @@ public class PaperService{
     }
 
     public void update(Paper paper) {
-        String SQL = "UPDATE papers SET paper_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE web_store.papers SET paper_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL, paper.getName(), paper.getPrice(), paper.getQuantity(),
                 paper.getDescription(),paper.getUrl(), paper.getId());
     }

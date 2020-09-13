@@ -158,3 +158,40 @@ footer div{
     width: 160px;
     height: 180px;
 }
+/*--------------Описание диалогового окна-----------------*/
+.dialog{
+    position: fixed;
+    left: 0;
+    top: 40px;
+    border: 1px rebeccapurple solid;
+    border-radius: 2% ;
+    background-color: #d5d2ff;
+}
+/*---------Описание левого и правого блоков my_accounts------------*/
+.order-head_block{
+    display: inline-flex;
+    width: 100%;
+    min-height: 400px;
+    margin: 5px;
+}
+.order-left_block{
+    width: 25%;
+    height: 400px;
+    margin: 10px;
+}
+.order-right_block{
+    overflow: scroll;
+    width: 75%;
+    height: 400px;
+    margin: 10px;
+}
+/*----------описание правого блока my_accounts---------*/
+.print{
+    /*margin: 10px;*/
+    /*display: flex;*/
+    /*width: 95%;*/
+    /*min-height: 200px;*/
+}
+.number-order{
+
+}

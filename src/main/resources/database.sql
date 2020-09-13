@@ -2,7 +2,15 @@
 CREATE TABLE users(
     id SERIAL PRIMARY KEY ,
     login    VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    name_organization VARCHAR(100),
+    UNN INT,
+    address VARCHAR(200),
+    name_bank VARCHAR(90),
+    address_bank VARCHAR(200),
+    IBAN VARCHAR(40),
+    BIC VARCHAR(20),
+    number_tel INT
 );
 
 
@@ -25,6 +33,15 @@ CREATE TABLE user_role(
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY ,
+    date DATE NOT NULL ,
+    USER_ID INT NOT NULL ,
+    cost DOUBLE PRECISION NOT NULL ,
+    payment_status BOOLEAN NOT NULL
+);
+
 
 CREATE TABLE papers(
     id  SERIAL PRIMARY KEY,
@@ -99,3 +116,4 @@ CREATE TABLE folders(
     description TEXT NOT NULL,
     url_image   VARCHAR(200)
 );
+

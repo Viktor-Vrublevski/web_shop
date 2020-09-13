@@ -9,7 +9,6 @@
       div {
             margin: 10px;
         }
-
         .block {
             width: 400px;
             height: 250px;
@@ -22,6 +21,7 @@
 </head>
 <body>
 <header th:insert="block_admin_page/header_admin.html :: header"></header>
+<div style="width: 100%; min-height: 400px">
 <form th:action="@{/admin/paper/add}" th:object="${paper}" method="post">
     <div class="block">
         <div class="field">
@@ -53,6 +53,7 @@
         </div>
     </div>
 </form>
+</div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>
 </html>

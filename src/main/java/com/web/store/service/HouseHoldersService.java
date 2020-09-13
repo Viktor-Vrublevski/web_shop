@@ -43,7 +43,7 @@ public class HouseHoldersService {
     }
 
     public void update(HouseHold hold) {
-        String SQL = "UPDATE householders SET holder_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE web_store.householders SET holder_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL, hold.getName(), hold.getPrice(), hold.getQuantity(),
                 hold.getDescription(),hold.getUrl(), hold.getId());
     }

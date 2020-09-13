@@ -6,10 +6,6 @@
           media="all" th:href="@{../../../css/admin.css}">
     <title>Обновление товара</title>
     <style>
-        body{
-           width: 100%;
-            min-height: 500px;
-        }
         div{
             margin: 10px;
         }
@@ -24,6 +20,7 @@
 </head>
 <body>
 <header th:insert="block_admin_page/header_admin.html :: header"></header>
+<div style="width: 100%; min-height: 400px">
 <h2>Обновить товар</h2>
 <form th:action="@{/admin/holders/update}" th:object="${holder}" method="post">
     <div class="block">
@@ -49,7 +46,8 @@
             <input type="submit" value="обновить">
         </div>
     </div>
-</form>
+</form><br/><br/><center><a href="/admin/paper/all_product">Назад</a></center>
+</div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>
 </html>

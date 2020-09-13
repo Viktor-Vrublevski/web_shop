@@ -6,10 +6,6 @@
           media="all" th:href="@{../../css/admin.css}">
     <title>Добавить Товар</title>
     <style>
-        body {
-            background-color: rgba(66, 182, 189, 0.43);
-        }
-
         div {
             margin: 10px;
         }
@@ -27,6 +23,7 @@
 </head>
 <body>
 <header th:insert="block_admin_page/header_admin.html :: header"></header>
+<div style="width: 100%; min-height: 400px">
 <form th:action="@{/admin/holes/add}" th:object="${hole}" method="post">
     <div class="block">
         <div class="field">
@@ -57,6 +54,7 @@
         </div>
     </div>
 </form>
+</div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>
 </html>

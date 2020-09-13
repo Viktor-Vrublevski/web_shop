@@ -43,7 +43,7 @@ public class FoldersService {
     }
 
     public void update(Folders folder) {
-        String SQL = "UPDATE folders SET folder_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE web_store.folders SET folder_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL, folder.getName(), folder.getPrice(), folder.getQuantity(),
                 folder.getDescription(),folder.getUrl(), folder.getId());
     }

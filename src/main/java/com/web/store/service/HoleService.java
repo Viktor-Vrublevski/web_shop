@@ -42,7 +42,7 @@ public class HoleService {
 
     public void update(HolePuncher puncher){
 
-        String SQL = "UPDATE holes SET hole_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE web_store.holes SET hole_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL,puncher.getName(),puncher.getPrice(),puncher.getQuantity(),
                 puncher.getDescription(),puncher.getUrl(),puncher.getId());
     }

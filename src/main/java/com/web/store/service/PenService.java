@@ -45,7 +45,7 @@ public class PenService{
 
 
     public void update(Pen pen) {
-        String SQL = "UPDATE pens SET pen_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE web_store.pens SET pen_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL, pen.getName(), pen.getPrice(), pen.getQuantity(),
                 pen.getDescription(), pen.getUrl(), pen.getId());
     }

@@ -42,7 +42,7 @@ public class TraysService {
     }
 
     public void update(Trays tray) {
-        String SQL = "UPDATE trays SET trays_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE web_store.trays SET trays_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL, tray.getName(), tray.getPrice(), tray.getQuantity(),
                 tray.getDescription(),tray.getUrl(), tray.getId());
     }

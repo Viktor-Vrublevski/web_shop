@@ -6,10 +6,6 @@
           media="all" th:href="@{../../css/admin.css}">
     <title>Добавить Товар</title>
     <style>
-       body{
-           width: 100%;
-           min-height: 550px;
-       }
         div {
             margin: 10px;
         }
@@ -27,7 +23,7 @@
 </head>
 <body>
 <header th:insert="block_admin_page/header_admin.html :: header"></header>
-
+<div style="width: 100%; min-height: 400px">
 <form th:action="@{/admin/calculators/add}" th:object="${calculator}" method="post">
     <div class="block">
         <div class="field">
@@ -58,6 +54,7 @@
         </div>
     </div>
 </form>
+</div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>
 </html>
