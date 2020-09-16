@@ -86,7 +86,15 @@
                 <div class="field"><label>Адрес доставки товара:
                     <input type="text" placeholder="Адрес доставки товара" th:field="${user.address_store}">
                 </label></div><br/>
-                <button type="submit" id="close">Отправить</button>
+
+                <div style="display: flex; width: 100%; min-height: 20px">
+                    <div style="width: 50%; padding: 5px; align-items: flex-start">
+                        <button type="submit" id="close">Отправить</button>
+                    </div>
+                    <div  style="width: 50%; padding: 5px; text-align: end">
+                       <a id="cancel" href="/user_pages/basket">Отмена</a>
+                    </div>
+                </div>
             </form>
         </dialog>
         <button id="show">Оформить заявку</button>

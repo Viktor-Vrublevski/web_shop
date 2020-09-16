@@ -15,7 +15,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "date")
+    @Column(name = "date_order")
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)

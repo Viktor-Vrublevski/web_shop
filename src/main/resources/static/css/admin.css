@@ -195,3 +195,25 @@ footer div{
     font-family: "Times New Roman",serif;
     line-height: 2px;
 }
+/*-----------Для страницы admin_orders.html-----------------*/
+.head-block-orders{
+    display: flex;
+    width: 100%;
+    min-height: 450px;
+}
+.left-block{
+    width: 25%;
+    height:450px;
+    margin: 10px;
+    padding: 10px;
+    overflow: auto;
+    border: 1px black solid;
+}
+.right-block{
+    width: 75%;
+    height: 450px;
+    overflow: auto;
+    margin: 10px;
+    border: 1px black solid;
+}
+

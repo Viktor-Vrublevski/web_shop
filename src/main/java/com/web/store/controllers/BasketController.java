@@ -1,6 +1,6 @@
 package com.web.store.controllers;
 
-import com.web.store.OrderMap;
+import com.web.store.OrderList;
 import com.web.store.UserOrderMap;
 import com.web.store.entity.Order;
 import com.web.store.entity.User;
@@ -91,7 +91,7 @@ public class BasketController {
         order.setAllCost(sum);
         order.setStatus(false);
         orderService.save(order);
-        OrderMap.getOrderMap().put(order.getId(),order);
+        OrderList.getOrderList().add(order);
         UserOrderMap.getInstance().get(user1.getId()).setProducts(null);
         return "user_pages/basket";
     }

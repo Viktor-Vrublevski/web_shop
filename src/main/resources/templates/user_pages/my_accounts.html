@@ -11,91 +11,97 @@
 
 <header th:insert="block_user_page/header.html :: header"></header>
 <div class="order-head_block">
-    <div class="order-left_block">
-
-    </div>
+    <div class="order-left_block"></div>
     <div class="order-right_block">
         <div th:if="${list.size()==0}">
             <center><h2>У Вас нет счетов.</h2></center>
         </div>
-        <div th:each="order : ${list}" th:if="${order.isStatus()== false}">
-            <div class="print" style="border: 1px black solid">
-                <div class="number-order"
-                     style="min-width: 60%; margin: 100px; text-align: center;
-                     font-size: 18px"
-                ><b>Счёт-фактура № [[${order.getId()}]] от [[${form.format(order.getDate())}]] г.</b>
-                </div>
+        <div class="print" style="border: 1px silver solid">
+            <div th:each="order : ${list}">
+                <div style="height: 1030px">
+                    <div class="number-order" style=" min-width: 60%;margin: 60px;text-align: center;
+                    font-size: 18px">
+                        <b>
+                            Счёт-фактура № [[${order.getId()}]] от [[${form.format(order.getDate())}]] г.
+                        </b>
+                    </div>
 
-                <div style="display: inline-flex; width: 100%">
-                <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
-                    <b>Поставщик: </b></div>
-                <div style="width: 80%; min-height: 60px">
-                   <b>ИП Врублевский А.Г.</b> г.Минск, ул.Школьнная,10-20<br/> ЗАО "Приорбанк" ЦБУ 111,
-                    пр.Машерова,40<br/> <b>IBAN:</b> BY22 4567 7658 2345 9999 <b>BIC:</b> 2BYFGH
-                </div>
-                </div>
+                    <div style="display: inline-flex; width: 100%">
+                        <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
+                            <b>Поставщик: </b></div>
+                        <div style="width: 80%; min-height: 60px">
+                            <b>ИП Врублевский А.Г.</b> г.Минск, ул.Школьнная,10-20<br/> ЗАО "Приорбанк" ЦБУ 111,
+                            пр.Машерова,40<br/> <b>IBAN:</b> BY22 4567 7658 2345 9999 <b>BIC:</b> 2BYFGH
+                        </div>
+                    </div>
 
-                <div style="display: inline-flex; width: 100%">
-                    <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
-                        <b>Покупатель: </b></div>
-                    <div style="width: 80%; min-height: 60px" th:inline="text">
-                        <b>[[${order.getUser().getOrganization()}]]</b>, [[${order.getUser().getAddress()}]],
-                         [[${order.getUser().getUNN()}]]<br/>
-                        [[${order.getUser().getNameBank()}]], [[${order.getUser().getAddressBank()}]]<br/>
-                        <b>IBAN: </b>[[${order.getUser().getIBAN()}]] <b>BIC: </b>[[${order.getUser().getBIC()}]]
+                    <div style="display: inline-flex; width: 100%">
+                        <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
+                            <b>Покупатель: </b></div>
+                        <div style="width: 80%; min-height: 60px" th:inline="text">
+                            <b>[[${order.getUser().getOrganization()}]]</b>, [[${order.getUser().getAddress()}]],
+                            [[${order.getUser().getUNN()}]]<br/>
+                            [[${order.getUser().getNameBank()}]], [[${order.getUser().getAddressBank()}]]<br/>
+                            <b>IBAN: </b>[[${order.getUser().getIBAN()}]] <b>BIC: </b>[[${order.getUser().getBIC()}]]
+                        </div>
+                    </div>
+
+                    <div style="display: inline-flex; width: 100%; padding-left: 40px; padding-top: 60px ">
+                        <table style="min-height: 100px" border="1px">
+                            <tr>
+                                <th>№</th>
+                                <th>Наимеование</th>
+                                <th>Колличество</th>
+                                <th>Цена</th>
+                                <th>Стоимость</th>
+                            </tr>
+                            <tr th:each="product : ${order.getProducts()}">
+                                <th:block th:with="incr=${order.getProducts().indexOf(product)+1}">
+                                    <td width="50px" align="center" th:text="${incr}"></td>
+                                </th:block>
+                                <td width="200px" th:text="${product.getName()}"></td>
+                                <td width="50px" align="center" th:text="${product.getQuantity()}"></td>
+                                <td width="150px" align="center"
+                                    th:text="${#numbers.formatDecimal(product.getPrice(),1,2)}"></td>
+                                <th:block th:with="sum=${product.quantity * product.price}">
+                                    <td width="150px" align="center"
+                                        th:text="${(#numbers.formatDecimal(sum,1,2))}"></td>
+                                </th:block>
+                            </tr>
+                            <br/>
+                            <tr>
+                                <td></td>
+                                <td th:with="variable=${df.format(order.getAllCost())}">
+                                    <b>Итого к оплате:</b> [[${variable}]] руб.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="min-width: 200px; min-height: 100px; margin-left: 50px;margin-top: 70px">
+                        <img src="../../images/p1.png" alt="image" style="height: 170px; width: 170px">
+                    </div>
+
+                    <div style="margin-left: 300px" th:if="${order.isStatus()==false}">
+                        <p style="color: red; font-size: 25px;
+                 font-family: 'Book Antigua',sans-serif">Счёт не оплачен</p>
+                        <p style="font-size: 15px; font-family: 'Times New Roman',sans-serif; color: black;
+                   line-height: 1px">
+                            <b>Ждём оплату. Счёт действителен в течении трёх дней.</b></p>
+                    </div>
+
+                    <div style="margin-left: 300px" th:if="${order.isStatus()==true}">
+                        <p style="color: green; font-size: 25px;
+                 font-family: 'Book Antigua',sans-serif">Счёт оплачен</p>
+                        <p style="font-size: 15px; font-family: 'Times New Roman',sans-serif; color: black;
+                   line-height: 1px"><b>Товар будет доставлен в течении трёх дней.</b></p>
+                        <p> тел. для связи с нами: +375 44 500 00 00 </p>
                     </div>
                 </div>
-
-                <div style="display: inline-flex; width: 100%; padding-left: 40px; padding-top: 60px " >
-                <table style="min-height: 100px" border="1px">
-                    <tr>
-                        <th>№</th>
-                        <th>Наимеование</th>
-                        <th>Колличество</th>
-                        <th>Цена</th>
-                        <th>Стоимость</th>
-                    </tr>
-                    <tr th:each="product : ${order.getProducts()}">
-                        <th:block th:with="incr=${order.getProducts().indexOf(product)+1}">
-                            <td width="50px" align="center" th:text="${incr}"></td>
-                        </th:block>
-                        <td width="200px" th:text="${product.getName()}"></td>
-                        <td width="50px" align="center" th:text="${product.getQuantity()}"></td>
-                        <td width="150px" align="center"
-                            th:text="${#numbers.formatDecimal(product.getPrice(),1,2)}"></td>
-                        <th:block th:with="sum=${product.quantity * product.price}">
-                            <td width="150px" align="center" th:text="${(#numbers.formatDecimal(sum,1,2))}"></td>
-                        </th:block>
-                    </tr>
-                    <br/>
-                    <tr>
-                        <td></td>
-                        <td th:with="variable=${df.format(order.getAllCost())}">
-                            <b>Итого к оплате:</b> [[${variable}]] руб.
-                        </td>
-                    </tr>
-                </table>
-                </div>
-                <div style="min-width: 200px; min-height: 100px; margin-left: 50px;margin-top: 70px">
-                    <img src="../../images/p1.png" alt="image" style="height: 170px; width: 170px">
-                </div>
-
-                <div style="margin-left: 300px" th:if="${order.isStatus()==false}">
-                    <p style="color: red; font-size: 25px;
-                 font-family: 'Book Antigua',sans-serif">Счёт не оплачен</p>
-                    <p style="font-size: 15px; font-family: 'Times New Roman',sans-serif; color: black;
-                   line-height: 1px">
-                        <b>Ждём оплату. Счёт действителен в течении трёх дней.</b></p>
-                </div>
-
-                <div style="margin-left: 300px" th:if="${order.isStatus()==true}">
-                    <p style="color: green; font-size: 25px;
-                 font-family: 'Book Antigua',sans-serif">Счёт оплачен</p>
-                    <p style="font-size: 15px; font-family: 'Times New Roman',sans-serif; color: black;
-                   line-height: 1px"><b>Товар будет доставлен в течении трёх дней.</b></p>
-                    <p> тел. для связи с нами: +375 44 500 00 00 </p>
-                </div>
+                <br/>
+                <br/>
             </div>
+        </div>
+        <div th:if="${list.size()>0}">
             <input style="margin: 10px" type="button" value="Печать" onclick="printElement('.print')"/>
         </div>
     </div>

@@ -180,7 +180,7 @@ footer div{
     margin: 10px;
 }
 .order-right_block{
-    overflow: scroll;
+    overflow: auto;
     width: 75%;
     height: 400px;
     margin: 10px;
@@ -194,4 +194,12 @@ footer div{
 }
 .number-order{
 
+}
+#cancel{
+    text-decoration: none;
+    color: black;
+    font-family: 'Times New Roman',cursive
+}
+#cancel:hover{
+    color: darkblue;
 }

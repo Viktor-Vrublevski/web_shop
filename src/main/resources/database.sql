@@ -36,7 +36,7 @@ CREATE TABLE user_role(
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY ,
-    date DATE NOT NULL ,
+    date_order DATE NOT NULL ,
     USER_ID INT NOT NULL ,
     cost DOUBLE PRECISION NOT NULL ,
     payment_status BOOLEAN NOT NULL

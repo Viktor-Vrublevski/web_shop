@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/css/admin.css"
+          media="all" th:href="@{../css/admin.css}">
+    <title>Заявки от покупателей</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<header th:insert="block_admin_page/header_admin.html :: header"></header>
+<div class="head-block-orders">
+    <div class="left-block"></div>
+
+    <div class="right-block">
+        <div style="text-align: center;">
+            <h2><b th:inline="text" style="color: blueviolet">[[${date}]]</b></h2>
+        </div>
+        <div style="text-align: center" th:if="${list.size()==0}">
+            <h2 style="color: red; margin-top: 150px">
+                Заявки отсутствуют.
+            </h2>
+        </div>
+        <div th:if="${list.size()>0}">
+            <div class="print">
+                <div th:each="order : ${list}" th:if="${order.isStatus()==false}">
+                    <div style="height: 1030px">
+                        <div class="number-order" style=" min-width: 60%;margin: 100px;text-align: center;
+                font-size: 18px"><b>
+                            Счёт-фактура № [[${order.getId()}]] от [[${form.format(order.getDate())}]] г.
+                        </b>
+                        </div>
+
+                        <div style="display: inline-flex; width: 100%">
+                            <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
+                                <b>Покупатель: </b></div>
+                            <div style="width: 80%; min-height: 60px" th:inline="text">
+                                <b>[[${order.getUser().getOrganization()}]]</b>,
+                                [[${order.getUser().getAddress()}]],
+                                [[${order.getUser().getUNN()}]]<br/>
+                                [[${order.getUser().getNameBank()}]], [[${order.getUser().getAddressBank()}]]<br/>
+                                <b>IBAN: </b>[[${order.getUser().getIBAN()}]] <b>BIC: </b>[[${order.getUser().getBIC()}]]
+                            </div>
+                        </div>
+
+                        <div style="display: inline-flex; width: 100%">
+                            <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
+                                <b>Адрес доставки: </b>
+                            </div>
+                            <div style="width: 80%; min-height: 60px">
+                                [[${order.getUser().getAddress_store()}]]
+                            </div>
+                        </div>
+
+                        <div style="display: inline-flex; width: 100%">
+                            <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
+                                <b>Контакты для связи: </b>
+                            </div>
+                            <div style="width: 80%; min-height: 60px">
+                                <b>тел.: </b>[[${order.getUser().getTel()}]]<br/>
+                                <b>email: </b>[[${order.getUser().getEmail()}]]<br/>
+                            </div>
+                        </div>
+
+                        <div style="display: inline-flex; width: 100%; padding-left: 40px; padding-top: 60px ">
+                            <table style="min-height: 100px" border="1px">
+                                <tr>
+                                    <th>№</th>
+                                    <th>Наимеование</th>
+                                    <th>Колличество</th>
+                                    <th>Цена</th>
+                                    <th>Стоимость</th>
+                                </tr>
+                                <tr th:each="product : ${order.getProducts()}">
+                                    <th:block th:with="incr=${order.getProducts().indexOf(product)+1}">
+                                        <td width="50px" align="center" th:text="${incr}"></td>
+                                    </th:block>
+                                    <td width="200px" th:text="${product.getName()}"></td>
+                                    <td width="50px" align="center" th:text="${product.getQuantity()}"></td>
+                                    <td width="150px" align="center"
+                                        th:text="${#numbers.formatDecimal(product.getPrice(),1,2)}"></td>
+                                    <th:block th:with="sum=${product.quantity * product.price}">
+                                        <td width="150px" align="center"
+                                            th:text="${(#numbers.formatDecimal(sum,1,2))}"></td>
+                                    </th:block>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="margin-top: 50px" th:if="${order.isStatus()==false}">
+                            <form action="/orders" method="post">
+                                <input type="hidden" name="order_id" th:value="${order.getId()}">
+                                <button type="submit" style="margin: 20px">Оплачено</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+            </div>
+            <div th:if="${list.size()>0}">
+                <input style="margin: 20px" type="button" value="Печать" onclick="printElement('.print')"/>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="block_head_page/footer.html :: footer"></footer>
+<script type="text/javascript">
+
+    function printElement(elem) {
+        Popup($(elem).html());
+    }
+
+    /**
+     * @return {boolean}
+     */
+    function Popup(data) {
+        const myWindow = window.open('', 'Заявки от покупателей', 'height=500, width=900');
+        myWindow.document.write('<html lang="en"><head><title>Заявки от покупателей</title>');
+        myWindow.document.write('<link rel="stylesheet" type="text/css" href="../../static/css/admin.css" media="all">');
+        myWindow.document.write('</head><body>');
+        myWindow.document.write(data);
+        myWindow.document.write('</body></html>');
+        myWindow.document.close();
+
+        myWindow.focus();
+        myWindow.print();
+        myWindow.close();
+        return true;
+    }
+</script>
+</body>
+</html>
