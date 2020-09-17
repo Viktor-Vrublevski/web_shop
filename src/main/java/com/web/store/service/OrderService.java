@@ -132,7 +132,7 @@ public class OrderService {
     }
 
     public void update(Order order) {
-        String SQL = "UPDATE web_store.orders SET date_order=?,  payment_status=?, cost=? WHERE id=?";
+        String SQL = "UPDATE public.orders SET date_order=?,  payment_status=?, cost=? WHERE id=?";
         jdbcTemplate.update(SQL, order.getDate(), order.isStatus(), order.getAllCost(), order.getId());
     }
 
