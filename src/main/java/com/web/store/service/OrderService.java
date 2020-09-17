@@ -89,7 +89,7 @@ public class OrderService {
     }
 
     public List<Order> getPaidOrdersByUserId(int id){
-        String SQL = "SELECT * FROM web_store.orders WHERE user_id=? AND payment_status=true";
+        String SQL = "SELECT * FROM public.orders WHERE user_id=? AND payment_status=true";
 
         return jdbcTemplate.query(SQL, new Object[]{id}, new RowMapper<Order>() {
             @Override
@@ -101,7 +101,7 @@ public class OrderService {
     }
 
     public List<Order> getAllPaidOrders(){
-        String SQL = "SELECT * FROM web_store.orders WHERE payment_status=true";
+        String SQL = "SELECT * FROM public.orders WHERE payment_status=true";
         return jdbcTemplate.query(SQL, new Object[]{}, new RowMapper<Order>() {
             @Override
             public Order mapRow(ResultSet rs, int i) throws SQLException {

@@ -43,7 +43,7 @@ public class CalculatorService {
     }
 
     public void update(Calculator calculator) {
-        String SQL = "UPDATE web_store.calculators SET calculator_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE calculators SET calculator_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL, calculator.getName(), calculator.getPrice(), calculator.getQuantity(),
                 calculator.getDescription(),calculator.getUrl(), calculator.getId());
     }

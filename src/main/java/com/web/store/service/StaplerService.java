@@ -42,7 +42,7 @@ public class StaplerService {
     }
 
     public void update(Stapler stapler) {
-        String SQL = "UPDATE web_store.staplers SET stapler_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
+        String SQL = "UPDATE staplers SET stapler_name=? , price=?, quantity=?, description=?, url_image=? WHERE id=?";
         jdbcTemplate.update(SQL, stapler.getName(), stapler.getPrice(), stapler.getQuantity(),
                 stapler.getDescription(),stapler.getUrl(), stapler.getId());
     }
