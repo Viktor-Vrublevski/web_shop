@@ -34,6 +34,13 @@ public class Order {
     public Order() {
     }
 
+    public Order(int id, Date date,double allCost, boolean status) {
+        this.id = id;
+        this.date = date;
+        this.allCost = allCost;
+        this.status = status;
+    }
+
     public double getAllCost() {
         return allCost;
     }

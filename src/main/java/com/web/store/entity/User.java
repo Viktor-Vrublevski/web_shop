@@ -55,6 +55,9 @@ public class User implements UserDetails {
     @Transient
     private List<Product> products;
 
+    @Transient
+    private List<Order> orders;
+
     public User() {
     }
 
@@ -189,6 +192,13 @@ public class User implements UserDetails {
             return products;
         }
        return products;
+    }
+    public List<Order> getPayedOrders(){
+        if (orders == null){
+            orders = new ArrayList<>();
+            return orders;
+        }
+        return orders;
     }
 
     @Override

@@ -34,35 +34,19 @@ public class UserService implements UserDetailsService {
     private TraysService traysService;
     private HouseHoldersService holdersService;
 
-    private CalculatorRepository calculatorRepository;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private PaperRepository paperRepository;
-    private HoleRepository holeRepository;
-    private PenRepository penRepository;
-    private FolderRepository folderRepository;
-    private StaplerRepository staplerRepository;
-    private TraysRepository traysRepository;
-    private HouseHolderRepository holderRepository;
+
 
     @Autowired
     public void setHoldersService(HouseHoldersService holdersService) {
         this.holdersService = holdersService;
     }
 
-    @Autowired
-    public void setHolderRepository(HouseHolderRepository holderRepository) {
-        this.holderRepository = holderRepository;
-    }
 
     @Autowired
     public void setTraysService(TraysService traysService) {
         this.traysService = traysService;
-    }
-
-    @Autowired
-    public void setTraysRepository(TraysRepository traysRepository) {
-        this.traysRepository = traysRepository;
     }
 
     @Autowired
@@ -71,28 +55,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Autowired
-    public void setStaplerRepository(StaplerRepository staplerRepository) {
-        this.staplerRepository = staplerRepository;
-    }
-
-    @Autowired
     public void setCalculatorService(CalculatorService calculatorService) {
         this.calculatorService = calculatorService;
     }
 
     @Autowired
-    public void setCalculatorRepository(CalculatorRepository calculatorRepository) {
-        this.calculatorRepository = calculatorRepository;
-    }
-
-    @Autowired
     public void setFoldersService(FoldersService foldersService) {
         this.foldersService = foldersService;
-    }
-
-    @Autowired
-    public void setFolderRepository(FolderRepository folderRepository) {
-        this.folderRepository = folderRepository;
     }
 
     @Autowired
@@ -125,24 +94,13 @@ public class UserService implements UserDetailsService {
         this.penService = penService;
     }
 
-    @Autowired
-    public void setPaperRepository(PaperRepository paperRepository) {
-        this.paperRepository = paperRepository;
-    }
-
-    @Autowired
-    public void setHoleRepository(HoleRepository holeRepository) {
-        this.holeRepository = holeRepository;
-    }
-
-    @Autowired
-    public void setPenRepository(PenRepository penRepository) {
-        this.penRepository = penRepository;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findUserByLogin(username);
+    }
+
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
     }
 
     public void save(User user) {
@@ -240,14 +198,14 @@ public class UserService implements UserDetailsService {
     //----------------------Вспомогательые методы-------------------------
 
     private void returnQuantityProduct(String productName, User user) {
-        List<Paper> papers = paperRepository.findAll();
-        List<HolePuncher> holes = holeRepository.findAll();
-        List<Pen> pens = penRepository.findAll();
-        List<Calculator> calculators = calculatorRepository.findAll();
-        List<Folders> folders = folderRepository.findAll();
-        List<Stapler> staplers = staplerRepository.findAll();
-        List<Trays> trays = traysRepository.findAll();
-        List<HouseHold> holds = holderRepository.findAll();
+        List<Paper> papers = paperService.getAllProducts();
+        List<HolePuncher> holes = holeService.getAllProducts();
+        List<Pen> pens = penService.getAllProducts();
+        List<Calculator> calculators = calculatorService.getAllProducts();
+        List<Folders> folders = foldersService.getAllProducts();
+        List<Stapler> staplers = staplerService.getAllProducts();
+        List<Trays> trays = traysService.getAllProducts();
+        List<HouseHold> holds = holdersService.getAllProducts();
 
         Map<Integer, User> map = UserOrderMap.getInstance();
         List<Product> list = map.get(user.getId()).getProducts();

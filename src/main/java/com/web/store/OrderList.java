@@ -1,10 +1,17 @@
 package com.web.store;
 
 import com.web.store.entity.Order;
+import com.web.store.entity.goods.*;
+import com.web.store.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.ArrayList;
 import java.util.List;
+/*
+место для хранения заказов с перечнем товара.
+Хранятся заказы оплаченные и ожидающие оплаты.
+*/
 
 public class OrderList {
 
@@ -17,25 +24,4 @@ public class OrderList {
         }
         return orderList;
     }
-
-    public static List<Order> getNoPayedOrders(){
-        List<Order> orders = new ArrayList<>();
-        for (Order order : getOrderList()){
-            if (!order.isStatus()){
-                orders.add(order);
-            }
-        }
-        return orders;
-    }
-
-    public static List<Order> getPayedOrders(){
-        List<Order> orders = new ArrayList<>();
-        for (Order order : getOrderList()){
-            if (order.isStatus()){
-                orders.add(order);
-            }
-        }
-        return orders;
-    }
-
 }

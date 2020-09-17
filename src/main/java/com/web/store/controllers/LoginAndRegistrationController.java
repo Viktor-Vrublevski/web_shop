@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginAndRegistrationController {
 
-
+    public static long countOfUsers=0;
     private final UserService userService;
 
     @Autowired
@@ -25,6 +25,7 @@ public class LoginAndRegistrationController {
 
     @GetMapping("/")
     public String getHeadPage() {
+        countOfUsers++;
         SecurityContextHolder.getContext().setAuthentication(null);
         return "head-page";
     }

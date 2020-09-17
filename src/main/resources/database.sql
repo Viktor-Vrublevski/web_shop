@@ -10,7 +10,9 @@ CREATE TABLE users(
     address_bank VARCHAR(200),
     IBAN VARCHAR(40),
     BIC VARCHAR(20),
-    number_tel INT
+    number_tel INT,
+    email VARCHAR (200),
+    address_store VARCHAR (200)
 );
 
 
