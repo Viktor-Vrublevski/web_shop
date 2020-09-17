@@ -119,7 +119,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void update(User user) {
-        String SQL = "UPDATE web_store.users SET bic=?, iban=?, unn=?, address=?," +
+        String SQL = "UPDATE users SET bic=?, iban=?, unn=?, address=?," +
                 "address_bank=?, name_bank=?, name_organization=?, email=?, address_store=?," +
                 "number_tel=? WHERE id=?";
         jdbcTemplate.update(SQL, user.getBIC(), user.getIBAN(), user.getUNN(), user.getAddress(),
