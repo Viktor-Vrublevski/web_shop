@@ -5,7 +5,7 @@ import javax.persistence.*;
 @SuppressWarnings("All")
 @Entity
 @Table(name = "staplers")
-public class Stapler implements Product {
+public class Stapler implements Product,Comparable<Stapler> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,5 +80,10 @@ public class Stapler implements Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int compareTo(Stapler o) {
+        return name.compareTo(o.getName());
     }
 }

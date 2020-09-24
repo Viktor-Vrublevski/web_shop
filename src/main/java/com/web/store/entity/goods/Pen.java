@@ -8,7 +8,7 @@ import java.util.Set;
 @SuppressWarnings("All")
 @Entity
 @Table(name = "pens")
-public class Pen implements Product {
+public class Pen implements Product,Comparable<Pen> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -82,5 +82,10 @@ public class Pen implements Product {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public int compareTo(Pen o) {
+        return name.compareTo(o.getName());
     }
 }

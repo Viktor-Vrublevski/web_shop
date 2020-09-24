@@ -55,8 +55,8 @@
                         <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
                             <b>Покупатель: </b></div>
                         <div style="width: 80%; min-height: 60px" th:inline="text">
-                            <b>[[${order.getUser().getOrganization()}]]</b>, [[${order.getUser().getAddress()}]],
-                            [[${order.getUser().getUNN()}]]<br/>
+                            <b>[[${order.getUser().getOrganization()}]]</b>, [[${order.getUser().getAddress()}]]<br/>
+                            <b>УНН </b>[[${order.getUser().getUNN()}]]<br/>
                             [[${order.getUser().getNameBank()}]], [[${order.getUser().getAddressBank()}]]<br/>
                             <b>IBAN: </b>[[${order.getUser().getIBAN()}]] <b>BIC: </b>[[${order.getUser().getBIC()}]]
                         </div>

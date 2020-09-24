@@ -67,6 +67,7 @@ public class BasketController {
     public String addRequisites(@ModelAttribute("user") User user, Model model) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User user1 = userService.getUser(name);
+//
         user1.setOrganization(user.getOrganization());
         user1.setAddress(user.getAddress());
         user1.setUNN(user.getUNN());

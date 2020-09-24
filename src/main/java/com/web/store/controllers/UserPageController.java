@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import sun.reflect.generics.tree.Tree;
+
 import java.util.List;
+import java.util.TreeSet;
 
 
 @Controller
@@ -72,13 +75,21 @@ public class UserPageController {
         this.holeService = holeService;
     }
 
+
+    @GetMapping("/user-page")
+    public String getUserPage(Model model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("name", username);
+        return "user-page";
+    }
+
     //----------------------------------------------------
     @GetMapping("/user_pages/block_1")
     public String getOneBlock(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Paper> papers = paperService.getAllProducts();
+        TreeSet<Paper> papers = new TreeSet<>(paperService.getAllProducts());
         model.addAttribute("list_papers", papers);
 
         Paper paper = new Paper();
@@ -93,7 +104,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Paper> papers = paperService.getAllProducts();
+        TreeSet<Paper> papers = new TreeSet<>(paperService.getAllProducts());
         model.addAttribute("list_papers", papers);
 
         int id = paper.getId();
@@ -121,7 +132,8 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Pen> pens = penService.getAllProducts();
+
+        TreeSet<Pen> pens = new TreeSet<>(penService.getAllProducts());
         model.addAttribute("list_pens", pens);
         Pen pen = new Pen();
         model.addAttribute("pen2", pen);
@@ -133,7 +145,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Pen> pens = penService.getAllProducts();
+        TreeSet<Pen> pens = new TreeSet<>(penService.getAllProducts());
         model.addAttribute("list_pens", pens);
 
         int id = pen.getId();
@@ -160,7 +172,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Stapler> staplers = staplerService.getAllProducts();
+        TreeSet<Stapler> staplers = new TreeSet<>(staplerService.getAllProducts());
         model.addAttribute("list_stapler", staplers);
 
         Stapler stapler = new Stapler();
@@ -173,7 +185,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Stapler> staplers = staplerService.getAllProducts();
+        TreeSet<Stapler> staplers = new TreeSet<>(staplerService.getAllProducts());
         model.addAttribute("list_stapler", staplers);
 
         int id = stapler.getId();
@@ -200,7 +212,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Trays> trays = traysService.getAllProducts();
+        TreeSet<Trays> trays = new TreeSet<>(traysService.getAllProducts());
         model.addAttribute("list_trays", trays);
 
         Trays tray = new Trays();
@@ -213,7 +225,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Trays> trays = traysService.getAllProducts();
+        TreeSet<Trays> trays = new TreeSet<>(traysService.getAllProducts());
         model.addAttribute("list_trays", trays);
 
         int id = tray.getId();
@@ -240,7 +252,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<HolePuncher> holes = holeService.getAllProducts();
+        TreeSet<HolePuncher> holes = new TreeSet<>(holeService.getAllProducts());
         model.addAttribute("list_holes", holes);
 
         HolePuncher puncher = new HolePuncher();
@@ -253,7 +265,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<HolePuncher> holes = holeService.getAllProducts();
+        TreeSet<HolePuncher> holes = new TreeSet<>(holeService.getAllProducts());
         model.addAttribute("list_holes", holes);
 
         int id = puncher.getId();
@@ -280,7 +292,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Folders> folders = foldersService.getAllProducts();
+        TreeSet<Folders> folders = new TreeSet<>(foldersService.getAllProducts());
         model.addAttribute("list_folders", folders);
 
         Folders folder = new Folders();
@@ -293,7 +305,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Folders> folders = foldersService.getAllProducts();
+        TreeSet<Folders> folders = new TreeSet<>(foldersService.getAllProducts());
         model.addAttribute("list_folders", folders);
 
         int id = folder.getId();
@@ -320,7 +332,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Calculator> calculators = calculatorService.getAllProducts();
+        TreeSet<Calculator> calculators = new TreeSet<>(calculatorService.getAllProducts());
         model.addAttribute("list_calculators", calculators);
 
         Calculator calculator = new Calculator();
@@ -333,7 +345,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Calculator> calculators = calculatorService.getAllProducts();
+        TreeSet<Calculator> calculators = new TreeSet<>(calculatorService.getAllProducts());
         model.addAttribute("list_calculators", calculators);
 
         int id = calculator.getId();
@@ -360,7 +372,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<HouseHold> holds = holdersService.getAllProducts();
+        TreeSet<HouseHold> holds = new TreeSet<>(holdersService.getAllProducts());
         model.addAttribute("list_holds", holds);
 
         HouseHold houseHold = new HouseHold();
@@ -373,7 +385,7 @@ public class UserPageController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<HouseHold> holds = holdersService.getAllProducts();
+        TreeSet<HouseHold> holds = new TreeSet<>(holdersService.getAllProducts());
         model.addAttribute("list_holds", holds);
 
         int id = houseHold.getId();

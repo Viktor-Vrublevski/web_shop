@@ -83,8 +83,8 @@
                                 <b>Покупатель: </b></div>
                             <div style="width: 80%; min-height: 60px" th:inline="text">
                                 <b>[[${order.getUser().getOrganization()}]]</b>,
-                                [[${order.getUser().getAddress()}]],
-                                [[${order.getUser().getUNN()}]]<br/>
+                                [[${order.getUser().getAddress()}]]
+                                <br/> <b>УНН</b> [[${order.getUser().getUNN()}]]<br/>
                                 [[${order.getUser().getNameBank()}]], [[${order.getUser().getAddressBank()}]]<br/>
                                 <b>IBAN: </b>[[${order.getUser().getIBAN()}]] <b>BIC: </b>[[${order.getUser().getBIC()}]]
                             </div>
@@ -136,7 +136,7 @@
                         <div style="margin-top: 50px" th:if="${order.isStatus()==false}">
                             <form action="/orders" method="post">
                                 <input type="hidden" name="order_id" th:value="${order.getId()}">
-                                <button type="submit" style="margin: 20px">Оплачено</button>
+                                <button type="submit" style="margin: 20px" onclick="choice()">Оплачено</button>
                             </form>
                         </div>
                     </div>
@@ -173,6 +173,11 @@
         myWindow.print();
         myWindow.close();
         return true;
+    }
+    function choice(){
+     if (window.confirm("Вы уверены что счёт оплачен?")) {
+
+     }
     }
 </script>
 </body>

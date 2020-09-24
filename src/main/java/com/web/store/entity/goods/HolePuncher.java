@@ -8,7 +8,7 @@ import java.util.Set;
 @SuppressWarnings("All")
 @Entity
 @Table(name = "holes")
-public class HolePuncher implements Product{
+public class HolePuncher implements Product,Comparable<HolePuncher>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -84,4 +84,8 @@ public class HolePuncher implements Product{
         this.description = description;
     }
 
+    @Override
+    public int compareTo(HolePuncher o) {
+        return name.compareTo(o.getName());
+    }
 }

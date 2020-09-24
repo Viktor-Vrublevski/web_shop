@@ -2,15 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
           media="all" th:href="@{../css/pages.css}">
     <title>Block one</title>
-<script type="text/javascript">
-    function execute(form) {
-
-    }
-</script>
 </head>
 <body>
 <header th:insert="block_user_page/header.html :: header"></header>
@@ -42,6 +37,7 @@
         <form action="/user_pages/block_1" th:object="${paper2}"  method="post"
               onsubmit="execute(this)">
             <label>Выберите нужное кол-во
+                <input type="hidden" name="name" th:value="${paper.getName()}">
                 <input type="number" name="quantity" min="0"  th:max="${paper.quantity}" size="6"
                        th:value="${paper2.quantity}" th:field="${paper2.quantity}">
                 <input type="hidden" name="id" th:value="${paper.getId()}">
@@ -55,5 +51,15 @@
     </div>
 </div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
+
+<script type="text/javascript">
+    function execute(form) {
+        let name = form.name.value;
+        let quantity = form.quantity.value;
+        if (quantity > 0){
+            alert(name+" "+"в кол-ве "+quantity+" шт. в корзине");
+        }
+    }
+</script>
 </body>
 </html>

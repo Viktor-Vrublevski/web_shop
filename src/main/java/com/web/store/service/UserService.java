@@ -106,6 +106,8 @@ public class UserService implements UserDetailsService {
     public void save(User user) {
         user.setLogin(user.getLogin());
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setAvailability(false);
+        user.setTel("+375 __ ___ __ __");
         Set<Role> roles = new HashSet<>();
         if (userRepository.findAll().size() == 0) {
             roles.add(roleRepository.getOne(1));
@@ -121,10 +123,10 @@ public class UserService implements UserDetailsService {
     public void update(User user) {
         String SQL = "UPDATE users SET bic=?, iban=?, unn=?, address=?," +
                 "address_bank=?, name_bank=?, name_organization=?, email=?, address_store=?," +
-                "number_tel=? WHERE id=?";
+                "number_tel=?, availability=?  WHERE id=?";
         jdbcTemplate.update(SQL, user.getBIC(), user.getIBAN(), user.getUNN(), user.getAddress(),
                 user.getAddressBank(), user.getNameBank(), user.getOrganization(), user.getEmail(),
-                user.getAddress_store(), user.getTel(), user.getId());
+                user.getAddress_store(), user.getTel(),user.isAvailability(), user.getId());
     }
 
     public User getUser(String username) {

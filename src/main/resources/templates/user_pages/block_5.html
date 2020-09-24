@@ -6,11 +6,6 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
           media="all" th:href="@{../css/pages.css}">
     <title>Block five</title>
-    <script type="text/javascript">
-        function execute(form) {
-
-        }
-    </script>
 </head>
 <body>
 <header th:insert="block_user_page/header.html :: header"></header>
@@ -40,6 +35,7 @@
         </table><br/>
         <form action="/user_pages/block_5" th:object="${hole2}"  method="post"
               onsubmit="execute(this)">
+            <input type="hidden" name="name" th:value="${hole.getName()}">
             <label>Выберите нужное кол-во
                 <input type="number" name="quantity" min="0"  th:max="${hole.quantity}" size="6"
                        th:value="${hole2.quantity}" th:field="${hole2.quantity}">
@@ -54,5 +50,14 @@
     </div>
 </div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
+<script type="text/javascript">
+    function execute(form) {
+        let name = form.name.value;
+        let quantity = form.quantity.value;
+        if (quantity > 0){
+            alert(name+" "+"в кол-ве "+quantity+" шт. в корзине.")
+        }
+    }
+</script>
 </body>
 </html>

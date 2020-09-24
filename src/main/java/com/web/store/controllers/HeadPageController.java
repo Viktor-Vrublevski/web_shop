@@ -4,10 +4,12 @@ package com.web.store.controllers;
 import com.web.store.entity.goods.*;
 import com.web.store.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
+import java.util.TreeSet;
 
 @Controller
 public class HeadPageController {
@@ -62,58 +64,66 @@ public class HeadPageController {
         this.holeService = holeService;
     }
 
+    public static long countOfUsers=0;
+    @GetMapping("/")
+    public String getHeadPage() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+         countOfUsers++;
+        return "head-page";
+    }
+
     @GetMapping("/head_pages/blockOne")
     public String getOneBlock(Model model){
-        List<Paper> papers = paperService.getAllProducts();
+        TreeSet<Paper> papers = new TreeSet<>(paperService.getAllProducts());
         model.addAttribute("list_papers", papers);
         return "head_pages/block_one";
     }
 
     @GetMapping("head_pages/blockTwo")
     public String getTwoBlock(Model model){
-        List<Pen> pens = penService.getAllProducts();
+        TreeSet<Pen> pens = new TreeSet<>(penService.getAllProducts());
         model.addAttribute("list_pens", pens);
         return "head_pages/block_two";
     }
 
     @GetMapping("head_pages/blockThree")
     public String getThreeBlock(Model model){
-        List<Stapler> staplers = staplerService.getAllProducts();
+        TreeSet<Stapler> staplers = new TreeSet<>(staplerService.getAllProducts());
         model.addAttribute("list_staplers", staplers);
         return "head_pages/block_three";
     }
 
     @GetMapping("head_pages/blockFour")
     public String getFourBlock(Model model){
-        List<Trays> trays = traysService.getAllProducts();
+        TreeSet<Trays> trays = new TreeSet<>(traysService.getAllProducts());
         model.addAttribute("list_trays", trays);
         return "head_pages/block_four";
     }
 
     @GetMapping("/head_pages/blockFive")
     public String getFiveBlock(Model model){
-        List<HolePuncher> punchers = holeService.getAllProducts();
+        TreeSet<HolePuncher> punchers = new TreeSet<>(holeService.getAllProducts());
         model.addAttribute("list_holes", punchers);
         return "head_pages/block_five";
     }
 
     @GetMapping("/head_pages/blockSix")
     public String getSixBlock(Model model){
-        List<Folders> folders = foldersService.getAllProducts();
+        TreeSet<Folders> folders = new TreeSet<>(foldersService.getAllProducts());
         model.addAttribute("list_folders",folders);
         return "head_pages/block_six";
     }
 
     @GetMapping("/head_pages/blockSeven")
     public String getSevenBlock(Model model){
-        List<Calculator> calculators = calculatorService.getAllProducts();
+        TreeSet<Calculator> calculators = new TreeSet<>(calculatorService.getAllProducts());
         model.addAttribute("list_calculators", calculators);
         return "head_pages/block_seven";
     }
 
     @GetMapping("/head_pages/blockEight")
     public String getEightBlock(Model model){
-        List<HouseHold> holds = houseHoldersService.getAllProducts();
+        TreeSet<HouseHold> holds = new TreeSet<>(houseHoldersService.getAllProducts());
         model.addAttribute("list_holds", holds);
         return "head_pages/block_eight";
     }

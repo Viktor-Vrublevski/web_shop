@@ -5,7 +5,7 @@ import javax.persistence.*;
 @SuppressWarnings("All")
 @Entity
 @Table(name = "folders")
-public class Folders implements Product {
+public class Folders implements Product,Comparable<Folders> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,5 +80,10 @@ public class Folders implements Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int compareTo(Folders o) {
+        return name.compareTo(o.getName());
     }
 }

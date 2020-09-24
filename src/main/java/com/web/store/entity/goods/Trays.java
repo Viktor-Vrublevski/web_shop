@@ -5,7 +5,7 @@ import javax.persistence.*;
 @SuppressWarnings("All")
 @Entity
 @Table(name = "trays")
-public class Trays implements Product {
+public class Trays implements Product,Comparable<Trays> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,5 +80,10 @@ public class Trays implements Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int compareTo(Trays o) {
+        return name.compareTo(o.getName());
     }
 }

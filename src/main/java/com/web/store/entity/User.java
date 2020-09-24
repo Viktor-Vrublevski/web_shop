@@ -52,6 +52,9 @@ public class User implements UserDetails {
     @Column(name = "address_store")
     private String address_store;
 
+    @Column(name = "availability")
+    private boolean availability;
+
     @Transient
     private List<Product> products;
 
@@ -184,6 +187,14 @@ public class User implements UserDetails {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
     }
 
     public List<Product> getProducts(){
