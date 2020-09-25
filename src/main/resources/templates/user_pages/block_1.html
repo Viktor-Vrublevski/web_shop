@@ -41,7 +41,7 @@
                 <input type="number" name="quantity" min="0"  th:max="${paper.quantity}" size="6"
                        th:value="${paper2.quantity}" th:field="${paper2.quantity}">
                 <input type="hidden" name="id" th:value="${paper.getId()}">
-            </label>
+            </label><br/>
             <input type="submit" style="background-color: greenyellow" value="В корзину">
             <p style="color: red; font-family: 'Arial Black',cursive"
                th:if="${paper.getQuantity()==0}">

@@ -78,7 +78,7 @@ public class UserPageController {
 
     @GetMapping("/user-page")
     public String getUserPage(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
         return "user-page";
     }
@@ -86,7 +86,7 @@ public class UserPageController {
     //----------------------------------------------------
     @GetMapping("/user_pages/block_1")
     public String getOneBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Paper> papers = new TreeSet<>(paperService.getAllProducts());
@@ -101,7 +101,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_1")
     public String addPaperUser(@ModelAttribute("paper2") Paper paper, Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Paper> papers = new TreeSet<>(paperService.getAllProducts());
@@ -129,7 +129,7 @@ public class UserPageController {
     //-------------------------------------------
     @GetMapping("/user_pages/block_2")
     public String getTwoBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
 
@@ -142,7 +142,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_2")
     public String addUsePen(Model model, @ModelAttribute("pen2") Pen pen) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Pen> pens = new TreeSet<>(penService.getAllProducts());
@@ -169,7 +169,7 @@ public class UserPageController {
     //----------------------------------------------
     @GetMapping("/user_pages/block_3")
     public String getThreeBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Stapler> staplers = new TreeSet<>(staplerService.getAllProducts());
@@ -182,7 +182,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_3")
     public String addUserStapler(Model model, @ModelAttribute("stapler2") Stapler stapler) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Stapler> staplers = new TreeSet<>(staplerService.getAllProducts());
@@ -209,7 +209,7 @@ public class UserPageController {
     //-----------------------------------------------------
     @GetMapping("/user_pages/block_4")
     public String getFourBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Trays> trays = new TreeSet<>(traysService.getAllProducts());
@@ -222,7 +222,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_4")
     public String addUserTray(Model model, @ModelAttribute("tray2") Trays tray) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Trays> trays = new TreeSet<>(traysService.getAllProducts());
@@ -249,7 +249,7 @@ public class UserPageController {
     //----------------------------------------
     @GetMapping("/user_pages/block_5")
     public String getFiveBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<HolePuncher> holes = new TreeSet<>(holeService.getAllProducts());
@@ -262,7 +262,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_5")
     public String addUserHole(Model model, @ModelAttribute("hole2") HolePuncher puncher) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<HolePuncher> holes = new TreeSet<>(holeService.getAllProducts());
@@ -289,7 +289,7 @@ public class UserPageController {
     //----------------------------------------------
     @GetMapping("/user_pages/block_6")
     public String getSixBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();;
         model.addAttribute("name", username);
 
         TreeSet<Folders> folders = new TreeSet<>(foldersService.getAllProducts());
@@ -302,7 +302,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_6")
     public String addUserFolder(Model model, @ModelAttribute("folder2") Folders folder) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Folders> folders = new TreeSet<>(foldersService.getAllProducts());
@@ -329,7 +329,7 @@ public class UserPageController {
 
     @GetMapping("/user_pages/block_7")
     public String getSevenBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Calculator> calculators = new TreeSet<>(calculatorService.getAllProducts());
@@ -342,7 +342,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_7")
     public String addUserCalculator(Model model, @ModelAttribute("calculator2") Calculator calculator) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<Calculator> calculators = new TreeSet<>(calculatorService.getAllProducts());
@@ -369,7 +369,7 @@ public class UserPageController {
     /*-------------------------------------------------------------------------*/
     @GetMapping("/user_pages/block_8")
     public String getEightBlock(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<HouseHold> holds = new TreeSet<>(holdersService.getAllProducts());
@@ -382,7 +382,7 @@ public class UserPageController {
 
     @PostMapping("/user_pages/block_8")
     public String addUserHouseHold(Model model, @ModelAttribute("household2") HouseHold houseHold) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name", username);
 
         TreeSet<HouseHold> holds = new TreeSet<>(holdersService.getAllProducts());
@@ -404,6 +404,14 @@ public class UserPageController {
         }
         houseHold.setQuantity(0);
         return "user_pages/block_8";
+    }
+
+    private String getNameOfUser(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username.length()>11){
+            username = username.substring(0,10)+"...";
+        }
+        return username;
     }
 
 }

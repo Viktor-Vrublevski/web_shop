@@ -33,7 +33,7 @@ public class MyOrdersController {
 
     @GetMapping("user_pages/orders")
     public String getMyAccounts(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name",username);
         User user = userService.getUser(username);
 
@@ -66,7 +66,7 @@ public class MyOrdersController {
     @PostMapping("user_pages/orders")
     public String sendToArchive(@ModelAttribute("id_order") int id_order,Model model){
         Order order = orderService.getOrderById(id_order);
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = getNameOfUser();
         model.addAttribute("name",username);
         User user = userService.getUser(username);
         user.getPayedOrders().add(order);
@@ -95,5 +95,13 @@ public class MyOrdersController {
         model.addAttribute("id",id);
 
         return "user_pages/my_accounts";
+    }
+
+    private String getNameOfUser(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username.length()>11){
+            username = username.substring(0,10)+"...";
+        }
+        return username;
     }
 }

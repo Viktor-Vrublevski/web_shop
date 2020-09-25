@@ -38,8 +38,9 @@ public class BasketController {
 
     @GetMapping("/user_pages/basket")
     public String getBasket(Model model) {
+       String name = getNameOfUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("name", name);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("name", username);
         User user = userService.getUser(username);
         model.addAttribute("user",user);
 
@@ -65,9 +66,11 @@ public class BasketController {
 
     @PostMapping("/user_pages/basket")
     public String addRequisites(@ModelAttribute("user") User user, Model model) {
+        String username = getNameOfUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("name", username);
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User user1 = userService.getUser(name);
-//
+
         user1.setOrganization(user.getOrganization());
         user1.setAddress(user.getAddress());
         user1.setUNN(user.getUNN());
@@ -95,5 +98,13 @@ public class BasketController {
         OrderList.getOrderList().add(order);
         UserOrderMap.getInstance().get(user1.getId()).setProducts(null);
         return "user_pages/basket";
+    }
+
+//--------------------------------------------------
+    private String getNameOfUser(String username){
+        if (username.length()>11){
+            username = username.substring(0,10)+"...";
+        }
+        return username;
     }
 }

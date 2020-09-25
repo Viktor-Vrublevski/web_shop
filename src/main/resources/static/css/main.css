@@ -2,40 +2,49 @@ body{
     left: 0;
     top: 0;
 }
+
 a{
     text-decoration: none;
 }
-pre{
+/*----------------------------------*/
+span {
     font-size: 1.1em;
     font-family: "Times New Roman", sans-serif;
-    color: rgba(19,18,7,0.86);
+    color: rgba(19, 18, 7, 0.86);
 }
-pre a{
-    color: rebeccapurple;
+
+span a{
+    color: darkblue;
     font-family: "Franklin Gothic Medium", cursive;
 }
+span a:hover{
+    color: chartreuse;
+}
+/*----------------------------------*/
 header{
     background-color: rebeccapurple;
-    height: 90px;
+    min-height: 90px;
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
 }
 /*Блок в шапке слеваю. Распологается рис.*/
 .block1{
     height: 80px;
     margin: 5px;
-    width: 30%;
+    min-width: 29%;
     text-align: center;
 }
 img{
-    width: 200px;
-    height: 70px;
+    width: 13em;
+    height: 5em;
     margin-top: 5px;
 }
 /*Блок в шапке справа. Распоожены ссылки 'Войти' 'Регистрация'*/
 .block2{
-    height: 80px;
+    min-height: 80px;
     margin: 5px;
-    width: 70%;
+    width: 69%;
     display: flex;
     justify-content: flex-end;
 }
@@ -43,10 +52,12 @@ img{
 .nav{
     list-style-type: none;
     width: 600px;
-    height:25px;
+    min-height:25px;
     text-align: center;
     margin-right: 30px;
     margin-top: 50px;
+    line-height: 50px;
+
 }
 .nav li{
     display: inline;
@@ -57,12 +68,12 @@ img{
     width: 650px;
     padding: 20px;
     font-family: "Times New Roman",sans-serif;
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 /*_____________________________________________________________*/
 /*Описание внутреннего общего блока*/
 .container{
-    width: 100%;
+    width: auto;
     min-height: 500px;
     margin-top: 10px;
     padding-top: 20px;
@@ -73,12 +84,13 @@ img{
 }
 .container a{
     display: block;
-    width: 20%;
+    width: 300px;
     height: 200px;
     border: 3px outset slategray;
     text-align: -webkit-left;
     font-family: "Times New Roman", serif;
     font-size: 19px;
+    margin: 10px;
 }
 .container a p{
     position: relative;
@@ -99,6 +111,7 @@ img{
 }
 .href-block2{
     background-image: url("../images/pen1.jpg");
+    background-size: 100%;
 }
 .href-block3:hover{
     background-image: url("../images/steplers.jpg");
@@ -139,32 +152,59 @@ img{
 .href-block8{
     background-image: url("../images/hoztovar.jpg");
 }
+/*Описание внутреннего общего блока*/
+.head-block{
+    width: 100%;
+    min-height: 500px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: flex-start;
+}
+/*Описание надписи "Назад на Главную страницу"*/
+.back{
+    text-decoration: none;
+    color: darkslateblue;
+    font-size: 1.2em;
+    font-family: "Franklin Gothic Medium",Candara,serif;
+}
+.back:hover{
+    color: blueviolet;
+}
+/*----------------------------------------------*/
+/*Описание внутренних блоков с товаром*/
+
+.inner-block{
+    min-width: 300px;
+    min-height: 200px;
+    margin: 10px;
+    padding: 10px;
+}
+/*----------Описание размера картинки в блоках-----------*/
+.image{
+    width: 160px;
+    height: 180px;
+}
 /*Описание подвала страницы*/
 footer{
     left: 0;
     bottom: 0;
-    display: flex;
+    display: inline-flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    height: 200px;
+    min-height: 200px;
     margin-top: 20px;
     background-color: rgba(92,152,141,0.69);
 }
 footer div{
-    width: 30%;
-    height: 190px;
+    min-width: 30%;
+    min-height: 50px;
     margin: 5px;
-    padding-left: 30px;
-    text-align: left;
+    padding: 10px;
+    text-align-all: left;
     font-family: "Times New Roman",serif;
-    line-height: 2px;
+    line-height: 5px;
 }
 /*_________________________________________________*/
-.my_block{
-    height: 80px;
-    margin: 5px;
-    width: 50%;
-    display: flex;
-    justify-content: flex-end;
-    border: 1px solid silver;
-}

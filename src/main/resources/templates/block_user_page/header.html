@@ -1,16 +1,17 @@
 <html th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <div class="block1">
-    <img th:src="@{../images/logo.png}" alt="money" src="../../static/images/logo.png"/>
+    <img th:src="@{../images/logo.png}" alt="logotype"/>
 </div>
-<div class="my_block" >
-    <div class="in-my_block1" th:text="${name}"></div>
-    <div class="in-my_block2">
-        <ul>
-            <li><a href="/user-page">Главная</a></li>
-            <li><a href="/user_pages/basket">Моя корзина</a></li>
-            <li><a href="/user_pages/orders">Мои счет-фактуры</a></li>
-            <li><a href="/">Выйти</a></li>
-        </ul>
-    </div>
+<div class="in-my_block1">
+    <span>Пользователь:</span><span th:inline="text" style="color: lime; font-size: 1.3em">
+    [[${name}]]</span>
+</div>
+<div class="in-my_block2">
+    <ul class="nav">
+        <li><a href="/user-page">Главная</a></li>
+        <li><a href="/user_pages/basket"><nobr>Моя корзина</nobr></a></li>
+        <li><a href="/user_pages/orders"><nobr>Мои счет-фактуры</nobr></a></li>
+        <li><a href="/">Выйти</a></li>
+    </ul>
 </div>
 </html>

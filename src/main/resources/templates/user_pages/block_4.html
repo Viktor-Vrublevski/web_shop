@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
           media="all" th:href="@{../css/pages.css}">
     <title>Block five</title>
@@ -40,7 +40,7 @@
                 <input type="number" name="quantity" min="0"  th:max="${tray.quantity}" size="6"
                        th:value="${tray2.quantity}" th:field="${tray2.quantity}">
                 <input type="hidden" name="id" th:value="${tray.getId()}">
-            </label>
+            </label><br/>
             <input type="submit" style="background-color: greenyellow" value="В корзину">
             <p style="color: red; font-family: 'Arial Black',cursive"
                th:if="${tray.getQuantity()==0}">
