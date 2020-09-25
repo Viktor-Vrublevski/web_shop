@@ -136,7 +136,8 @@
                         <div style="margin-top: 50px" th:if="${order.isStatus()==false}">
                             <form action="/orders" method="post">
                                 <input type="hidden" name="order_id" th:value="${order.getId()}">
-                                <button type="submit" style="margin: 20px" onclick="choice()">Оплачено</button>
+                                <input type="hidden" id="flag" name="flag" th:value="${flag}">
+                                <button  type="submit" style="margin: 20px" onclick="choice()">Оплачено</button>
                             </form>
                         </div>
                     </div>
@@ -176,7 +177,7 @@
     }
     function choice(){
      if (window.confirm("Вы уверены что счёт оплачен?")) {
-
+        document.getElementById('flag').value = true;
      }
     }
 </script>

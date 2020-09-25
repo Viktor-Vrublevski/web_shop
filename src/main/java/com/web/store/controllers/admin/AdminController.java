@@ -78,23 +78,27 @@ public class AdminController {
 
         int id = 0;
         model.addAttribute("order_id", id);
+
+        model.addAttribute("flag", false);
         return "admin/admin_orders";
     }
 
     @PostMapping("/orders")
-    public String payOrders(@ModelAttribute("order_id") int order_id, Model model) {
+    public String payOrders(@ModelAttribute("order_id") int order_id, @ModelAttribute("flag")
+       boolean flag, Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("name", username);
 
-        List<Order> list = OrderList.getOrderList();
-        for (Order order : list) {
-            if (order.getId() == order_id) {
-                order.setStatus(true);
-                orderService.update(order);
-                break;
+        if (flag) {
+            List<Order> list = OrderList.getOrderList();
+            for (Order order : list) {
+                if (order.getId() == order_id) {
+                    order.setStatus(true);
+                    orderService.update(order);
+                    break;
+                }
             }
         }
-
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy | HH:mm");
         String time = sdf.format(date);
