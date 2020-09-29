@@ -119,7 +119,7 @@ public class UserPageController {
             copy.setPrice(paperDB.getPrice());
             copy.setQuantity(paper.getQuantity());
 
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         paper.setQuantity(0);
@@ -159,7 +159,7 @@ public class UserPageController {
             copy.setQuantity(pen.getQuantity());
             copy.setName(penDB.getName());
             copy.setPrice(penDB.getPrice());
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         pen.setQuantity(0);
@@ -199,7 +199,7 @@ public class UserPageController {
             copy.setQuantity(stapler.getQuantity());
             copy.setName(staplerDB.getName());
             copy.setPrice(staplerDB.getPrice());
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         stapler.setQuantity(0);
@@ -239,7 +239,7 @@ public class UserPageController {
             copy.setQuantity(tray.getQuantity());
             copy.setName(trayDB.getName());
             copy.setPrice(trayDB.getPrice());
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         tray.setQuantity(0);
@@ -279,7 +279,7 @@ public class UserPageController {
             copy.setQuantity(puncher.getQuantity());
             copy.setName(puncherDB.getName());
             copy.setPrice(puncherDB.getPrice());
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         puncher.setQuantity(0);
@@ -319,7 +319,7 @@ public class UserPageController {
             copy.setQuantity(folder.getQuantity());
             copy.setName(folderDB.getName());
             copy.setPrice(folderDB.getPrice());
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         folder.setQuantity(0);
@@ -359,7 +359,7 @@ public class UserPageController {
             copy.setQuantity(calculator.getQuantity());
             copy.setName(calculatorDB.getName());
             copy.setPrice(calculatorDB.getPrice());
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         calculator.setQuantity(0);
@@ -399,7 +399,7 @@ public class UserPageController {
             copy.setQuantity(houseHold.getQuantity());
             copy.setName(holdDB.getName());
             copy.setPrice(holdDB.getPrice());
-            User user = userService.getUser(username);
+            User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
         houseHold.setQuantity(0);

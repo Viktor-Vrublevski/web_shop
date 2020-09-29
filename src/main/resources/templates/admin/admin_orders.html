@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../static/css/admin.css"
           media="all" th:href="@{../css/admin.css}">
     <title>Заявки от покупателей</title>
@@ -43,7 +44,7 @@
 
     <div class="right-block">
         <div style="text-align: center;">
-            <h2><b th:inline="text" style="color: blueviolet">[[${date}]]</b></h2>
+            <h2 style="color: indigo" th:inline="text">[[${date}]] | <span id="time"></span></h2>
         </div>
         <div style="text-align: center" th:if="${list.size()==0}">
             <h2 style="color: red; margin-top: 150px">
@@ -179,6 +180,15 @@
      if (window.confirm("Вы уверены что счёт оплачен?")) {
         document.getElementById('flag').value = true;
      }
+    }
+
+    window.onload = function(){
+        window.setInterval(
+            function(){
+                let d = new Date();
+                document.getElementById("time").innerHTML = d.toLocaleTimeString();
+            }
+            , 1000);
     }
 </script>
 </body>

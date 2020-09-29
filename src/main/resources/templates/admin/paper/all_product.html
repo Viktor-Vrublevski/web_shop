@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
           media="all" th:href="@{../../css/admin.css}">
     <title>Список товаров</title>
@@ -29,7 +30,12 @@
                 <td><a id="getID" th:href="@{/admin/paper/paper/{id}(id=${paper.getId()})}"  th:text="${paper.getId()}"></a></td>
                 <td th:text="${paper.getName()}">...</td>
                 <td th:text="${paper.getPrice()}">...</td>
-                <td th:text="${paper.getQuantity()}">...</td>
+                <span th:if="${paper.getQuantity()==0}">
+                <td th:inline="text" style="color: red">[[${paper.getQuantity()}]]</td>
+                    </span>
+                <span th:if="${paper.getQuantity()!=0}">
+                <td th:inline="text" style="color: green">[[${paper.getQuantity()}]]</td>
+                    </span>
                 <td th:text="${paper.getDescription()}">...</td>
                 <td th:text="${paper.getUrl()}">...</td>
                 <td><a id="update" th:href="@{/admin/paper/update/{id}(id=${paper.getId()})}">

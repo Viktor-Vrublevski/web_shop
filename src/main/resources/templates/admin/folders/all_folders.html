@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
           media="all" th:href="@{../../css/admin.css}">
     <title>Список товаров</title>
@@ -30,7 +31,12 @@
                        th:text="${folder.getId()}"></a></td>
                 <td th:text="${folder.getName()}">...</td>
                 <td th:text="${folder.getPrice()}">...</td>
-                <td th:text="${folder.getQuantity()}">...</td>
+                <span th:if="${folder.getQuantity()==0}">
+                <td th:inline="text" style="color: red">[[${folder.getQuantity()}]]</td>
+                    </span>
+                <span th:if="${folder.getQuantity()!=0}">
+                <td th:inline="text" style="color: green">[[${folder.getQuantity()}]]</td>
+                    </span>
                 <td th:text="${folder.getDescription()}">...</td>
                 <td th:text="${folder.getUrl()}">...</td>
                 <td><a id="update" th:href="@{/admin/folders/update/{id}(id=${folder.getId()})}">

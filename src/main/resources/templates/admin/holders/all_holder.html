@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
           media="all" th:href="@{../../css/admin.css}">
     <title>Список товаров</title>
@@ -30,7 +31,12 @@
                        th:text="${hold.getId()}"></a></td>
                 <td th:text="${hold.getName()}">...</td>
                 <td th:text="${hold.getPrice()}">...</td>
-                <td th:text="${hold.getQuantity()}">...</td>
+                <span th:if="${hold.getQuantity()==0}">
+                <td th:inline="text" style="color: red">[[${hold.getQuantity()}]]</td>
+                    </span>
+                <span th:if="${hold.getQuantity()!=0}">
+                <td th:inline="text" style="color: green">[[${hold.getQuantity()}]]</td>
+                    </span>
                 <td th:text="${hold.getDescription()}">...</td>
                 <td th:text="${hold.getUrl()}">...</td>
                 <td><a id="update" th:href="@{/admin/holders/update/{id}(id=${hold.getId()})}">

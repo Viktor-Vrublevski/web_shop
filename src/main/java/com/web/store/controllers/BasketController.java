@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BasketController {
@@ -44,8 +46,15 @@ public class BasketController {
         User user = userService.getUser(username);
         model.addAttribute("user",user);
 
+
         List<Product> products = userService.getAllProduct(user);
         model.addAttribute("products", products);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        String time = sdf.format(date);
+        model.addAttribute("date", time);
+        userService.deleteByDate(date);
 
         int count = 0;
         model.addAttribute("incr", count);
@@ -83,6 +92,11 @@ public class BasketController {
         user1.setAddress_store(user.getAddress_store());
         userService.update(user1);
 
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        String time = sdf.format(date);
+        model.addAttribute("date", time);
+
         double allSum = 0;
         model.addAttribute("allSum", allSum);
 
@@ -96,7 +110,10 @@ public class BasketController {
         order.setStatus(false);
         orderService.save(order);
         OrderList.getOrderList().add(order);
-        UserOrderMap.getInstance().get(user1.getId()).setProducts(null);
+        Map<Date,User> map=UserOrderMap.getInstance().get(user1.getId());
+        for (Map.Entry<Date,User> entry : map.entrySet()){
+            entry.getValue().setProducts(null);
+        }
         return "user_pages/basket";
     }
 

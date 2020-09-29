@@ -2,35 +2,45 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
           media="all" th:href="@{../css/pages.css}">
     <title>Корзина покупателя</title>
     <style>
         .field {
-            clear:both;
-            text-align:right;
+            clear: both;
+            text-align: right;
         }
     </style>
 </head>
 <body>
 <header th:insert="block_user_page/header.html :: header"></header>
-<div style="margin-top: 20px">
-    <a style="font-size: 20px" href="/user-page">вернуться на главную</a>
+<div style="margin: 20px;min-height: 20px; width: 100%; display: flex; flex-wrap: wrap">
+    <div style="min-width: 15%; min-height: 10px; margin: 5px">
+        <a style="font-size: 20px" href="/user-page">  вернуться на главную</a>
+    </div>
+    <div style="width: 75%; min-height: 10px; margin: 5px; text-align: center">
+        <h2 style="color: indigo" th:inline="text">[[${date}]] | <span id="time"></span></h2>
+    </div>
 </div>
-
+<div style="width: 100%; min-height: 20px; text-align: center">
+    <span th:if="${products.size()>0}">
+    <b>Если в течении 30 мин. заявка не будет оформлена,<br/>
+    товар вернется обратно в свои блоки.</b>
+     </span>
+</div>
 <div style="width: 100% ;min-height: 300px">
     <div style="margin-top: 70px">
         <table>
             <caption th:inline="text" style="font-family: 'Calibra',sans-serif; font-size: 15px">
-                Заявка
+                <h2>Заявка</h2>
             </caption>
             <tr>
                 <th style="background-color: #d0fff7">№</th>
                 <th style="background-color: #d0fff7">Наимеование</th>
-                <th style="background-color: #d0fff7">Колличество</th>
-                <th style="background-color: #d0fff7">Цена</th>
-                <th style="background-color: #d0fff7">Стоимость</th>
+                <th style="background-color: #d0fff7">Кол-во<br/>шт.</th>
+                <th style="background-color: #d0fff7">Цена<br/>руб.</th>
+                <th style="background-color: #d0fff7">Стоимость<br/>руб.</th>
                 <th style="background-color: #d0fff7">Удалить</th>
             </tr>
             <tr th:each="product : ${products}">
@@ -49,71 +59,99 @@
             </tr>
             <tr>
                 <td></td>
-                <td align="right" style="font-family: cursive" th:inline="text">
-                    Итого: [[${#numbers.formatDecimal(allSum,1,2)}]] руб.
+                <td align="right" th:inline="text">
+                    <b style="font-family: 'Times New Roman',sans-serif">
+                        Итого: [[${#numbers.formatDecimal(allSum,1,2)}]] руб.
+                    </b>
                 </td>
             </tr>
-        </table><br/><br/>
+        </table>
+        <br/><br/>
 
         <dialog class="dialog">
             <form action="/user_pages/basket" method="post">
                 <div class="field"><label>Название организации:
-                    <input required id="org" type="text" minlength="5" placeholder="Название организации"  th:field="${user.organization}">
-                </label></div><br/>
+                    <input required id="org" type="text" minlength="5" placeholder="Название организации"
+                           th:field="${user.organization}">
+                </label></div>
+                <br/>
                 <div class="field"><label> УНН организации:
-                    <input required type="text" minlength="9" maxlength="9" placeholder="УНН" pattern="[0-9]{9}" th:field="${user.UNN}">
-                </label></div><br/>
+                    <input required type="text" minlength="9" maxlength="9" placeholder="УНН" pattern="[0-9]{9}"
+                           th:field="${user.UNN}">
+                </label></div>
+                <br/>
                 <div class="field"><label>Юридический адрес организации:
-                    <input required type="text" minlength="10" placeholder="Юридический адрес" th:field="${user.address}">
-                </label></div><br/>
+                    <input required type="text" minlength="10" placeholder="Юридический адрес"
+                           th:field="${user.address}">
+                </label></div>
+                <br/>
                 <div class="field"><label>Название банка организации:
                     <input required type="text" minlength="5" placeholder="Название банка" th:field="${user.nameBank}">
-                </label></div><br/>
+                </label></div>
+                <br/>
                 <div class="field"><label>Адрес банка:
-                    <input  type="text" minlength="10" placeholder="Адрес банка" th:field="${user.addressBank}">
-                </label></div><br/>
+                    <input type="text" minlength="10" placeholder="Адрес банка" th:field="${user.addressBank}">
+                </label></div>
+                <br/>
                 <div class="field"><label>Расчетный счет организации:
-                    <input required type="text" placeholder="____ ____ ____ ____ ____ ____ ____" minlength="34" maxlength="34"
+                    <input required type="text" placeholder="____ ____ ____ ____ ____ ____ ____" minlength="34"
+                           maxlength="34"
                            pattern="BY[0-9]{2}\s([A-Z]{4})(\s[0-9]{4})*" th:field="${user.IBAN}">
-                </label></div><br/>
+                </label></div>
+                <br/>
                 <div class="field"><label>BIC:
                     <input required type="text" minlength="8" maxlength="13"
                            pattern="^([A-Z]{4})BY([A-Z|0-9][A-Z|0-9]*)" placeholder="BIC" th:field="${user.BIC}">
-                </label></div><br/>
+                </label></div>
+                <br/>
                 <div class="field"><label>контактный телефон:
-                    <input required type="tel" minlength="13" maxlength="13" pattern="^\+(375)\d{9}" th:field="${user.tel}">
-                </label></div><br/>
+                    <input required type="tel" minlength="13" maxlength="13" pattern="^\+(375)\d{9}"
+                           th:field="${user.tel}">
+                </label></div>
+                <br/>
                 <div class="field"><label>Электронная почта:
                     <input type="email" placeholder="Электронная почта" th:field="${user.email}">
-                </label></div><br/>
+                </label></div>
+                <br/>
                 <div class="field"><label>Адрес доставки товара:
                     <input required type="text" placeholder="Адрес доставки товара" th:field="${user.address_store}">
-                </label></div><br/>
+                </label></div>
+                <br/>
 
                 <div style="display: flex; width: 100%; min-height: 20px">
                     <div style="width: 50%; padding: 5px; align-items: flex-start">
-                        <button type="submit" >Отправить</button>
+                        <button type="submit">Отправить</button>
                     </div>
-                    <div  style="width: 50%; padding: 5px; text-align: end">
-                       <a id="cancel" href="/user_pages/basket">Отмена</a>
+                    <div style="width: 50%; padding: 5px; text-align: end">
+                        <a id="cancel" href="/user_pages/basket">Отмена</a>
                     </div>
                 </div>
             </form>
         </dialog>
 
-        <button id="show" >Оформить заявку</button>
-        <script type = text/javascript th:if="${allSum!=0}">
-            const dialog = document.querySelector('dialog');
-            document.querySelector('#show').onclick = function() {
-                dialog.show();
-            };
-            document.querySelector('#close').onclick = function() {
-                dialog.close();
-            };
-        </script>
+        <button id="show">Оформить заявку</button>
     </div>
 </div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
+<script type=text/javascript th:if="${allSum!=0}">
+    const dialog = document.querySelector('dialog');
+    document.querySelector('#show').onclick = function () {
+        dialog.show();
+    };
+    document.querySelector('#close').onclick = function () {
+        dialog.close();
+    };
+</script>
 </body>
+<script>
 
+    window.onload = function(){
+        window.setInterval(
+            function(){
+                let d = new Date();
+                document.getElementById('time').innerHTML = d.toLocaleTimeString();
+            }
+            , 1000);
+    }
+</script>
 </html>

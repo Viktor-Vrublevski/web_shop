@@ -32,7 +32,7 @@ header{
 .block1{
     height: 80px;
     margin: 5px;
-    min-width: 29%;
+    min-width: 20%;
     text-align: center;
 }
 img{
@@ -40,14 +40,25 @@ img{
     height: 5em;
     margin-top: 5px;
 }
+/*--------------Описание блока с фото автора-------------------*/
+.block_photo_author{
+   height: 5em;
+    width: 5em;
+    margin-top: 9px;
+    margin-left: 30px;
+    border-radius: 50px;
+    background-image: url("../images/victor.jpg");
+    background-size: 100%;
+}
 /*Блок в шапке справа. Распоожены ссылки 'Войти' 'Регистрация'*/
 .block2{
     min-height: 80px;
     margin: 5px;
-    width: 69%;
+    width: 60%;
     display: flex;
     justify-content: flex-end;
 }
+
 /*Описание ссылок 'Войти'  'Регистрация'*/
 .nav{
     list-style-type: none;
@@ -61,6 +72,7 @@ img{
 }
 .nav li{
     display: inline;
+    text-align: center;
 }
 .nav li a{
     text-decoration: none;

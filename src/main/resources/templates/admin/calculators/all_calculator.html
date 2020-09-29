@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
           media="all" th:href="@{../../css/admin.css}">
     <title>Список товаров</title>
@@ -9,38 +10,44 @@
 <body>
 <header th:insert="block_admin_page/header_admin.html :: header"></header>
 <div style="width: 100%; min-height: 400px">
-<center>
-    <a href="/admin">Вернуться на главную страницу администратора</a>
-    <div><br/><br/><br/>
-        <a href="/admin/calculators/add">Добавить товар</a>
-        <table style="background-color: snow" border="1">
-            <caption> <h2>Список товаров</h2></caption>
-            <tr>
-                <th>ID</th>
-                <th>Название</th>
-                <th>Цена<p id="rub">руб.</p></th>
-                <th>Количество</th>
-                <th>Описание</th>
-                <th>Url изображения</th>
-                <th>Обновить</th>
-                <th>Удалить</th>
-            </tr>
-            <tr th:each="calculator : ${calculators}">
-                <td><a id="getID" th:href="@{/admin/calculators/calculator/{id}(id=${calculator.getId()})}"
-                       th:text="${calculator.getId()}"></a></td>
-                <td th:text="${calculator.getName()}">...</td>
-                <td th:text="${calculator.getPrice()}">...</td>
-                <td th:text="${calculator.getQuantity()}">...</td>
-                <td th:text="${calculator.getDescription()}">...</td>
-                <td th:text="${calculator.getUrl()}">...</td>
-                <td><a id="update" th:href="@{/admin/calculators/update/{id}(id=${calculator.getId()})}">
-                    обновить</a></td>
-                <td><a th:href="@{/admin/calculators/delete/{id}(id=${calculator.getId()})}" class="delete">
-                    Удалить</a></td>
-            </tr>
-        </table>
-    </div><br/>
-</center>
+    <center>
+        <a href="/admin">Вернуться на главную страницу администратора</a>
+        <div><br/><br/><br/>
+            <a href="/admin/calculators/add">Добавить товар</a>
+            <table style="background-color: snow" border="1">
+                <caption><h2>Список товаров</h2></caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Цена<p id="rub">руб.</p></th>
+                    <th>Количество</th>
+                    <th>Описание</th>
+                    <th>Url изображения</th>
+                    <th>Обновить</th>
+                    <th>Удалить</th>
+                </tr>
+                <tr th:each="calculator : ${calculators}">
+                    <td><a id="getID" th:href="@{/admin/calculators/calculator/{id}(id=${calculator.getId()})}"
+                           th:text="${calculator.getId()}"></a></td>
+                    <td th:text="${calculator.getName()}">...</td>
+                    <td th:text="${calculator.getPrice()}">...</td>
+                    <span th:if="${calculator.getQuantity()==0}">
+                <td th:inline="text" style="color: red">[[${calculator.getQuantity()}]]</td>
+                    </span>
+                    <span th:if="${calculator.getQuantity()!=0}">
+                <td th:inline="text" style="color: green">[[${calculator.getQuantity()}]]</td>
+                    </span>
+                    <td th:text="${calculator.getDescription()}">...</td>
+                    <td th:text="${calculator.getUrl()}">...</td>
+                    <td><a id="update" th:href="@{/admin/calculators/update/{id}(id=${calculator.getId()})}">
+                        обновить</a></td>
+                    <td><a th:href="@{/admin/calculators/delete/{id}(id=${calculator.getId()})}" class="delete">
+                        Удалить</a></td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+    </center>
 </div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
 </body>

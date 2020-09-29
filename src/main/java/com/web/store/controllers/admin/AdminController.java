@@ -50,10 +50,12 @@ public class AdminController {
         model.addAttribute("name", username);
 
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy | HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
         String time = sdf.format(date);
         model.addAttribute("dateFormat", sdf);
         model.addAttribute("date", time);
+
+        userService.deleteByDate(date);
 
         List<Order> orders = orderService.getNoPayedOrders();
         model.addAttribute("list", orders);
@@ -100,7 +102,7 @@ public class AdminController {
             }
         }
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy | HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
         String time = sdf.format(date);
         model.addAttribute("dateFormat", sdf);
         model.addAttribute("date", time);

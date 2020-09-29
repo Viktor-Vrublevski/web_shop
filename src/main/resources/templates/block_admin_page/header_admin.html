@@ -2,12 +2,12 @@
 <div class="block1">
     <img th:src="@{/images/logo.png}" alt="логотип"/>
 </div>
-<div class="my_block">
     <div class="in-my_block1" th:inline="text">Привет [[${name}]] !</div>
     <div class="in-my_block2">
-        <a href="/">Выйти</a>
-        <a href="/orders">Заявки</a>
-        <a href="/admin">Главная</a>
+        <ul class="nav">
+            <li><a href="/admin">Главная</a></li>
+            <li><a href="/orders">Заявки</a></li>
+            <li><a href="/">Выйти</a></li>
+        </ul>
     </div>
-</div>
 </html>

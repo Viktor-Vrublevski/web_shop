@@ -142,7 +142,7 @@ public class OrderService {
         long newTime = date.getTime();
         for (int i = 0; i < OrderList.getOrderList().size(); i++) {
             long time = newTime - OrderList.getOrderList().get(i).getDate().getTime();
-            long ten_minutes = 5 * 24 * 60 * 1000;
+            long ten_minutes = 3 * 24 * 60 * 60 * 1000;
             if (!OrderList.getOrderList().get(i).isStatus() && time < ten_minutes) {
                 orders.add(OrderList.getOrderList().get(i));
             } else if (!OrderList.getOrderList().get(i).isStatus() && time > ten_minutes) {

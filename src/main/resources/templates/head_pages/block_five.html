@@ -9,7 +9,6 @@
 </head>
 <body>
 <header th:insert="block_head_page/header.html :: header"></header>
-<center th:insert="block_head_page/text.html :: text"></center>
 
 <br/>
 <a class="back" href="/">Назад на Главную страницу</a>
@@ -24,11 +23,11 @@
             </tr>
             <tr>
                 <th>Цена:</th>
-                <td th:inline="text">[[${hole.getPrice()}]] руб.</td>
+                <td th:inline="text">[[${hole.getPrice()}]] <b>руб.</b></td>
             </tr>
             <tr>
                 <th>Количество:</th>
-                <td th:text="${hole.quantity}"></td>
+                <td th:inline="text">[[${hole.quantity}]] <b>шт.</b></td>
             </tr>
             <tr>
                 <th>Описание:</th>

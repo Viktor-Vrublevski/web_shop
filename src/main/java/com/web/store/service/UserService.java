@@ -13,10 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -99,7 +96,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findUserByLogin(username);
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -126,7 +123,7 @@ public class UserService implements UserDetailsService {
                 "number_tel=?, availability=?  WHERE id=?";
         jdbcTemplate.update(SQL, user.getBIC(), user.getIBAN(), user.getUNN(), user.getAddress(),
                 user.getAddressBank(), user.getNameBank(), user.getOrganization(), user.getEmail(),
-                user.getAddress_store(), user.getTel(),user.isAvailability(), user.getId());
+                user.getAddress_store(), user.getTel(), user.isAvailability(), user.getId());
     }
 
     public User getUser(String username) {
@@ -142,60 +139,94 @@ public class UserService implements UserDetailsService {
 
     public void addProduct(User user, Product product) {
         if (product.getQuantity() > 0) {
-            Map<Integer, User> map = UserOrderMap.getInstance();
-            if (map.containsKey(user.getId())) {
-                user = map.get(user.getId());
-                List<Product> products = user.getProducts();
-                int count = 0;
-                for (Product value : products) {
-                    if (value.getName().equals(product.getName())) {
-                        int sum = value.getQuantity() + product.getQuantity();
-                        value.setQuantity(sum);
-                        count++;
-                        break;
+            Map<Integer, Map<Date, User>> maps = UserOrderMap.getInstance();
+            if (maps.containsKey(user.getId())) {
+                Map<Date, User> map = maps.get(user.getId());
+                for (Map.Entry<Date, User> entry : map.entrySet()) {
+                    List<Product> products = entry.getValue().getProducts();
+                    int count = 0;
+                    for (Product value : products) {
+                        if (value.getName().equals(product.getName())) {
+                            int sum = value.getQuantity() + product.getQuantity();
+                            value.setQuantity(sum);
+                            user.setProducts(products);
+                            map.put(entry.getKey(), user);
+                            maps.put(user.getId(), map);
+                            count++;
+                            break;
+                        }
+                    }
+                    if (count == 0) {
+                        products.add(product);
+                        user.setProducts(products);
+                        map.put(entry.getKey(), user);
+                        maps.put(user.getId(), map);
                     }
                 }
-                if (count == 0) products.add(product);
-
             } else user.getProducts().add(product);
-                map.put(user.getId(), user);
+            Map<Date, User> map = new HashMap<>();
+            map.put(new Date(), user);
+            maps.put(user.getId(), map);
         }
     }
 
     public List<Product> getAllProduct(User user) {
-        Map<Integer, User> map = UserOrderMap.getInstance();
-        if (map.containsKey(user.getId())) {
-            user = map.get(user.getId());
-            return user.getProducts();
+        Map<Integer, Map<Date, User>> maps = UserOrderMap.getInstance();
+        if (maps.containsKey(user.getId())) {
+            Map<Date, User> map = maps.get(user.getId());
+            for (Map.Entry<Date, User> entry : map.entrySet()) {
+                user = entry.getValue();
+                return user.getProducts();
+            }
         }
         return user.getProducts();
 
     }
 
     public void deleteProduct(User user, String productName) {
-        Map<Integer, User> map = UserOrderMap.getInstance();
-        user = map.get(user.getId());
-        List<Product> products = user.getProducts();
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getName().equals(productName)) {
-                returnQuantityProduct(productName, user);
-                products.remove(i);
-                user.setProducts(products);
-                map.put(user.getId(), user);
-                break;
+        Map<Integer, Map<Date, User>> maps = UserOrderMap.getInstance();
+        Map<Date, User> map = maps.get(user.getId());
+        for (Map.Entry<Date, User> entry : map.entrySet()) {
+            user = entry.getValue();
+            List<Product> products = user.getProducts();
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).getName().equals(productName)) {
+                    returnQuantityProduct(productName, user);
+                    products.remove(i);
+                    user.setProducts(products);
+                    map.put(entry.getKey(), user);
+                    maps.put(user.getId(), map);
+                    break;
+                }
             }
         }
     }
 
     public double allSum(User user) {
         double sum = 0;
-        Map<Integer, User> map = UserOrderMap.getInstance();
-        if (map.containsKey(user.getId())) {
-            user = map.get(user.getId());
-            sum = UserOrderMap.allSum(user);
-            return sum;
+        Map<Integer, Map<Date, User>> maps = UserOrderMap.getInstance();
+        if (maps.containsKey(user.getId())) {
+            Map<Date, User> map = maps.get(user.getId());
+            for (Map.Entry<Date, User> entry : map.entrySet()) {
+                user = entry.getValue();
+                sum = UserOrderMap.allSum(user);
+                return sum;
+            }
         }
         return sum;
+    }
+
+    public void deleteByDate(Date date) {
+        long limiteTime = 30 * 60 * 1000;
+        Map<Integer, Map<Date, User>> maps = UserOrderMap.getInstance();
+        for (Map.Entry<Integer, Map<Date, User>> entry1 : maps.entrySet()) {
+            for (Map.Entry<Date, User> entry2 : entry1.getValue().entrySet()) {
+                if ((date.getTime() - entry2.getKey().getTime()) > limiteTime) {
+                    returnProductFromBasket(entry2.getValue().getProducts());
+                    entry2.getValue().setProducts(null);
+                }
+            }
+        }
     }
     //----------------------Вспомогательые методы-------------------------
 
@@ -209,69 +240,142 @@ public class UserService implements UserDetailsService {
         List<Trays> trays = traysService.getAllProducts();
         List<HouseHold> holds = holdersService.getAllProducts();
 
-        Map<Integer, User> map = UserOrderMap.getInstance();
-        List<Product> list = map.get(user.getId()).getProducts();
-        int quantity = 0;
-        for (Product pr : list) {
-            if (pr.getName().equals(productName)) {
-                quantity = pr.getQuantity();
-                break;
+        Map<Integer, Map<Date, User>> maps = UserOrderMap.getInstance();
+        Map<Date, User> map = maps.get(user.getId());
+        for (Map.Entry<Date, User> entry : map.entrySet()) {
+            List<Product> list = entry.getValue().getProducts();
+            int quantity = 0;
+            for (Product pr : list) {
+                if (pr.getName().equals(productName)) {
+                    quantity = pr.getQuantity();
+                    break;
+                }
+            }
+            for (Paper paper : papers) {
+                if (paper.getName().equals(productName)) {
+                    paper.setQuantity(paper.getQuantity() + quantity);
+                    paperService.update(paper);
+                    break;
+                }
+            }
+            for (HolePuncher puncher : holes) {
+                if (puncher.getName().equals(productName)) {
+                    puncher.setQuantity(puncher.getQuantity() + quantity);
+                    holeService.update(puncher);
+                    break;
+                }
+            }
+            for (Pen pen : pens) {
+                if (pen.getName().equals(productName)) {
+                    pen.setQuantity(pen.getQuantity() + quantity);
+                    penService.update(pen);
+                    break;
+                }
+            }
+            for (Calculator calc : calculators) {
+                if (calc.getName().equals(productName)) {
+                    calc.setQuantity(calc.getQuantity() + quantity);
+                    calculatorService.update(calc);
+                    break;
+                }
+            }
+            for (Folders fold : folders) {
+                if (fold.getName().equals(productName)) {
+                    fold.setQuantity(fold.getQuantity() + quantity);
+                    foldersService.update(fold);
+                    break;
+                }
+            }
+            for (Stapler stap : staplers) {
+                if (stap.getName().equals(productName)) {
+                    stap.setQuantity(stap.getQuantity() + quantity);
+                    staplerService.update(stap);
+                    break;
+                }
+            }
+            for (Trays tr : trays) {
+                if (tr.getName().equals(productName)) {
+                    tr.setQuantity(tr.getQuantity() + quantity);
+                    traysService.update(tr);
+                    break;
+                }
+            }
+            for (HouseHold hold : holds) {
+                if (hold.getName().equals(productName)) {
+                    hold.setQuantity(hold.getQuantity() + quantity);
+                    holdersService.update(hold);
+                    break;
+                }
             }
         }
-        for (Paper paper : papers) {
-            if (paper.getName().equals(productName)) {
-                paper.setQuantity(paper.getQuantity() + quantity);
-                paperService.update(paper);
-                break;
+    }
+
+    private void returnProductFromBasket(List<Product> products) {
+        List<Paper> papers = paperService.getAllProducts();
+        List<HolePuncher> holes = holeService.getAllProducts();
+        List<Pen> pens = penService.getAllProducts();
+        List<Calculator> calculators = calculatorService.getAllProducts();
+        List<Folders> folders = foldersService.getAllProducts();
+        List<Stapler> staplers = staplerService.getAllProducts();
+        List<Trays> trays = traysService.getAllProducts();
+        List<HouseHold> holds = holdersService.getAllProducts();
+
+        for (Product pr : products) {
+            for (Paper paper : papers) {
+                if (paper.getName().equals(pr.getName())) {
+                    paper.setQuantity(paper.getQuantity() + pr.getQuantity());
+                    paperService.update(paper);
+                    break;
+                }
             }
-        }
-        for (HolePuncher puncher : holes) {
-            if (puncher.getName().equals(productName)) {
-                puncher.setQuantity(puncher.getQuantity() + quantity);
-                holeService.update(puncher);
-                break;
+            for (HolePuncher puncher : holes) {
+                if (puncher.getName().equals(pr.getName())) {
+                    puncher.setQuantity(puncher.getQuantity() + pr.getQuantity());
+                    holeService.update(puncher);
+                    break;
+                }
             }
-        }
-        for (Pen pen : pens) {
-            if (pen.getName().equals(productName)) {
-                pen.setQuantity(pen.getQuantity() + quantity);
-                penService.update(pen);
-                break;
+            for (Pen pen : pens) {
+                if (pen.getName().equals(pr.getName())) {
+                    pen.setQuantity(pen.getQuantity() + pr.getQuantity());
+                    penService.update(pen);
+                    break;
+                }
             }
-        }
-        for (Calculator calc : calculators) {
-            if (calc.getName().equals(productName)) {
-                calc.setQuantity(calc.getQuantity() + quantity);
-                calculatorService.update(calc);
-                break;
+            for (Calculator calc : calculators) {
+                if (calc.getName().equals(pr.getName())) {
+                    calc.setQuantity(calc.getQuantity() + pr.getQuantity());
+                    calculatorService.update(calc);
+                    break;
+                }
             }
-        }
-        for (Folders fold : folders) {
-            if (fold.getName().equals(productName)) {
-                fold.setQuantity(fold.getQuantity() + quantity);
-                foldersService.update(fold);
-                break;
+            for (Folders fold : folders) {
+                if (fold.getName().equals(pr.getName())) {
+                    fold.setQuantity(fold.getQuantity() + pr.getQuantity());
+                    foldersService.update(fold);
+                    break;
+                }
             }
-        }
-        for (Stapler stap : staplers) {
-            if (stap.getName().equals(productName)) {
-                stap.setQuantity(stap.getQuantity() + quantity);
-                staplerService.update(stap);
-                break;
+            for (Stapler stap : staplers) {
+                if (stap.getName().equals(pr.getName())) {
+                    stap.setQuantity(stap.getQuantity() + pr.getQuantity());
+                    staplerService.update(stap);
+                    break;
+                }
             }
-        }
-        for (Trays tr : trays) {
-            if (tr.getName().equals(productName)) {
-                tr.setQuantity(tr.getQuantity() + quantity);
-                traysService.update(tr);
-                break;
+            for (Trays tr : trays) {
+                if (tr.getName().equals(pr.getName())) {
+                    tr.setQuantity(tr.getQuantity() + pr.getQuantity());
+                    traysService.update(tr);
+                    break;
+                }
             }
-        }
-        for (HouseHold hold : holds) {
-            if (hold.getName().equals(productName)) {
-                hold.setQuantity(hold.getQuantity() + quantity);
-                holdersService.update(hold);
-                break;
+            for (HouseHold hold : holds) {
+                if (hold.getName().equals(pr.getName())) {
+                    hold.setQuantity(hold.getQuantity() + pr.getQuantity());
+                    holdersService.update(hold);
+                    break;
+                }
             }
         }
     }
