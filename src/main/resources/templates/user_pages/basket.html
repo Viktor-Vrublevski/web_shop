@@ -29,7 +29,10 @@
     товар вернется обратно в свои блоки.</b>
      </span>
 </div>
-<div style="width: 100% ;min-height: 300px">
+<div style="width: 100% ;min-height: 300px; text-align: center" th:if="${products.size()==0}">
+    <h1>Ваша корзина пуста</h1>
+</div>
+<div style="width: 100% ;min-height: 300px" th:if="${products.size()>0}">
     <div style="margin-top: 70px">
         <table>
             <caption th:inline="text" style="font-family: 'Calibra',sans-serif; font-size: 15px">

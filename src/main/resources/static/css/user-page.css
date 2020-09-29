@@ -15,14 +15,14 @@ header{
 }
 /*Блок в шапке слева. Распологается рис.*/
 .block1{
-    height: 80px;
+    min-height: 80px;
     min-width: 25%;
     margin: 5px;
     text-align: center;
 }
 img{
-    width: 200px;
-    height: 70px;
+    width: 10em;
+    height: 8em;
     margin-top: 5px;
 }
 /*---------------------------------------*/

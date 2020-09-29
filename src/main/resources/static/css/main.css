@@ -30,14 +30,14 @@ header{
 }
 /*Блок в шапке слеваю. Распологается рис.*/
 .block1{
-    height: 80px;
+    min-height: 80px;
     margin: 5px;
     min-width: 20%;
     text-align: center;
 }
 img{
-    width: 13em;
-    height: 5em;
+    width: 10em;
+    height: 8em;
     margin-top: 5px;
 }
 /*--------------Описание блока с фото автора-------------------*/
