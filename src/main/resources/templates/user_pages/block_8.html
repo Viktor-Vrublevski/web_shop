@@ -38,7 +38,7 @@
               onsubmit="execute(this)">
             <input type="hidden" name="name" th:value="${hold.getName()}">
             <label>Выберите нужное кол-во
-                <input type="number" name="quantity" min="0"  th:max="${hold.quantity}" size="6"
+                <input required type="number" name="quantity" min="0"  th:max="${hold.quantity}" size="6"
                        th:value="${household2.quantity}" th:field="${household2.quantity}">
                 <input type="hidden" name="id" th:value="${hold.getId()}">
             </label><br/>

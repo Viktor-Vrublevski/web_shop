@@ -109,6 +109,7 @@ public class UserPageController {
 
         int id = paper.getId();
         Paper paperDB = paperService.findById(id);
+
         if ((paperDB.getQuantity() - paper.getQuantity() >= 0)) {
             //В БД уменьшаем  общее кол-во товара на выбранное кол-во клиентом
             paperDB.setQuantity(paperDB.getQuantity() - paper.getQuantity());
@@ -122,6 +123,7 @@ public class UserPageController {
             User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
             userService.addProduct(user, copy);
         }
+
         paper.setQuantity(0);
         return "user_pages/block_1";
     }
@@ -289,7 +291,8 @@ public class UserPageController {
     //----------------------------------------------
     @GetMapping("/user_pages/block_6")
     public String getSixBlock(Model model) {
-        String username = getNameOfUser();;
+        String username = getNameOfUser();
+        ;
         model.addAttribute("name", username);
 
         TreeSet<Folders> folders = new TreeSet<>(foldersService.getAllProducts());
@@ -406,10 +409,10 @@ public class UserPageController {
         return "user_pages/block_8";
     }
 
-    private String getNameOfUser(){
+    private String getNameOfUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (username.length()>11){
-            username = username.substring(0,10)+"...";
+        if (username.length() > 11) {
+            username = username.substring(0, 10) + "...";
         }
         return username;
     }

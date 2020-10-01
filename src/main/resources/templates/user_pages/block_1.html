@@ -38,8 +38,8 @@
               onsubmit="execute(this)">
             <label>Выберите нужное кол-во
                 <input type="hidden" name="name" th:value="${paper.getName()}">
-                <input type="number" name="quantity" min="0"  th:max="${paper.quantity}" size="6"
-                       th:value="${paper2.quantity}" th:field="${paper2.quantity}">
+                <input required type="number" name="quantity"  min="0"  th:max="${paper.quantity}" size="6"
+                       th:value="${paper2.quantity}"  th:field="${paper2.quantity}">
                 <input type="hidden" name="id" th:value="${paper.getId()}">
             </label><br/>
             <input type="submit" style="background-color: greenyellow" value="В корзину">
@@ -56,6 +56,7 @@
     function execute(form) {
         let name = form.name.value;
         let quantity = form.quantity.value;
+        document.write(document.getElementById('q').value);
         if (quantity > 0){
             alert(name+" "+"в кол-ве "+quantity+" шт. в корзине");
         }

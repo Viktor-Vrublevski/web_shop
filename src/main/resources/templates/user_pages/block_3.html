@@ -37,7 +37,7 @@
               onsubmit="execute(this)">
             <input type="hidden" name="name" th:value="${stapler.getName()}">
             <label>Выберите нужное кол-во
-                <input type="number" name="quantity" min="0"  th:max="${stapler.quantity}" size="6"
+                <input required type="number" name="quantity" min="0"  th:max="${stapler.quantity}" size="6"
                        th:value="${stapler2.quantity}" th:field="${stapler2.quantity}">
                 <input type="hidden" name="id" th:value="${stapler.getId()}">
             </label><br/>
