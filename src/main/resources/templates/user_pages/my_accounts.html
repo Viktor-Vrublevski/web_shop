@@ -105,17 +105,17 @@
                  font-family: 'Book Antigua',sans-serif">Счёт не оплачен</p>
                             <p style="font-size: 15px; font-family: 'Times New Roman',sans-serif; color: black;
                    line-height: 1px">
-                                <b>Ждём оплату. Счёт действителен в течении трёх дней.</b></p>
+                                <b><nobr>Ждём оплату. Счёт действителен в течении трёх дней.</nobr></b></p>
                         </div>
                     </div>
 
                     <div style="display: flex; width: 100%; min-height: 40px" th:if="${order.isStatus()==true}">
-                        <div style="width: 50%; text-align: center">
+                        <div style="width: 50%;margin-left: 10px; text-align: center">
                             <p style="color: green; font-size: 25px;
                  font-family: 'Book Antigua',sans-serif">Счёт оплачен</p>
                             <p style="font-size: 15px; font-family: 'Times New Roman',sans-serif; color: black;
-                   line-height: 1px"><b>Товар будет доставлен в течении трёх дней.</b></p>
-                            <p> тел. для связи с нами: +375 44 500 00 00 </p>
+                   line-height: 1px"><b><nobr>Товар будет доставлен в течении трёх дней.</nobr></b></p>
+                            <p><nobr>тел. для связи с нами: +375 44 500 00 00 </nobr> </p>
                         </div>
                         <div style="width: 50%; text-align: center">
                             <form action="/user_pages/orders" method="post">
