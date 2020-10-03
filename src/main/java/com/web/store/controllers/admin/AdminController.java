@@ -50,7 +50,7 @@ public class AdminController {
         model.addAttribute("name", username);
 
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy | HH:mm");
         String time = sdf.format(date);
         model.addAttribute("dateFormat", sdf);
         model.addAttribute("date", time);

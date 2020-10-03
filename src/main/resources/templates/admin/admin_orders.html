@@ -15,11 +15,11 @@
         <div style="width: 100%; min-height: 40px">
             <table>
                 <tr>
-                    <th>Общее кол-во просмотров сайта: </th>
+                    <th>Общее кол-во просмотров сайта:</th>
                     <td th:text="${countView}" style="color: darkviolet"></td>
                 </tr>
                 <tr>
-                    <th>Общее число зарегистрированных пользователей: </th>
+                    <th>Общее число зарегистрированных пользователей:</th>
                     <td th:text="${countUser}" style="color: green"></td>
                 </tr>
             </table>
@@ -30,7 +30,7 @@
                 <table th:each="order:${paidOrders}">
                     <tr>
                         <th style="vertical-align: top" th:text="${paidOrders.indexOf(order)+1}"></th>
-                        <th ></th>
+                        <th></th>
                         <td th:inline="text" style="color: dimgray">
                             Счёт-фактура № [[${order.getId()}]] от [[${form.format(order.getDate())}]] г.<br/>
                             Общая сумма: [[${df.format(order.getAllCost())}]] руб.
@@ -55,14 +55,14 @@
             <div class="print">
                 <div th:each="order : ${list}" th:if="${order.isStatus()==false}">
                     <div style="height: 1030px">
-                        <div class="number-order" style=" min-width: 60%;margin: 100px;text-align: center;
+                        <div class="number-order" style=" min-width: 450px;margin: 100px;text-align: center;
                 font-size: 18px"><b>
                             Счёт-фактура № [[${order.getId()}]] от [[${form.format(order.getDate())}]] г.
                         </b>
                         </div>
 
-                        <div style="display: inline-flex; width: 100%">
-                            <div style="width: 20%;height: 40px; text-align: center; font-family: Calibri cursive">
+                        <div style="display: inline-flex; min-width: 450px">
+                            <div style="width: 20%;min-height: 40px; text-align: center; font-family: Calibri cursive">
                                 <b>Логин: </b>
                             </div>
                             <div style="width: 80%; min-height: 40px">
@@ -71,7 +71,7 @@
                         </div>
 
                         <div style="display: inline-flex; width: 100%">
-                            <div style="width: 20%;height: 40px; text-align: center; font-family: Calibri cursive">
+                            <div style="width: 20%;min-height: 40px; text-align: center; font-family: Calibri cursive">
                                 <b>Время создания заявки: </b>
                             </div>
                             <div style="width: 80%; min-height: 40px">
@@ -80,8 +80,9 @@
                         </div>
 
                         <div style="display: inline-flex; width: 100%">
-                            <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
-                                <b>Покупатель: </b></div>
+                            <div style="width: 20%;min-height: 50px; text-align: center; font-family: Calibri cursive">
+                                <b>Покупатель: </b>
+                            </div>
                             <div style="width: 80%; min-height: 60px" th:inline="text">
                                 <b>[[${order.getUser().getOrganization()}]]</b>,
                                 [[${order.getUser().getAddress()}]]
@@ -92,7 +93,7 @@
                         </div>
 
                         <div style="display: inline-flex; width: 100%">
-                            <div style="width: 20%;height: 50px; text-align: center; font-family: Calibri cursive">
+                            <div style="width: 20%;min-height: 50px; text-align: center; font-family: Calibri cursive">
                                 <b>Адрес доставки: </b>
                             </div>
                             <div style="width: 80%; min-height: 60px">
@@ -138,16 +139,16 @@
                             <form action="/orders" method="post">
                                 <input type="hidden" name="order_id" th:value="${order.getId()}">
                                 <input type="hidden" id="flag" name="flag" th:value="${flag}">
-                                <button  type="submit" style="margin: 20px" onclick="choice()">Оплачено</button>
+                                <button type="submit" style="margin: 20px" onclick="choice()">Оплачено</button>
                             </form>
                         </div>
                     </div>
                 </div>
                 <br/>
                 <br/>
-            </div>
-            <div th:if="${list.size()>0}">
-                <input style="margin: 20px" type="button" value="Печать" onclick="printElement('.print')"/>
+                <div th:if="${list.size()>0}">
+                    <input style="margin: 20px" type="button" value="Печать" onclick="printElement('.print')"/>
+                </div>
             </div>
         </div>
     </div>
@@ -176,15 +177,16 @@
         myWindow.close();
         return true;
     }
-    function choice(){
-     if (window.confirm("Вы уверены что счёт оплачен?")) {
-        document.getElementById('flag').value = true;
-     }
+
+    function choice() {
+        if (window.confirm("Вы уверены что счёт оплачен?")) {
+            document.getElementById('flag').value = true;
+        }
     }
 
-    window.onload = function(){
+    window.onload = function () {
         window.setInterval(
-            function(){
+            function () {
                 let d = new Date();
                 document.getElementById("time").innerHTML = d.toLocaleTimeString();
             }

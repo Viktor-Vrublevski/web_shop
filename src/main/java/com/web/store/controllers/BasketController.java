@@ -40,12 +40,14 @@ public class BasketController {
 
     @GetMapping("/user_pages/basket")
     public String getBasket(Model model) {
-       String name = getNameOfUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        String name = getNameOfUser(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("name", name);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUser(username);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
+        String text = "";
+        model.addAttribute("str",text);
 
         List<Product> products = userService.getAllProduct(user);
         model.addAttribute("products", products);
@@ -80,6 +82,8 @@ public class BasketController {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User user1 = userService.getUser(name);
 
+        String text = "перейдите в раздел «Мои счёт-фактуры»";
+        model.addAttribute("str",text);
         user1.setOrganization(user.getOrganization());
         user1.setAddress(user.getAddress());
         user1.setUNN(user.getUNN());
@@ -110,17 +114,19 @@ public class BasketController {
         order.setStatus(false);
         orderService.save(order);
         OrderList.getOrderList().add(order);
-        Map<Date,User> map=UserOrderMap.getInstance().get(user1.getId());
-        for (Map.Entry<Date,User> entry : map.entrySet()){
+        Map<Date, User> map = UserOrderMap.getInstance().get(user1.getId());
+        for (Map.Entry<Date, User> entry : map.entrySet()) {
             entry.getValue().setProducts(null);
         }
+        products = userService.getAllProduct(user1);
+        model.addAttribute("products", products);
         return "user_pages/basket";
     }
 
-//--------------------------------------------------
-    private String getNameOfUser(String username){
-        if (username.length()>11){
-            username = username.substring(0,10)+"...";
+    //--------------------------------------------------
+    private String getNameOfUser(String username) {
+        if (username.length() > 11) {
+            username = username.substring(0, 10) + "...";
         }
         return username;
     }

@@ -123,12 +123,18 @@ footer div{
 }
 /*--------------Описание диалогового окна-----------------*/
 .dialog{
-    position: fixed;
+    position: center;
+    min-width: 200px;
     left: 0;
     top: 40px;
     border: 1px rebeccapurple solid;
     border-radius: 2% ;
     background-color: #d5d2ff;
+}
+.field {
+    clear: both;
+    text-align: right;
+    min-width: 200px;
 }
 /*---------Описание левого и правого блоков my_accounts------------*/
 .order-head_block{
@@ -160,5 +166,9 @@ footer div{
 #cancel:hover{
     color: darkblue;
 }
-/**/
+/*------------------описание блока print---------------------*/
+.print{
+    border: 1px slategray solid;
+    min-width: 500px;
+}
 
