@@ -1,16 +1,19 @@
 package com.web.store.controllers.admin;
 
+import com.web.store.dto.DtoObjectProduct;
+import com.web.store.entity.User;
 import com.web.store.entity.goods.Paper;
 import com.web.store.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class PaperController {
 
 
@@ -35,13 +38,12 @@ public class PaperController {
         return "redirect:/admin/paper/all_product";
     }
 
-    @GetMapping("/admin/paper/all_product" )
-    public String getProductList(Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("name",name);
+    @GetMapping(value = "/admin/paper/all_product" )
+    @ResponseBody
+    public ResponseEntity<DtoObjectProduct> getProductList(){
         List<Paper> paperList = paperService.getAllProducts();
-        model.addAttribute("papers", paperList);
-        return "admin/paper/all_product";
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ResponseEntity<>(new DtoObjectProduct(paperList, user), HttpStatus.OK);
     }
 
     @GetMapping("/admin/paper/update/{id}")

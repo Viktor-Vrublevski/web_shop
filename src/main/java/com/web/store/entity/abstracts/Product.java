@@ -1,4 +1,4 @@
-package com.web.store.entity.goods;
+package com.web.store.entity.abstracts;
 
 public interface Product {
     String getName();

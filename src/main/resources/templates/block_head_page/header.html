@@ -1,12 +1,15 @@
 <html lang="en" th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
-<div class="block1">
-    <img th:src="@{/images/logo.png}" alt="логотип"/>
-</div>
-<div class="block2">
-    <ul class="nav">
-        <li><a href="/admin">Администратор</a></li>
-        <li><a href="/login">Войти</a></li>
-        <li><a href="/registration">Регистрация</a></li>
+<div style="background-color: #912de9" class="pr-4">
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link text-light font-weight-bold" href="/admin">Администратор</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light font-weight-bold" href="/login">Войти</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light font-weight-bold" href="/registration">Регистрация</a>
+        </li>
     </ul>
 </div>
 </html>

@@ -1,6 +1,7 @@
 package com.web.store.controllers;
 
 import com.web.store.entity.User;
+import com.web.store.entity.abstracts.Product;
 import com.web.store.entity.goods.*;
 import com.web.store.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 @Controller
 public class UserPageController {
 
+    private ProductService productService;
     private UserService userService;
     private PenService penService;
     private HoleService holeService;
@@ -30,6 +32,11 @@ public class UserPageController {
     private StaplerService staplerService;
     private TraysService traysService;
     private HouseHoldersService holdersService;
+
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Autowired
     public void setHoldersService(HouseHoldersService holdersService) {
@@ -113,7 +120,7 @@ public class UserPageController {
             copy.setQuantity(paper.getQuantity());
 
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         paper.setQuantity(0);
         return "user_pages/block_1";
@@ -152,7 +159,7 @@ public class UserPageController {
             copy.setName(penDB.getName());
             copy.setPrice(penDB.getPrice());
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         pen.setQuantity(0);
         return "user_pages/block_2";
@@ -192,7 +199,7 @@ public class UserPageController {
             copy.setName(staplerDB.getName());
             copy.setPrice(staplerDB.getPrice());
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         stapler.setQuantity(0);
         return "user_pages/block_3";
@@ -232,7 +239,7 @@ public class UserPageController {
             copy.setName(trayDB.getName());
             copy.setPrice(trayDB.getPrice());
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         tray.setQuantity(0);
         return "user_pages/block_4";
@@ -272,7 +279,7 @@ public class UserPageController {
             copy.setName(puncherDB.getName());
             copy.setPrice(puncherDB.getPrice());
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         puncher.setQuantity(0);
         return "user_pages/block_5";
@@ -312,7 +319,7 @@ public class UserPageController {
             copy.setName(folderDB.getName());
             copy.setPrice(folderDB.getPrice());
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         folder.setQuantity(0);
         return "user_pages/block_6";
@@ -352,7 +359,7 @@ public class UserPageController {
             copy.setName(calculatorDB.getName());
             copy.setPrice(calculatorDB.getPrice());
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         calculator.setQuantity(0);
         return "user_pages/block_7";
@@ -392,7 +399,7 @@ public class UserPageController {
             copy.setName(holdDB.getName());
             copy.setPrice(holdDB.getPrice());
             User user = userService.getUser(username);
-            userService.addProduct(user, copy);
+            productService.addProduct(user, copy);
         }
         houseHold.setQuantity(0);
         return "user_pages/block_8";
@@ -405,12 +412,12 @@ public class UserPageController {
         model.addAttribute("name", username);
         User user = userService.getUser(username);
 
-        List<Product> products = userService.getAllProduct(user);
+        List<Product> products = productService.getAllProduct(user);
         model.addAttribute("products", products);
 
         int count = 0;
         model.addAttribute("incr", count);
-        double sum = userService.allSum(user);
+        double sum = productService.allSum(user);
         DecimalFormat df = new DecimalFormat("#.##");
         df.format(sum);
         model.addAttribute("allSum", sum);
@@ -426,7 +433,7 @@ public class UserPageController {
     public String delete(@PathVariable("productName") String name) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUser(username);
-        userService.deleteProduct(user, name);
+        productService.deleteProduct(user, name);
         return "redirect:/user_pages/basket";
     }
 

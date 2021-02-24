@@ -2,43 +2,194 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../../static/css/admin.css"
-          media="all" th:href="@{../../css/admin.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Список товаров</title>
-
 </head>
 <body>
 <header th:insert="block_admin_page/header_admin.html :: header"></header>
-<center>
-    <a href="/admin">Вернуться на главную страницу администратора</a>
-    <div><br/><br/><br/>
-        <a href="/admin/paper/add">Добавить товар</a>
-        <table style="background-color: snow" border="1">
-            <caption> <h2>Список товаров</h2></caption>
-            <tr>
-                <th>ID</th>
-                <th>Название</th>
-                <th>Цена<p id="rub">руб.</p></th>
-                <th>Количество</th>
-                <th>Описание</th>
-                <th>Url изображения</th>
-                <th>Обновить</th>
-                <th>Удалить</th>
-            </tr>
-            <tr th:each="paper : ${papers}">
-                <td><a id="getID" th:href="@{/admin/paper/paper/{id}(id=${paper.getId()})}"  th:text="${paper.getId()}"></a></td>
-                <td th:text="${paper.getName()}">...</td>
-                <td th:text="${paper.getPrice()}">...</td>
-                <td th:text="${paper.getQuantity()}">...</td>
-                <td th:text="${paper.getDescription()}">...</td>
-                <td th:text="${paper.getUrl()}">...</td>
-                <td><a id="update" th:href="@{/admin/paper/update/{id}(id=${paper.getId()})}">
-                    обновить</a></td>
-                <td><a th:href="@{/admin/paper/delete/{id}(id=${paper.getId()})}" class="delete">Удалить</a></td>
-            </tr>
-        </table>
-    </div><br/>
-</center>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 pt-4 pl-0 pr-0" style="height: 700px">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="" href="/admin" role="tab">
+                    Вернуться на страиницу адмиистратора
+                </a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="" href="#" role="tab">
+                    Добавить новый товар
+                </a>
+            </div>
+        </div>
+        <div class="col-10 pt-3 pl-5 bg-light">
+            <h2 class="text-left font-weight-bold m-2">Товар</h2>
+            <div class="container p-0 bg-white border">
+                <div class="p-2 mb-4 bg-light text-dark border">
+                    <h5>All users</h5>
+                </div>
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название</th>
+                            <th>Цена</th>
+                            <th>Колличество</th>
+                            <th>Описание</th>
+                            <th>Url изображения</th>
+                            <th>Редактировать</th>
+                            <th>Удалть</th>
+                        </tr>
+                        </thead>
+                        <tbody id="user_tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myForm">
+    <form>
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+             aria-labelledby="editModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit user</h5>
+                        <button id="but_edit_close" type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-7 offset-md-2" style="line-height: 3px">
+                            <div class="form-group text-center">
+                                <label for="id" class="font-weight-bold">ID:</label>
+                                <input id="id" class="form-control form-control-sm" type="text" placeholder="ID"
+                                       name="id" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="name" class="font-weight-bold">First name:</label>
+                                <input id="name" class="form-control form-control-sm" type="text"
+                                       placeholder="First name"
+                                       name="name">
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="surname" class="font-weight-bold">Last name:</label>
+                                <input id="surname" class="form-control form-control-sm" type="text"
+                                       placeholder="Last name"
+                                       name="surname">
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="age" class="font-weight-bold">Age:</label>
+                                <input id="age" class="form-control form-control-sm" type="number" placeholder="Age"
+                                       min="0" name="age">
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="email" class="font-weight-bold">Email:</label>
+                                <input id="email" class="form-control form-control-sm" type="text" placeholder="Email"
+                                       name="username">
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="pass" class="font-weight-bold">Password:</label>
+                                <input id="pass" class="form-control form-control-sm" type="text" placeholder="Password"
+                                       name="password">
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="role" class="font-weight-bold">Role</label>
+                                <select id="role" multiple class="form-control form-control-sm"
+                                        name="role" style="height: 60px">
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">
+                            Close
+                        </button>
+                        <a href="/admin/users" type="submit" onclick="update()" class="btn btn-primary text-light">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="myDelete">
+    <form>
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col-md-7 offset-md-2" style="line-height: 2px">
+                            <div class="form-group text-center">
+                                <label for="id-d" class="font-weight-bold">ID:</label>
+                                <input id="id-d" class="form-control form-control-sm" type="text" placeholder="ID"
+                                       name="id" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="name-d" class="font-weight-bold">First name:</label>
+                                <input id="name-d" class="form-control form-control-sm" type="text"
+                                       placeholder="First name"
+                                       name="name" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="surname-d" class="font-weight-bold">Last name:</label>
+                                <input id="surname-d" class="form-control form-control-sm" type="text"
+                                       placeholder="Last name"
+                                       name="surname" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="age-d" class="font-weight-bold">Age:</label>
+                                <input id="age-d" class="form-control form-control-sm" type="number" placeholder="Age"
+                                       min="0" name="age" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="email-d" class="font-weight-bold">Email:</label>
+                                <input id="email-d" class="form-control form-control-sm" type="text" placeholder="Email"
+                                       name="username" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="pass-d" class="font-weight-bold">Password:</label>
+                                <input id="pass-d" class="form-control form-control-sm" type="text"
+                                       placeholder="Password"
+                                       name="password" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="role-d" class="font-weight-bold">Role</label>
+                                <select name="role" multiple class="form-control form-control-sm" id="role-d"
+                                        style="height: 60px" readonly>
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="/admin/users" type="submit" onclick="remove()" class="btn btn-danger text-light" >Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>
+<script type="text/javascript" src="../../../static/js/paper.js"></script>
 </body>
 </html>

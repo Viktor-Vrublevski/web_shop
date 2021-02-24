@@ -1,7 +1,6 @@
 package com.web.store.service;
 
 import com.web.store.entity.goods.Paper;
-import com.web.store.entity.goods.Product;
 import com.web.store.repository.PaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

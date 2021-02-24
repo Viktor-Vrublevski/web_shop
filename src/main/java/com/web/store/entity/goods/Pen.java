@@ -1,9 +1,8 @@
 package com.web.store.entity.goods;
 
-import com.web.store.entity.User;
+import com.web.store.entity.abstracts.Product;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @SuppressWarnings("All")
 @Entity

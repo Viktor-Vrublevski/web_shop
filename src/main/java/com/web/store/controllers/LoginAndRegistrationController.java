@@ -2,6 +2,7 @@ package com.web.store.controllers;
 
 import com.web.store.entity.Role;
 import com.web.store.entity.User;
+import com.web.store.repository.RoleRepository;
 import com.web.store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
+
 @Controller
 public class LoginAndRegistrationController {
-
-
-    private final UserService userService;
+    private static int flag = 0;
+    private UserService userService;
 
     @Autowired
     public LoginAndRegistrationController(UserService userService) {
@@ -24,13 +25,15 @@ public class LoginAndRegistrationController {
     }
 
     @GetMapping("/")
-    public String getHeadPage() {
+    public String getHeadPage(Model model) {
+        model.addAttribute("flag", flag);
         SecurityContextHolder.getContext().setAuthentication(null);
+        flag = 0;
         return "head-page";
     }
 
     @GetMapping("/login")
-    public String getLogin(){
+    public String getLogin() {
         return "check/login";
     }
 
@@ -42,38 +45,37 @@ public class LoginAndRegistrationController {
     }
 
     @PostMapping("/registration")
-    public String checkIn(@ModelAttribute("user") User user,Model model) {
+    public String checkIn(@ModelAttribute("user") User user, Model model) {
 
-        if (userService.loadUserByUsername(user.getLogin())!=null){
-            model.addAttribute("exist","Пользователь с таким именем существует");
+        if (userService.loadUserByUsername(user.getLogin()) != null) {
+            model.addAttribute("exist", "Пользователь с таким именем существует");
             return "check/registration";
         }
-        if (user.getLogin().length()<4 || user.getLogin().length()>40){
-            model.addAttribute("lengthName","Имя не должно быть меньше 4 и" +
+        if (user.getLogin().length() < 4 || user.getLogin().length() > 40) {
+            model.addAttribute("lengthName", "Имя не должно быть меньше 4 и" +
                     " больше 40 символов");
             return "check/registration";
         }
-        if (user.getPassword().length() <4 || user.getPassword().length()>50){
-            model.addAttribute("lengthPassword","Пароль не должен" +
+        if (user.getPassword().length() < 4 || user.getPassword().length() > 50) {
+            model.addAttribute("lengthPassword", "Пароль не должен" +
                     " быть меньше 4 и больше 50 символов");
             return "check/registration";
         }
-        if (!user.getPassword().equals(user.getConfirmPassword())){
-            model.addAttribute("equals","Пароли не совпадают");
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("equals", "Пароли не совпадают");
             return "check/registration";
+        } else {
+
+            userService.save(user);
+            flag = 1;
         }
-        else userService.save(user);
-        return "redirect:/success";
-    }
-    @GetMapping("/success")
-    public String success(){
-        return "check/success";
+        return "redirect:/";
     }
 
     @GetMapping("/user-page")
     public String getUserPage(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("name",username);
+        model.addAttribute("name", username);
         return "user-page";
     }
 

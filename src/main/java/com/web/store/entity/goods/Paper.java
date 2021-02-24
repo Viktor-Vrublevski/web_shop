@@ -1,12 +1,14 @@
 package com.web.store.entity.goods;
 
+import com.web.store.entity.abstracts.Product;
+
 import javax.persistence.*;
 
 
 @SuppressWarnings("All")
 @Entity
 @Table(name = "papers")
-public class Paper implements Product{
+public class Paper implements Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

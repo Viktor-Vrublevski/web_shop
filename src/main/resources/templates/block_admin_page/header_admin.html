@@ -1,12 +1,24 @@
 <html lang="en" th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
-<div class="block1">
-    <img th:src="@{/images/logo.png}" alt="логотип"/>
-</div>
-<div class="my_block">
-    <div class="in-my_block1" th:inline="text">Привет [[${name}]] !</div>
-    <div class="in-my_block2">
-        <a href="/">Выйти</a>
-        <a href="#">Заявки</a>
+
+<div style="background-color: #912de9" class="container-fluid text-light">
+    <div class="col"></div>
+    <div class="row">
+        <div class="col text-center pt-2" id="username">
+
+        </div>
+    </div>
+    <div class="col">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link text-light font-weight-bold" href="#">Пользователи</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light font-weight-bold" href="/">Выйти</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light font-weight-bold" href="#">Заявки</a>
+            </li>
+        </ul>
     </div>
 </div>
 </html>

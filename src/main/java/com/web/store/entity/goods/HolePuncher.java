@@ -1,14 +1,13 @@
 package com.web.store.entity.goods;
 
-import com.web.store.entity.User;
+import com.web.store.entity.abstracts.Product;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @SuppressWarnings("All")
 @Entity
 @Table(name = "holes")
-public class HolePuncher implements Product{
+public class HolePuncher implements Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

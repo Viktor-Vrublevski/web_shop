@@ -2,24 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../static/css/admin.css"
-          media="all" th:href="@{../css/admin.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Администратор</title>
 </head>
 <header th:insert="block_admin_page/header_admin.html :: header"></header>
-<body>
-<div class="head-block">
-    <div class="blockOne">
-    </div>
-    <div class="blockTwo">
-        <a class="href-block1" href="/admin/paper/all_product"><p>Бумага</p></a>
-        <a class="href-block2" href="/admin/pens/all_pens"><p>Ручки</p></a>
-        <a class="href-block3" href="/admin/staplers/all_stapler"><p>Степлеры</p></a>
-        <a class="href-block4" href="/admin/trays/all_tray"><p>Лотки</p></a>
-        <a class="href-block5" href="/admin/holders/all_holder"><p>Дыраколы</p></a>
-        <a class="href-block6" href="/admin/folders/all_folders"><p>Папки</p></a>
-        <a class="href-block7" href="/admin/calculators/all_calculator"><p>Калькуляторы</p></a>
-        <a class="href-block8" href="/admin/holders/all_holder"><p>Хозяйственные товары</p></a>
+<body class=text-center>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/paper/all_product">
+                    <h5 class="h5 card-title">Бумага</h5>
+                    <img class="card-img"  th:src="@{../static/images/xerox2.jpg}" alt="paper">
+                </a>
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/pens/all_pens">
+                    <h5 class="card-title">Ручки</h5>
+                    <img class="card-img" th:src="@{../static/images/pen2.jpg}" alt="pens">
+                </a>
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/staplers/all_stapler">
+                    <h5 class="card-title">Степлер</h5>
+                    <img class="card-img" th:src="@{../static/images/stepler.jpg}" alt="stapler">
+                </a>
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/trays/all_tray">
+                    <h5 class="card-title">Лоток</h5>
+                    <img class="card-img" th:src="@{../static/images/lotok.jpg}" alt="lotok">
+                </a>
+            </div>
+            <div class="row">
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/holders/all_holder">
+                    <h5 class="card-title">Дырокол</h5>
+                    <img class="card-img" th:src="@{../static/images/hole2.jpg}" alt="hole">
+                </a>
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/folders/all_folders">
+                    <h5 class="card-title">Папки</h5>
+                    <img class="card-img" th:src="@{../static/images/registr.jpg}" alt="registr">
+                </a>
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/calculators/all_calculator">
+                    <h5 class="card-title">Калькулятор</h5>
+                    <img class="card-img" th:src="@{../static/images/calculator.jpg}" alt="calculator">
+                </a>
+                <a class="col m-2 text-body card border border-secondary" style="text-decoration: none; box-shadow: 0 0 0 0.2rem grey" href="/admin/holders/all_holder">
+                    <h5 class="card-title">Хозтовары</h5>
+                    <img class="card-img" th:src="@{../static/images/hoztovar.jpg}" alt="hoztovar">
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>

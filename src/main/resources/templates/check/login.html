@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/css/login.css"
-          media="all" th:href="@{css/login.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Вход в кабинет</title>
 </head>
-<body>
-<div class="container">
-    <p id="h">Вход в мой кабинет</p>
-    <div class="error" th:if="${param.error}" >
-       Ошибка в имени или пароле
-    </div>
-
-    <div class="inner-block">
-        <form action="/login"   method="post">
-            <div><label>Имя пользователя :
-                <p><input class="input" type="text" placeholder="имя пользователя" name="username"/></p></label></div>
-            <br/>
-            <div><label>Пароль :
-                <p><input class="input" type="password" placeholder="пароль" name="password"></p></label></div>
-            <br/>
-            <div><input class="submit" type="submit" value="Войти"></div>
-        </form>
-    </div>
-    <div class="inner-block2">
-        <label>Регистрироваться ?</label>
-        <a href="/registration">    Да</a> <b>/</b>
-            <a href="/"> Нет</a>
-    </div>
+<body class="text-center">
+<div class="container-fluid w-25 mt-md-5">
+    <h5 class="h3 mb-3 font-weight-bold text-center" style="color: darkslategrey">Вход в кабинет</h5>
+    <form action="/login" method="post">
+        <label class="sr-only" for="username">Имя пользователя</label>
+            <input id="username" type="text"  class="form-control" placeholder="Логин" name="username" required>
+        <label  class="sr-only" for="password">Пароль</label>
+            <input id="password" type="password"  class="form-control" placeholder="Пароль" name="password" required>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Вход в систему">
+    </form>
+</div>
+<div class="container-fluid w-25 mt-md-5">
+   <pre><a class="btn btn-info" href="/registration">Зарегистрироваться</a>      <a class="btn btn-secondary" href="/">Выйти</a></pre>
 </div>
 </body>
 </html>

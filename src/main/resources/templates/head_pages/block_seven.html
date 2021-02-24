@@ -2,37 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
-    <link rel="stylesheet" type="text/css" href="../../static/css/pages.css"
-          media="all" th:href="@{../css/pages.css}">
-    <title>Block two</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Калькулятор</title>
 </head>
 <body>
 <header th:insert="block_head_page/header.html :: header"></header>
-<center th:insert="block_head_page/text.html :: text"></center>
-<br/>
-<a class="back" href="/">Назад на Главную страницу</a>
-<div class="head-block">
-    <div class="inner-block" th:each="calculator : ${list_calculators}">
-        <img class="image" th:src="@{{url}(url=${calculator.url})}" alt="изображение">
-        <table>
-            <tr>
-                <th>Наименование:</th>
-                <td th:text="${calculator.name}"></td>
-            </tr>
-            <tr>
-                <th>Цена:</th>
-                <td th:inline="text">[[${calculator.getPrice()}]] руб.</td>
-            </tr>
-            <tr>
-                <th>Количество:</th>
-                <td th:text="${calculator.quantity}"></td>
-            </tr>
-            <tr>
-                <th>Описание:</th>
-                <td th:text="${calculator.description}"></td>
-            </tr>
-        </table>
+<div class="container text-center" th:insert="block_head_page/text.html :: text"></div>
+
+<a class="btn btn-primary m-5" href="/">Назад на Главную страницу</a>
+<div class="container">
+    <div class="row">
+        <div class="col-auto m-4 text-dark" th:each="calculator : ${list_calculators}">
+            <img th:src="@{{url}(url=${calculator.url})}" alt="изображение">
+            <table>
+                <tr>
+                    <th>Наименование:</th>
+                    <td th:text="${calculator.name}"></td>
+                </tr>
+                <tr>
+                    <th>Цена:</th>
+                    <td th:inline="text">[[${calculator.getPrice()}]] <b>руб.</b></td>
+                </tr>
+                <tr>
+                    <th>Количество:</th>
+                    <td th:inline="text">[[${calculator.quantity}]] <b>шт.</b></td>
+                </tr>
+                <tr>
+                    <th>Описание:</th>
+                    <td th:text="${calculator.description}"></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <footer th:insert="block_head_page/footer.html :: footer"></footer>

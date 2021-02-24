@@ -1,7 +1,7 @@
 package com.web.store;
 
 import com.web.store.entity.User;
-import com.web.store.entity.goods.Product;
+import com.web.store.entity.abstracts.Product;
 
 import java.util.HashMap;
 import java.util.List;
